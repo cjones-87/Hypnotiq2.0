@@ -37,7 +37,7 @@
  <p>This project has been reenvisioned as a sequel to my previous project Hypnotiq.</p>
  <p>View <img src="https://cdn-icons-png.flaticon.com/128/608/608258.png" alt="down arrow" width="15" height="15"/> Here</p>
  <a href="https://www.seejonesengineer.com/projects/hypnotiq" target="_blank" >
-         <img align="center" src="https://www.seejonesengineer.com/assets/Hypnotiq.bb5d797e.gif" alt="Hypnotiq"/>
+         <img align="center" src="https://media2.giphy.com/media/4od2Trp9WOCWSabtIw/giphy.gif?cid=790b7611b0348779f0770746b6be97da8c1df3a609077678&rid=giphy.gif&ct=g" alt="Hypnotiq" width="175" height="300"/>
       </a>
 <div>
 <!-- Footer -->
