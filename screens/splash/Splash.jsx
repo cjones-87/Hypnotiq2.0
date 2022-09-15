@@ -1,6 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
+import {
+  StatusBar,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
 import * as Font from 'expo-font';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
@@ -48,21 +53,24 @@ export default function Splash({ navigation }) {
   }
 
   return (
-    <View style={styles.container} onLayout={onLayoutRootView}>
-      <Text
-        style={styles.text}
-        onPress={() => navigation.navigate('Bottom Navigation Bar')}
-      >
-        <Entypo name="music" size={styles.text.fontSize} /> Hypnotic 2.0
-        <Entypo name="music" size={styles.text.fontSize} />
-      </Text>
-      <FontAwesome
-        name="play-circle"
-        size={styles.text.fontSize * 2}
-        color={styles.text.color}
-      />
-
-      <StatusBar style="auto" />
+    <View style={styles.safeAreaView} onLayout={onLayoutRootView}>
+      <View style={styles.container}>
+        <StatusBar backgroundColor={'rebeccapurple'} hidden={false} />
+        <TouchableOpacity>
+          <Text
+            style={styles.text}
+            onPress={() => navigation.navigate('Bottom Navigation Bar')}
+          >
+            <Entypo name="music" size={styles.text.fontSize} /> Hypnotic 2.0
+            <Entypo name="music" size={styles.text.fontSize} />
+          </Text>
+        </TouchableOpacity>
+        <FontAwesome
+          name="play-circle"
+          size={styles.text.fontSize * 2}
+          color={styles.text.color}
+        />
+      </View>
     </View>
   );
 }
@@ -70,9 +78,13 @@ export default function Splash({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'darkgray',
+    backgroundColor: 'yellow',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  safeAreaView: {
+    flex: 1,
+    paddingTop: StatusBar.currentHeight / 10000,
   },
   text: {
     color: 'rebeccapurple',

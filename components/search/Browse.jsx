@@ -1,5 +1,12 @@
 import React from 'react';
-import { FlatList, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import {
+  Dimensions,
+  FlatList,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import imageArray from '../../utils/browseFunctions/ImageArray';
 import renderCategoryList from '../../utils/browseFunctions/RenderCategoryList';
@@ -7,47 +14,12 @@ import renderCategoryList from '../../utils/browseFunctions/RenderCategoryList';
 const Browse = () => {
   return (
     <SafeAreaView>
-      <View
-        style={{
-          alignItems: 'center',
-          backgroundColor: 'transparent',
-          flex: 1,
-          flexDirection: 'row',
-          justifyContent: 'center',
-          position: 'absolute',
-          paddingTop: 22,
-          textAlign: 'center',
-        }}
-      >
-        <MaterialIcons
-          name="pageview"
-          style={{
-            alignItems: 'center',
-            color: 'yellow',
-            justifyContent: 'center',
-            padding: 10,
-            textAlign: 'center',
-          }}
-        />
-        <Text
-          style={{
-            alignItems: 'center',
-            color: 'yellow',
-            justifyContent: 'center',
-            padding: 10,
-            textAlign: 'center',
-          }}
-        >
-          Browse Categories
-        </Text>
+      <View style={styles.title}>
+        <MaterialIcons name="pageview" style={styles.text} size={24} />
+        <Text style={styles.text}>Browse Categories</Text>
+        <MaterialIcons name="pageview" style={styles.text} size={24} />
       </View>
-      <View
-        style={{
-          alignItems: 'center',
-          justifyContent: 'center',
-          paddingTop: 52,
-        }}
-      >
+      <View style={styles.flatListView}>
         <FlatList
           data={imageArray()}
           numColumns={2}
@@ -59,6 +31,31 @@ const Browse = () => {
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  flatListView: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: 75,
+  },
+  title: {
+    alignItems: 'center',
+    backgroundColor: 'transparent',
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    position: 'absolute',
+    paddingTop: 22,
+    textAlign: 'center',
+    width: Dimensions.get('window').width,
+  },
+  text: {
+    alignItems: 'center',
+    color: 'yellow',
+    fontSize: 24,
+    justifyContent: 'center',
+    padding: 10,
+    textAlign: 'center',
+  },
+});
 
 export default Browse;

@@ -1,40 +1,38 @@
 import React from 'react';
-import { ImageBackground, SafeAreaView, StyleSheet } from 'react-native';
+import {
+  ImageBackground,
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  View,
+} from 'react-native';
 import SearchBar from '../../components/search/SearchBar';
 import Browse from '../../components/search/Browse';
 const backgroundImage = require('../../assets/favicon.png');
 
 const SearchScreen = () => (
   <>
-    <ImageBackground source={backgroundImage} style={styles.image}>
-      <SafeAreaView style={{ flex: 1 }}>
-        <SearchBar />
-        <Browse />
+    <ImageBackground source={backgroundImage} style={styles.backgroundImage}>
+      <SafeAreaView style={styles.safeAreaView}>
+        <StatusBar backgroundColor={'rebeccapurple'} hidden={false} />
+        <View>
+          <SearchBar />
+          <Browse />
+        </View>
       </SafeAreaView>
     </ImageBackground>
   </>
 );
 
 const styles = StyleSheet.create({
-  button: {
-    alignItems: 'center',
-    backgroundColor: 'yellow',
-    padding: 10,
-  },
-  container: {
+  backgroundImage: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
-  },
-  image: {
-    flex: 1,
     resizeMode: 'cover',
-    justifyContent: 'center',
   },
-  text: {
-    color: 'rebeccapurple',
-    fontSize: 32,
-    textAlign: 'center',
+  safeAreaView: {
+    flex: 1,
+    paddingTop: StatusBar.currentHeight / 10000,
   },
 });
 

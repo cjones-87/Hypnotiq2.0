@@ -12,7 +12,7 @@ export default function BottomNavigationBar() {
   return (
     <Tab.Navigator
       initialRouteName="Home"
-      screenOptions={{ headerTitleAlign: 'center' /*headerShown: false*/ }}
+      screenOptions={{ headerTitleAlign: 'center', headerShown: false }}
     >
       <Tab.Screen
         name="Home"

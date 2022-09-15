@@ -26,15 +26,7 @@ const SearchBar = () => {
             onChangeText={(searchTerm) => setSearchTerm(searchTerm)}
             placeholder={'Search by artist, song, or album'}
             placeholderTextColor={'rebeccapurple'}
-            style={{
-              alignItems: 'center',
-              backgroundColor: 'gray',
-              color: 'rebeccapurple',
-              height: 44,
-              justifyContent: 'center',
-              textAlignVertical: 'center',
-              width: Dimensions.get('window').width - 32,
-            }}
+            style={styles.input}
           />
         </TouchableOpacity>
       </View>
@@ -53,12 +45,21 @@ const styles = StyleSheet.create({
   },
   icon: {
     alignItems: 'center',
-    backgroundColor: 'gray',
+    backgroundColor: 'yellow',
     color: 'rebeccapurple',
     height: 44,
     justifyContent: 'center',
     padding: 10,
     textAlignVertical: 'center',
+  },
+  input: {
+    alignItems: 'center',
+    backgroundColor: 'yellow',
+    color: 'rebeccapurple',
+    height: 44,
+    justifyContent: 'center',
+    textAlignVertical: 'center',
+    width: Dimensions.get('window').width - 32,
   },
 });
 
