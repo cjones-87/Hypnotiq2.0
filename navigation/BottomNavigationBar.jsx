@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
@@ -13,7 +12,7 @@ export default function BottomNavigationBar() {
   return (
     <Tab.Navigator
       initialRouteName="Home"
-      screenOptions={{ headerTitleAlign: 'center' }}
+      screenOptions={{ headerTitleAlign: 'center' /*headerShown: false*/ }}
     >
       <Tab.Screen
         name="Home"
@@ -49,16 +48,3 @@ export default function BottomNavigationBar() {
     </Tab.Navigator>
   );
 }
-
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'darkgray',
-  },
-  text: {
-    color: 'rebeccapurple',
-    fontSize: 30,
-  },
-});

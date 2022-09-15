@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import {
+  Dimensions,
   SafeAreaView,
   StyleSheet,
-  Text,
   TextInput,
   TouchableOpacity,
   View,
@@ -13,8 +13,12 @@ const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <View style={{ flex: 0.15, paddingTop: 10 }}>
+    <SafeAreaView>
+      <View
+        style={{
+          paddingTop: 22,
+        }}
+      >
         <TouchableOpacity style={styles.container}>
           <FontAwesome5 name="search" style={styles.icon} />
           <TextInput
@@ -22,7 +26,15 @@ const SearchBar = () => {
             onChangeText={(searchTerm) => setSearchTerm(searchTerm)}
             placeholder={'Search by artist, song, or album'}
             placeholderTextColor={'rebeccapurple'}
-            style={styles.input}
+            style={{
+              alignItems: 'center',
+              backgroundColor: 'gray',
+              color: 'rebeccapurple',
+              height: 44,
+              justifyContent: 'center',
+              textAlignVertical: 'center',
+              width: Dimensions.get('window').width - 32,
+            }}
           />
         </TouchableOpacity>
       </View>
@@ -33,10 +45,11 @@ const SearchBar = () => {
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    backgroundColor: 'red',
+    backgroundColor: 'transparent',
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
+    position: 'relative',
   },
   icon: {
     alignItems: 'center',
