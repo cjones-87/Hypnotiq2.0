@@ -60,15 +60,6 @@ const styles = StyleSheet.create({
     padding: 10,
     textAlignVertical: 'center',
   },
-  input: {
-    alignItems: 'center',
-    backgroundColor: 'gray',
-    color: 'rebeccapurple',
-    height: 44,
-    justifyContent: 'center',
-    padding: 10,
-    textAlignVertical: 'center',
-  },
 });
 
 export default SearchBar;
