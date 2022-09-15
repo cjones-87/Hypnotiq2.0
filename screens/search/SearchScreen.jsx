@@ -1,13 +1,7 @@
 import React from 'react';
-import {
-  ImageBackground,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import SearchBar from '../../components/search/searchBar';
+import { ImageBackground, SafeAreaView, StyleSheet } from 'react-native';
+import SearchBar from '../../components/search/SearchBar';
+import Browse from '../../components/search/Browse';
 const backgroundImage = require('../../assets/favicon.png');
 
 const SearchScreen = () => (
@@ -15,12 +9,7 @@ const SearchScreen = () => (
     <ImageBackground source={backgroundImage} style={styles.image}>
       <SafeAreaView style={{ flex: 1 }}>
         <SearchBar />
-
-        <View style={styles.container}>
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.text}>Search For Audio Here</Text>
-          </TouchableOpacity>
-        </View>
+        <Browse />
       </SafeAreaView>
     </ImageBackground>
   </>
