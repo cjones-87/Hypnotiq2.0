@@ -2,6 +2,7 @@ import React from 'react';
 import {
   ImageBackground,
   SafeAreaView,
+  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -12,9 +13,10 @@ const backgroundImage = require('../../assets/favicon.png');
 
 const HomeScreen = () => (
   <>
-    <ImageBackground source={backgroundImage} style={styles.image}>
-      <SafeAreaView style={{ flex: 1 }}>
-        <View style={styles.container}>
+    <ImageBackground source={backgroundImage} style={styles.backgroundImage}>
+      <SafeAreaView style={styles.safeAreaView}>
+        <StatusBar backgroundColor={'rebeccapurple'} hidden={false} />
+        <View>
           <TouchableOpacity style={styles.button}>
             <Text style={styles.text}>View Home Screen Here</Text>
           </TouchableOpacity>
@@ -25,20 +27,19 @@ const HomeScreen = () => (
 );
 
 const styles = StyleSheet.create({
+  backgroundImage: {
+    flex: 1,
+    justifyContent: 'center',
+    resizeMode: 'cover',
+  },
   button: {
     alignItems: 'center',
-    backgroundColor: 'pink',
-    padding: 10,
+    backgroundColor: 'orange',
+    padding: 19,
   },
-  container: {
+  safeAreaView: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  image: {
-    flex: 1,
-    resizeMode: 'cover',
-    justifyContent: 'center',
+    paddingTop: StatusBar.currentHeight / 10000,
   },
   text: {
     color: 'rebeccapurple',

@@ -10,7 +10,7 @@ const ScreenNavigation = () => {
     <NavigationContainer>
       <Stack.Navigator
         initialRouteName="Splash Screen"
-        screenOptions={{ headerTitleAlign: 'center' }}
+        screenOptions={{ headerTitleAlign: 'center', headerShown: false }}
       >
         <Stack.Screen name="Splash Screen" component={Splash} />
         <Stack.Screen
