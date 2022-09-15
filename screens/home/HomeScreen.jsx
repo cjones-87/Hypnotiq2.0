@@ -1,17 +1,25 @@
 import React from 'react';
-import { ImageBackground, StyleSheet, Text, View } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import {
+  ImageBackground,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
 const backgroundImage = require('../../assets/favicon.png');
 
 const HomeScreen = () => (
   <>
     <ImageBackground source={backgroundImage} style={styles.image}>
-      <View style={styles.container}>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.text}>Home Screen</Text>
-        </TouchableOpacity>
-      </View>
+      <SafeAreaView style={{ flex: 1 }}>
+        <View style={styles.container}>
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.text}>View Home Screen Here</Text>
+          </TouchableOpacity>
+        </View>
+      </SafeAreaView>
     </ImageBackground>
   </>
 );
@@ -24,6 +32,8 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   image: {
     flex: 1,
