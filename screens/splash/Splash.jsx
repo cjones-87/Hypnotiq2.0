@@ -1,20 +1,26 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
+  Dimensions,
   StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
+import { Video } from 'expo-av';
 import * as SplashScreen from 'expo-splash-screen';
 import * as Font from 'expo-font';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import Entypo from '@expo/vector-icons/Entypo';
+import BlinkingText from '../../utils/textAnimations/BlinkingText';
+import Hypnotiq from '../../assets/Hypnotiq.mp4';
 
 /* Keeps the splash screen visible while resources are fetched*/
 SplashScreen.preventAutoHideAsync();
 
 export default function Splash({ navigation }) {
+  const backgroundVideo = React.useRef(null);
+
   const [appIsReady, setAppIsReady] = useState(false);
 
   useEffect(() => {
@@ -56,19 +62,29 @@ export default function Splash({ navigation }) {
     <View style={styles.safeAreaView} onLayout={onLayoutRootView}>
       <View style={styles.container}>
         <StatusBar backgroundColor={'rebeccapurple'} hidden={false} />
+
         <TouchableOpacity>
           <Text
             style={styles.text}
             onPress={() => navigation.navigate('Bottom Navigation Bar')}
           >
-            <Entypo name="music" size={styles.text.fontSize} /> Hypnotic 2.0
-            <Entypo name="music" size={styles.text.fontSize} />
+            {/* <Entypo name="music" style={styles.text} /> */}
+            <FontAwesome name="play-circle" style={styles.text} />
+            <BlinkingText textData={'Hypnotiq 2.0'} style={styles.text} />
+            <FontAwesome name="play-circle" style={styles.text} />
+            {/* <Entypo name="music" style={styles.text} /> */}
           </Text>
         </TouchableOpacity>
-        <FontAwesome
-          name="play-circle"
-          size={styles.text.fontSize * 2}
-          color={styles.text.color}
+
+        <Video
+          isLooping
+          isMuted
+          ref={backgroundVideo}
+          resizeMode="stretch"
+          shouldPlay
+          source={Hypnotiq}
+          style={styles.video}
+          // volume={0.36}
         />
       </View>
     </View>
@@ -77,9 +93,9 @@ export default function Splash({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: 'yellow',
     alignItems: 'center',
+    backgroundColor: 'yellow',
+    flex: 1,
     justifyContent: 'center',
   },
   safeAreaView: {
@@ -87,7 +103,16 @@ const styles = StyleSheet.create({
     paddingTop: StatusBar.currentHeight / 10000,
   },
   text: {
-    color: 'rebeccapurple',
+    alignSelf: 'center',
+    color: 'yellow',
     fontSize: 30,
+    marginTop: Dimensions.get('window').height / 2.2,
+    position: 'absolute',
+    textAlign: 'center',
+  },
+  video: {
+    flex: 1,
+    alignSelf: 'stretch',
+    zIndex: -5,
   },
 });
