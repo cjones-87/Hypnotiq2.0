@@ -16,6 +16,7 @@ export default class BlinkingText extends React.Component {
   }
   render() {
     const { textData } = this.props;
+    const { textData2 } = this.props;
     const { visibleText } = this.state;
 
     return (
@@ -24,9 +25,12 @@ export default class BlinkingText extends React.Component {
           alignItems: 'center',
           justifyContent: 'center',
           textAlign: 'center',
+          textAlignVertical: 'center',
         }}
       >
         {visibleText ? textData : ''}
+        {`\n`}
+        {!visibleText ? textData2 : ''}
       </Text>
     );
   }

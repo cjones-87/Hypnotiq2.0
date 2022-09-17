@@ -1,12 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import {
-  Dimensions,
-  StatusBar,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { Dimensions, StatusBar, StyleSheet, Text, View } from 'react-native';
 import { Video } from 'expo-av';
 import * as SplashScreen from 'expo-splash-screen';
 import * as Font from 'expo-font';
@@ -63,18 +56,16 @@ export default function Splash({ navigation }) {
       <View style={styles.container}>
         <StatusBar backgroundColor={'rebeccapurple'} hidden={false} />
 
-        <TouchableOpacity>
-          <Text
+        <Text
+          style={styles.text}
+          onPress={() => navigation.navigate('Bottom Navigation Bar')}
+        >
+          <BlinkingText
             style={styles.text}
-            onPress={() => navigation.navigate('Bottom Navigation Bar')}
-          >
-            {/* <Entypo name="music" style={styles.text} /> */}
-            <FontAwesome name="play-circle" style={styles.text} />
-            <BlinkingText textData={'Hypnotiq 2.0'} style={styles.text} />
-            <FontAwesome name="play-circle" style={styles.text} />
-            {/* <Entypo name="music" style={styles.text} /> */}
-          </Text>
-        </TouchableOpacity>
+            textData={`Hypnotiq 2.0`}
+            textData2={`Dream On!`}
+          />
+        </Text>
 
         <Video
           isLooping
@@ -105,8 +96,8 @@ const styles = StyleSheet.create({
   text: {
     alignSelf: 'center',
     color: 'yellow',
-    fontSize: 30,
-    marginTop: Dimensions.get('window').height / 2.2,
+    fontSize: Dimensions.get('window').width / 6,
+    marginTop: Dimensions.get('window').height / 2.6,
     position: 'absolute',
     textAlign: 'center',
   },
