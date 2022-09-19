@@ -85,7 +85,7 @@ export default function Splash({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    backgroundColor: 'yellow',
+    backgroundColor: 'pink',
     flex: 1,
     justifyContent: 'center',
   },
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
   },
   text: {
     alignSelf: 'center',
-    color: 'yellow',
+    color: 'pink',
     fontSize: Dimensions.get('window').width / 6,
     marginTop: Dimensions.get('window').height / 2.6,
     position: 'absolute',

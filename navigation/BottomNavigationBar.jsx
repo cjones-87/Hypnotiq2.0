@@ -22,8 +22,8 @@ export default function BottomNavigationBar() {
             <FontAwesome5 name="home" color="rebeccapurple" size={25} />
           ),
           tabBarActiveBackgroundColor: 'black',
-          tabBarActiveTintColor: '#B86B77',
-          tabBarInactiveBackgroundColor: '#B86B77',
+          tabBarActiveTintColor: 'pink',
+          tabBarInactiveBackgroundColor: 'pink',
           tabBarInactiveTintColor: 'rebeccapurple',
         }}
       />
@@ -35,8 +35,8 @@ export default function BottomNavigationBar() {
             <FontAwesome5 name="search" color="rebeccapurple" size={25} />
           ),
           tabBarActiveBackgroundColor: 'black',
-          tabBarActiveTintColor: '#B86B77',
-          tabBarInactiveBackgroundColor: '#B86B77',
+          tabBarActiveTintColor: 'pink',
+          tabBarInactiveBackgroundColor: 'pink',
           tabBarInactiveTintColor: 'rebeccapurple',
         }}
       />
@@ -52,8 +52,8 @@ export default function BottomNavigationBar() {
             />
           ),
           tabBarActiveBackgroundColor: 'black',
-          tabBarActiveTintColor: '#B86B77',
-          tabBarInactiveBackgroundColor: '#B86B77',
+          tabBarActiveTintColor: 'pink',
+          tabBarInactiveBackgroundColor: 'pink',
           tabBarInactiveTintColor: 'rebeccapurple',
         }}
       />
