@@ -21,6 +21,10 @@ export default function BottomNavigationBar() {
           tabBarIcon: () => (
             <FontAwesome5 name="home" color="rebeccapurple" size={25} />
           ),
+          tabBarActiveBackgroundColor: 'black',
+          tabBarActiveTintColor: '#B86B77',
+          tabBarInactiveBackgroundColor: '#B86B77',
+          tabBarInactiveTintColor: 'rebeccapurple',
         }}
       />
       <Tab.Screen
@@ -30,6 +34,10 @@ export default function BottomNavigationBar() {
           tabBarIcon: () => (
             <FontAwesome5 name="search" color="rebeccapurple" size={25} />
           ),
+          tabBarActiveBackgroundColor: 'black',
+          tabBarActiveTintColor: '#B86B77',
+          tabBarInactiveBackgroundColor: '#B86B77',
+          tabBarInactiveTintColor: 'rebeccapurple',
         }}
       />
       <Tab.Screen
@@ -43,6 +51,10 @@ export default function BottomNavigationBar() {
               size={25}
             />
           ),
+          tabBarActiveBackgroundColor: 'black',
+          tabBarActiveTintColor: '#B86B77',
+          tabBarInactiveBackgroundColor: '#B86B77',
+          tabBarInactiveTintColor: 'rebeccapurple',
         }}
       />
     </Tab.Navigator>
