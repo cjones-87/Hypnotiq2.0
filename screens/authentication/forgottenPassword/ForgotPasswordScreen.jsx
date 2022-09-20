@@ -37,10 +37,10 @@ const ForgotPasswordScreen = () => {
         <TouchableOpacity style={styles.button}>
           <MaterialCommunityIcons.Button
             color={'rebeccapurple'}
-            name="shield-refresh "
+            name="shield-refresh"
             style={styles.iconButton}
           >
-            Enter
+            Forgot Password
           </MaterialCommunityIcons.Button>
         </TouchableOpacity>
       </View>
