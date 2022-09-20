@@ -58,7 +58,7 @@ export default function Splash({ navigation }) {
 
         <Text
           style={styles.text}
-          onPress={() => navigation.navigate('Bottom Navigation Bar')}
+          onPress={() => navigation.navigate('Login Screen')}
         >
           <BlinkingText
             style={styles.text}
