@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
 import {
-  Dimensions,
   Image,
   Pressable,
   SafeAreaView,
@@ -14,13 +13,18 @@ import {
 } from 'react-native';
 
 import Entypo from '@expo/vector-icons/Entypo';
-import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 
 const LoginScreen = ({ navigation }) => {
   const [usernameOrEmail, setUsernameOrEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isSecure, setIsSecure] = useState(true);
-  const imageSource = isSecure
+
+  const [isSecureText, setIsSecureText] = useState(true);
+  const toggleIsSecureText = () => {
+    setIsSecureText((current) => !current);
+  };
+
+  const passwordImageSource = isSecureText
     ? {
         uri: 'https://img.icons8.com/dotty/2x/visible.png',
       }
@@ -62,13 +66,13 @@ const LoginScreen = ({ navigation }) => {
             onChangeText={(password) => setPassword(password)}
             placeholder={'Password'}
             placeholderTextColor={'rebeccapurple'}
-            secureTextEntry={isSecure}
+            secureTextTextEntry={isSecureText}
             style={{ flex: 1 }}
-            value={password}
             underlineColorAndroid="transparent"
+            value={password}
           />
-          <Pressable onPress={() => setIsSecure((current) => !current)}>
-            <Image source={imageSource} style={styles.imageStyle} />
+          <Pressable onPress={toggleIsSecureText}>
+            <Image source={passwordImageSource} style={styles.imageStyle} />
           </Pressable>
         </View>
         <View style={styles.sectionStyle}>
@@ -85,14 +89,14 @@ const LoginScreen = ({ navigation }) => {
         </View>
         <View style={styles.sectionStyle}>
           <TouchableOpacity>
-            <MaterialCommunityIcons.Button
+            <FontAwesome5.Button
               color={'rebeccapurple'}
-              name="account-question-outline"
+              name="question-circle"
               onPress={() => navigation.navigate('Forgot Password Screen')}
               style={styles.icon}
             >
               Forgot Password
-            </MaterialCommunityIcons.Button>
+            </FontAwesome5.Button>
           </TouchableOpacity>
         </View>
       </View>
@@ -102,41 +106,42 @@ const LoginScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
+    alignItems: 'center',
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
     margin: 10,
   },
   icon: {
     backgroundColor: 'pink',
   },
   imageStyle: {
-    padding: 10,
-    margin: 5,
-    height: 25,
-    width: 25,
-    resizeMode: 'stretch',
     alignItems: 'center',
+    height: 25,
+    margin: 5,
+    padding: 10,
+    resizeMode: 'stretch',
     tintColor: 'rebeccapurple',
+    width: 25,
   },
   safeAreaView: {
-    flex: 1,
     backgroundColor: 'black',
+    flex: 1,
   },
   sectionStyle: {
-    flexDirection: 'row',
-    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'pink',
-    borderWidth: 0.5,
     borderColor: 'rebeccapurple',
-    height: 40,
     borderRadius: 5,
+    borderWidth: 0.5,
+    flexDirection: 'row',
+    height: 40,
+    justifyContent: 'center',
     margin: 10,
   },
   text: {
     color: 'rebeccapurple',
     fontSize: 42,
+    margin: 10,
   },
 });
 

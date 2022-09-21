@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import {
-  Dimensions,
+  Image,
   SafeAreaView,
   StatusBar,
   StyleSheet,
@@ -18,81 +18,80 @@ const ForgotPasswordScreen = () => {
   const [email, setEmail] = useState('');
 
   return (
-    <SafeAreaView>
-      <StatusBar backgroundColor={'rebeccapurple'} hidden={false} />
-      <View style={styles.headerView}>
-        <Text style={styles.headerText}>Forgot Password?</Text>
-      </View>
+    <SafeAreaView style={styles.safeAreaView}>
       <View style={styles.container}>
-        <TextInput
-          onChangeText={(email) => setEmail(email)}
-          placeholder={'Enter account email'}
-          placeholderTextColor={'rebeccapurple'}
-          style={styles.input}
-          value={email}
-        />
-        <Entypo name="email" style={styles.icon} />
-      </View>
-      <View>
-        <TouchableOpacity style={styles.button}>
-          <MaterialCommunityIcons.Button
-            color={'rebeccapurple'}
-            name="shield-refresh"
-            style={styles.iconButton}
-          >
-            Forgot Password
-          </MaterialCommunityIcons.Button>
-        </TouchableOpacity>
+        <StatusBar backgroundColor={'rebeccapurple'} hidden={false} />
+        <Text style={styles.text}>Forgot Password</Text>
+        <View style={styles.sectionStyle}>
+          <Image
+            source={{
+              uri: 'https://img.icons8.com/external-smashingstocks-glyph-smashing-stocks/344/external-email-accounting-smashingstocks-glyph-smashing-stocks.png',
+            }}
+            style={styles.imageStyle}
+          />
+          <TextInput
+            onChangeText={(email) => setEmail(email)}
+            placeholder={'Enter account email'}
+            placeholderTextColor={'rebeccapurple'}
+            style={{ flex: 1 }}
+            underlineColorAndroid="transparent"
+            value={email}
+          />
+        </View>
+        <View style={styles.sectionStyle}>
+          <TouchableOpacity>
+            <MaterialCommunityIcons.Button
+              color={'rebeccapurple'}
+              name="lock-question"
+              style={styles.icon}
+            >
+              Forgot Password
+            </MaterialCommunityIcons.Button>
+          </TouchableOpacity>
+        </View>
       </View>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  button: {
-    alignSelf: 'center',
-    marginTop: 65,
-    width: Dimensions.get('window').width - 192,
-  },
   container: {
     alignItems: 'center',
-    backgroundColor: 'transparent',
     flex: 1,
-    flexDirection: 'row',
     justifyContent: 'center',
-    marginTop: 50,
-    position: 'relative',
-  },
-  headerText: {
-    alignSelf: 'center',
-    color: 'rebeccapurple',
-    marginBottom: 40,
-    fontSize: 32,
-  },
-  headerView: {
-    marginTop: 150,
+    margin: 10,
   },
   icon: {
-    alignSelf: 'center',
-    backgroundColor: 'pink',
-    color: 'rebeccapurple',
-    height: 44,
-    justifyContent: 'center',
-    padding: 10,
-    textAlignVertical: 'center',
-  },
-  iconButton: {
     backgroundColor: 'pink',
   },
-  input: {
-    alignSelf: 'center',
-    backgroundColor: 'pink',
-    color: 'rebeccapurple',
-    height: 44,
-    justifyContent: 'center',
+  imageStyle: {
+    alignItems: 'center',
+    height: 25,
+    margin: 5,
     padding: 10,
-    textAlignVertical: 'center',
-    width: Dimensions.get('window').width - 128,
+    resizeMode: 'stretch',
+    tintColor: 'rebeccapurple',
+    width: 25,
+  },
+  safeAreaView: {
+    backgroundColor: 'black',
+    flex: 1,
+  },
+  sectionStyle: {
+    alignItems: 'center',
+    backgroundColor: 'pink',
+    borderColor: 'rebeccapurple',
+    borderRadius: 5,
+    borderWidth: 0.5,
+    flexDirection: 'row',
+    height: 40,
+    justifyContent: 'center',
+    margin: 10,
+  },
+  text: {
+    color: 'rebeccapurple',
+    fontSize: 42,
+    margin: 10,
   },
 });
 
