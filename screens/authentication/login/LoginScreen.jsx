@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 
 import {
   Dimensions,
+  Image,
+  Pressable,
   SafeAreaView,
   StatusBar,
   StyleSheet,
@@ -17,62 +19,82 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 const LoginScreen = ({ navigation }) => {
   const [usernameOrEmail, setUsernameOrEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isSecure, setIsSecure] = useState(true);
+  const imageSource = isSecure
+    ? {
+        uri: 'https://img.icons8.com/dotty/2x/visible.png',
+      }
+    : {
+        uri: 'https://img.icons8.com/external-flatart-icons-outline-flatarticons/2x/external-eye-devices-flatart-icons-outline-flatarticons.png',
+      };
+
   return (
     <SafeAreaView style={styles.safeAreaView}>
-      <StatusBar backgroundColor={'rebeccapurple'} hidden={false} />
-      <View style={styles.headerView}>
-        <Text style={styles.headerText}>Login</Text>
-      </View>
       <View style={styles.container}>
-        <TouchableOpacity style={styles.container}>
+        <StatusBar backgroundColor={'rebeccapurple'} hidden={false} />
+        <Text style={styles.text}>Login</Text>
+        <View style={styles.sectionStyle}>
+          <Image
+            source={{
+              uri: 'https://img.icons8.com/external-smashingstocks-glyph-smashing-stocks/344/external-email-accounting-smashingstocks-glyph-smashing-stocks.png',
+            }}
+            style={styles.imageStyle}
+          />
           <TextInput
             onChangeText={(usernameOrEmail) =>
               setUsernameOrEmail(usernameOrEmail)
             }
-            placeholder={'Username or Email'}
+            placeholder={'Enter username or email'}
             placeholderTextColor={'rebeccapurple'}
-            style={styles.usernameOrEmailInput}
+            style={{ flex: 1 }}
+            underlineColorAndroid="transparent"
             value={usernameOrEmail}
           />
-          <Entypo name="email" style={styles.usernameOrEmailIcon} />
-        </TouchableOpacity>
-      </View>
-      <View style={styles.container2}>
-        <TouchableOpacity style={styles.container2}>
+        </View>
+        <View style={styles.sectionStyle}>
+          <Image
+            source={{
+              uri: 'https://img.icons8.com/ios-filled/2x/password.png',
+            }}
+            style={styles.imageStyle}
+          />
           <TextInput
             onChangeText={(password) => setPassword(password)}
             placeholder={'Password'}
             placeholderTextColor={'rebeccapurple'}
-            secureTextEntry
-            style={styles.passwordInput}
+            secureTextEntry={isSecure}
+            style={{ flex: 1 }}
             value={password}
+            underlineColorAndroid="transparent"
           />
-          <Entypo name="eye" style={styles.passwordIcon} />
-        </TouchableOpacity>
-      </View>
-      <View>
-        <TouchableOpacity style={styles.loginButton}>
-          <Entypo.Button
-            color={'rebeccapurple'}
-            name="login"
-            onPress={() => navigation.navigate('Bottom Navigation Bar')}
-            style={styles.icon}
-          >
-            Login
-          </Entypo.Button>
-        </TouchableOpacity>
-      </View>
-      <View>
-        <TouchableOpacity style={styles.forgotPasswordButton}>
-          <MaterialCommunityIcons.Button
-            color={'rebeccapurple'}
-            name="account-question-outline"
-            onPress={() => navigation.navigate('Forgot Password Screen')}
-            style={styles.icon}
-          >
-            Forgot Password
-          </MaterialCommunityIcons.Button>
-        </TouchableOpacity>
+          <Pressable onPress={() => setIsSecure((current) => !current)}>
+            <Image source={imageSource} style={styles.imageStyle} />
+          </Pressable>
+        </View>
+        <View style={styles.sectionStyle}>
+          <TouchableOpacity>
+            <Entypo.Button
+              color={'rebeccapurple'}
+              name="login"
+              onPress={() => navigation.navigate('Bottom Navigation Bar')}
+              style={styles.icon}
+            >
+              Login
+            </Entypo.Button>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.sectionStyle}>
+          <TouchableOpacity>
+            <MaterialCommunityIcons.Button
+              color={'rebeccapurple'}
+              name="account-question-outline"
+              onPress={() => navigation.navigate('Forgot Password Screen')}
+              style={styles.icon}
+            >
+              Forgot Password
+            </MaterialCommunityIcons.Button>
+          </TouchableOpacity>
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -80,85 +102,41 @@ const LoginScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
-    backgroundColor: 'transparent',
     flex: 1,
-    flexDirection: 'row',
     justifyContent: 'center',
-    marginTop: 50,
-    position: 'relative',
-  },
-  container2: {
     alignItems: 'center',
-    backgroundColor: 'transparent',
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    marginTop: 50,
-    position: 'relative',
-  },
-  forgotPasswordButton: {
-    alignSelf: 'center',
-    marginTop: 5,
-    width: Dimensions.get('window').width - 192,
-  },
-  headerText: {
-    alignSelf: 'center',
-    color: 'rebeccapurple',
-    marginBottom: -40,
-    fontSize: 32,
-  },
-  headerView: {
-    marginTop: 150,
+    margin: 10,
   },
   icon: {
     backgroundColor: 'pink',
   },
-  loginButton: {
-    alignSelf: 'center',
-    marginTop: 65,
-    width: Dimensions.get('window').width - 192,
-  },
-  passwordIcon: {
-    alignSelf: 'center',
-    backgroundColor: 'pink',
-    color: 'rebeccapurple',
-    height: 44,
-    justifyContent: 'center',
+  imageStyle: {
     padding: 10,
-    textAlignVertical: 'center',
-  },
-  passwordInput: {
-    alignSelf: 'center',
-    backgroundColor: 'pink',
-    color: 'rebeccapurple',
-    height: 44,
-    justifyContent: 'center',
-    padding: 10,
-    textAlignVertical: 'center',
-    width: Dimensions.get('window').width - 128,
+    margin: 5,
+    height: 25,
+    width: 25,
+    resizeMode: 'stretch',
+    alignItems: 'center',
+    tintColor: 'rebeccapurple',
   },
   safeAreaView: {
-    paddingTop: 22,
+    flex: 1,
+    backgroundColor: 'black',
   },
-  usernameOrEmailIcon: {
-    alignSelf: 'center',
-    backgroundColor: 'pink',
-    color: 'rebeccapurple',
-    height: 44,
+  sectionStyle: {
+    flexDirection: 'row',
     justifyContent: 'center',
-    padding: 10,
-    textAlignVertical: 'center',
+    alignItems: 'center',
+    backgroundColor: 'pink',
+    borderWidth: 0.5,
+    borderColor: 'rebeccapurple',
+    height: 40,
+    borderRadius: 5,
+    margin: 10,
   },
-  usernameOrEmailInput: {
-    alignSelf: 'center',
-    backgroundColor: 'pink',
+  text: {
     color: 'rebeccapurple',
-    height: 44,
-    justifyContent: 'center',
-    padding: 10,
-    textAlignVertical: 'center',
-    width: Dimensions.get('window').width - 128,
+    fontSize: 42,
   },
 });
 
