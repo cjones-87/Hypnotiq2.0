@@ -14,9 +14,10 @@ import {
 
 import Entypo from '@expo/vector-icons/Entypo';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 const LoginScreen = ({ navigation }) => {
-  const [usernameOrEmail, setUsernameOrEmail] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const [isSecureText, setIsSecureText] = useState(true);
@@ -45,14 +46,12 @@ const LoginScreen = ({ navigation }) => {
             style={styles.imageStyle}
           />
           <TextInput
-            onChangeText={(usernameOrEmail) =>
-              setUsernameOrEmail(usernameOrEmail)
-            }
-            placeholder={'Enter username or email'}
+            onChangeText={(email) => setEmail(email)}
+            placeholder={'Enter email'}
             placeholderTextColor={'rebeccapurple'}
             style={{ flex: 1 }}
             underlineColorAndroid="transparent"
-            value={usernameOrEmail}
+            value={email}
           />
         </View>
         <View style={styles.sectionStyle}>
@@ -66,7 +65,7 @@ const LoginScreen = ({ navigation }) => {
             onChangeText={(password) => setPassword(password)}
             placeholder={'Password'}
             placeholderTextColor={'rebeccapurple'}
-            secureTextTextEntry={isSecureText}
+            secureTextEntry={isSecureText}
             style={{ flex: 1 }}
             underlineColorAndroid="transparent"
             value={password}
@@ -97,6 +96,19 @@ const LoginScreen = ({ navigation }) => {
             >
               Forgot Password
             </FontAwesome5.Button>
+          </TouchableOpacity>
+        </View>
+        <Text style={{ color: 'pink' }}>Need to signup?</Text>
+        <View style={styles.sectionStyle}>
+          <TouchableOpacity>
+            <Ionicons.Button
+              color={'rebeccapurple'}
+              name="create"
+              onPress={() => navigation.navigate('Registration Screen')}
+              style={styles.icon}
+            >
+              Registration
+            </Ionicons.Button>
           </TouchableOpacity>
         </View>
       </View>

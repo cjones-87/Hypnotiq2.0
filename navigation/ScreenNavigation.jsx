@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Splash from '../screens/splash/Splash.jsx';
 import LoginScreen from '../screens/authentication/login/LoginScreen.jsx';
 import ForgotPasswordScreen from '../screens/authentication/forgottenPassword/ForgotPasswordScreen.jsx';
-
+import RegistrationScreen from '../screens/authentication/registration/RegistrationScreen.jsx';
 import BottomNavigationBar from './BottomNavigationBar.jsx';
 
 const Stack = createNativeStackNavigator();
@@ -20,6 +20,10 @@ const ScreenNavigation = () => {
         <Stack.Screen
           name="Forgot Password Screen"
           component={ForgotPasswordScreen}
+        />
+        <Stack.Screen
+          name="Registration Screen"
+          component={RegistrationScreen}
         />
         <Stack.Screen
           name="Bottom Navigation Bar"
