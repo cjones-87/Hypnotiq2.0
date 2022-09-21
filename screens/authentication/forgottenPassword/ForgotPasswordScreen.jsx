@@ -11,9 +11,10 @@ import {
   View,
 } from 'react-native';
 
+import Ionicons from '@expo/vector-icons/Ionicons';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
-const ForgotPasswordScreen = () => {
+const ForgotPasswordScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
 
   return (
@@ -46,6 +47,19 @@ const ForgotPasswordScreen = () => {
             >
               Forgot Password
             </MaterialCommunityIcons.Button>
+          </TouchableOpacity>
+        </View>
+        <Text style={{ color: 'pink' }}>Need to signup?</Text>
+        <View style={styles.sectionStyle}>
+          <TouchableOpacity>
+            <Ionicons.Button
+              color={'rebeccapurple'}
+              name="create"
+              onPress={() => navigation.navigate('Registration Screen')}
+              style={styles.icon}
+            >
+              Registration
+            </Ionicons.Button>
           </TouchableOpacity>
         </View>
       </View>
