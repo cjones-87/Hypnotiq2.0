@@ -11,7 +11,6 @@ import {
   View,
 } from 'react-native';
 
-import Entypo from '@expo/vector-icons/Entypo';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 const ForgotPasswordScreen = () => {
