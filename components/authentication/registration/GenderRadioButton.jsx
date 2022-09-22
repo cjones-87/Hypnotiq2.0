@@ -12,10 +12,10 @@ const GenderRadioButton = () => {
   const [selectedOption, setSelectedOption] = useState('');
 
   const options = [
-    { index: 0, label: 'male ', value: 'male' },
-    { index: 1, label: 'female ', value: 'female' },
-    { index: 2, label: 'non-binary ', value: 'non-binary' },
-    { index: 3, label: 'other ', value: 'other' },
+    { label: 'male ', value: 'male' },
+    { label: 'female ', value: 'female' },
+    { label: 'non-binary ', value: 'non-binary' },
+    { label: 'other ', value: 'other' },
   ];
 
   return (
