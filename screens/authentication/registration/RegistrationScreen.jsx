@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import {
+  Dimensions,
   Image,
   Pressable,
   SafeAreaView,
@@ -11,6 +12,8 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+
+import GenderRadioButton from '../../../components/authentication/registration/GenderRadioButton';
 
 import Entypo from '@expo/vector-icons/Entypo';
 
@@ -90,7 +93,7 @@ const RegistrationScreen = ({ navigation }) => {
           />
           <TextInput
             onChangeText={(password) => setPassword(password)}
-            placeholder={'Create Password'}
+            placeholder={'Create password'}
             placeholderTextColor={'rebeccapurple'}
             secureTextEntry={isSecureText}
             style={{ flex: 1 }}
@@ -112,7 +115,7 @@ const RegistrationScreen = ({ navigation }) => {
             onChangeText={(confirmPassword) =>
               setConfirmPassword(confirmPassword)
             }
-            placeholder={'Confirm Password'}
+            placeholder={'Confirm password'}
             placeholderTextColor={'rebeccapurple'}
             secureTextEntry={isSecureTextConfirm}
             style={{ flex: 1 }}
@@ -135,18 +138,21 @@ const RegistrationScreen = ({ navigation }) => {
           />
           <TextInput
             onChangeText={(username) => setUsername(username)}
-            placeholder={'What should we call you?'}
+            placeholder={'Profile username'}
             placeholderTextColor={'rebeccapurple'}
             style={{ flex: 1 }}
             underlineColorAndroid={'transparent'}
             value={username}
           />
         </View>
+        <View style={styles.sectionStyle}>
+          <GenderRadioButton width={Dimensions.get('window').width} />
+        </View>
         {/* {} */}
         {/* {} */}
-        {/* {} */}
-        {/* {} */}
-        <Text style={{ color: 'pink' }}>Need to login?</Text>
+        <View style={styles.helpfulText}>
+          <Text style={{ color: 'rebeccapurple' }}>Need to login?</Text>
+        </View>
         <View style={styles.sectionStyle}>
           <TouchableOpacity>
             <Entypo.Button
@@ -170,6 +176,14 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     margin: 10,
+  },
+  helpfulText: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    height: 40,
+    justifyContent: 'center',
+    marginTop: 15,
+    marginBottom: -15,
   },
   icon: {
     backgroundColor: 'pink',
