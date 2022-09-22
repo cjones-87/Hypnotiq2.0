@@ -107,7 +107,7 @@ const LoginScreen = ({ navigation }) => {
               onPress={() => navigation.navigate('Registration Screen')}
               style={styles.icon}
             >
-              Registration
+              Register
             </Ionicons.Button>
           </TouchableOpacity>
         </View>
