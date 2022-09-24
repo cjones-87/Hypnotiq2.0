@@ -14,8 +14,10 @@ import {
 } from 'react-native';
 
 import GenderRadioButton from '../../../components/authentication/registration/GenderRadioButton';
+import DOBpicker from '../../../components/authentication/registration/DOBpicker';
 
 import Entypo from '@expo/vector-icons/Entypo';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 const RegistrationScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -146,7 +148,22 @@ const RegistrationScreen = ({ navigation }) => {
           />
         </View>
         <View style={styles.sectionStyle}>
-          <GenderRadioButton width={Dimensions.get('window').width} />
+          <GenderRadioButton />
+        </View>
+        <View style={styles.sectionStyle}>
+          <DOBpicker />
+        </View>
+        <View style={styles.sectionStyle}>
+          <TouchableOpacity>
+            <Ionicons.Button
+              color={'rebeccapurple'}
+              name="enter"
+              onPress={() => navigation.navigate('Bottom Navigation Bar')}
+              style={styles.icon}
+            >
+              Submit
+            </Ionicons.Button>
+          </TouchableOpacity>
         </View>
         {/* {} */}
         {/* {} */}
