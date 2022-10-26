@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import { firebase } from '../../../firebase';
+
 import {
   Image,
   SafeAreaView,
@@ -17,6 +19,17 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 const ForgotPasswordScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
 
+  const forgotPassword = () => {
+    firebase
+      .auth()
+      .sendPasswordResetEmail(email)
+      .then(() => {
+        alert('Password reset email sent');
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  };
   return (
     <SafeAreaView style={styles.safeAreaView}>
       <View style={styles.container}>
@@ -44,8 +57,11 @@ const ForgotPasswordScreen = ({ navigation }) => {
               color={'rebeccapurple'}
               name="lock-question"
               style={styles.icon}
+              onPress={() => {
+                forgotPassword();
+              }}
             >
-              Forgot Password
+              Change Password
             </MaterialCommunityIcons.Button>
           </TouchableOpacity>
         </View>
