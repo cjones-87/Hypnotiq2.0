@@ -1,4 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+
+import { doc, setDoc } from 'firebase/firestore';
+// import { auth, db } from '../../../firebase';
+// import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { firebase } from '../../../firebase';
 
 import {
   Dimensions,
@@ -20,11 +25,46 @@ import Entypo from '@expo/vector-icons/Entypo';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 const RegistrationScreen = ({ navigation }) => {
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [email, setEmail] = useState('');
   const [confirmEmail, setConfirmEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [username, setUsername] = useState('');
+
+  const registerUser = async (email, password, username) => {
+    if (password === confirmPassword && email === confirmEmail) {
+      await firebase
+        .auth()
+        .createUserWithEmailAndPassword(email, password)
+        .then(() => {
+          // firebase.auth().currentUser.updateProfile({ displayName: username });
+          firebase
+            .auth()
+            .currentUser.sendEmailVerification({
+              handleCodeInApp: true,
+              url: 'https://hypnotiq-2-0.firebaseapp.com',
+            })
+            .then(() => {
+              alert('Verification email sent');
+            })
+            .then(() => {
+              firebase
+                .firestore()
+                .collection('users')
+                .doc(firebase.auth().currentUser.uid)
+                .set({ email, password, username });
+            })
+            .then(() => navigation.navigate('Bottom Navigation Bar'))
+            .catch((error) => {
+              alert(error.message);
+            });
+        })
+        .catch((error) => {
+          alert(error.message);
+        });
+    }
+  };
 
   const [isSecureText, setIsSecureText] = useState(true);
   const toggleIsSecureText = () => setIsSecureText((current) => !current);
@@ -48,7 +88,38 @@ const RegistrationScreen = ({ navigation }) => {
     : {
         uri: 'https://img.icons8.com/external-flatart-icons-outline-flatarticons/2x/external-eye-devices-flatart-icons-outline-flatarticons.png',
       };
+  // let user;
+  // const handleSignUp = (event) => {
+  //   createUserWithEmailAndPassword(auth, email, password)
+  //     .then((userCredentials) => {
+  //       user = userCredentials.user;
+  //       setIsLoggedIn(!isLoggedIn);
+  //       console.log('Registered with:', user.email);
+  //       signup();
+  //       navigation.navigate('Bottom Navigation Bar');
+  //     })
+  //     .catch((error) => alert(error.message));
+  // };
 
+  // const signup = () => {
+  //   setDoc(doc(db, 'users', 'Premium'), {
+  //     email,
+  //     password,
+  //     username,
+  //   })
+  //     .then(() => console.log('data submitted'))
+  //     .catch((error) => console.error(error));
+  // };
+
+  // useEffect(() => {
+  //   const unsubscribe = auth.onAuthStateChanged((user) => {
+  //     if (user) {
+  //       navigation.replace('Bottom Navigation Bar');
+  //     }
+  //   });
+
+  //   return unsubscribe;
+  // }, []);
   return (
     <SafeAreaView style={styles.safeAreaView}>
       <View style={styles.container}>
@@ -62,6 +133,7 @@ const RegistrationScreen = ({ navigation }) => {
             style={styles.imageStyle}
           />
           <TextInput
+            autoCapitalize="none"
             onChangeText={(email) => setEmail(email)}
             placeholder={'Enter account email'}
             placeholderTextColor={'rebeccapurple'}
@@ -94,6 +166,7 @@ const RegistrationScreen = ({ navigation }) => {
             style={styles.imageStyle}
           />
           <TextInput
+            autoCapitalize="none"
             onChangeText={(password) => setPassword(password)}
             placeholder={'Create password'}
             placeholderTextColor={'rebeccapurple'}
@@ -147,18 +220,18 @@ const RegistrationScreen = ({ navigation }) => {
             value={username}
           />
         </View>
-        <View style={styles.sectionStyle}>
+        {/* <View style={styles.sectionStyle}>
           <GenderRadioButton />
         </View>
         <View style={styles.sectionStyle}>
           <DOBpicker />
-        </View>
-        <View style={styles.sectionStyle}>
+        </View> */}
+        <View style={[styles.sectionStyle, { marginTop: 100, width: '40%' }]}>
           <TouchableOpacity>
             <Ionicons.Button
               color={'rebeccapurple'}
               name="enter"
-              onPress={() => navigation.navigate('Bottom Navigation Bar')}
+              onPress={() => registerUser(email, password, username)}
               style={styles.icon}
             >
               Submit
@@ -167,10 +240,8 @@ const RegistrationScreen = ({ navigation }) => {
         </View>
         {/* {} */}
         {/* {} */}
-        <View style={styles.helpfulText}>
-          <Text style={{ color: 'rebeccapurple' }}>Need to login?</Text>
-        </View>
-        <View style={styles.sectionStyle}>
+
+        <View style={[styles.sectionStyle, { marginTop: 100, width: '40%' }]}>
           <TouchableOpacity>
             <Entypo.Button
               color={'rebeccapurple'}
@@ -178,7 +249,7 @@ const RegistrationScreen = ({ navigation }) => {
               onPress={() => navigation.navigate('Login Screen')}
               style={styles.icon}
             >
-              Login
+              Login Here
             </Entypo.Button>
           </TouchableOpacity>
         </View>

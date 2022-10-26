@@ -75,7 +75,6 @@ export default function Splash({ navigation }) {
           shouldPlay
           source={Hypnotiq}
           style={styles.video}
-          // volume={0.36}
         />
       </View>
     </View>

@@ -58,7 +58,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
               onPress={() => navigation.navigate('Registration Screen')}
               style={styles.icon}
             >
-              Registration
+              Register Here
             </Ionicons.Button>
           </TouchableOpacity>
         </View>

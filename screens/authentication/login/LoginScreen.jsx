@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+
+import { firebase } from '../../../firebase';
 
 import {
   Image,
@@ -19,6 +21,35 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const loginUser = async (email, password) => {
+    try {
+      await firebase.auth().signInWithEmailAndPassword(email, password);
+      navigation.replace('Bottom Navigation Bar');
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+  // useEffect(() => {
+  //   const unsubscribe = auth.onAuthStateChanged((user) => {
+  //     if (user) {
+  //       navigation.replace('Bottom Navigation Bar');
+  //     }
+  //   });
+
+  //   return unsubscribe;
+  // }, []);
+
+  // const handleLogin = () => {
+  //   signInWithEmailAndPassword(auth, email, password)
+  //     .then((userCredentials) => {
+  //       const user = userCredentials.user;
+  //       setIsSignedIn((current) => (current = !current));
+  //       console.log('auth', auth);
+  //       console.log('user', user);
+  //     })
+  //     .catch((error) => alert(error.message, error.code));
+  // };
 
   const [isSecureText, setIsSecureText] = useState(true);
   const toggleIsSecureText = () => {
@@ -46,7 +77,10 @@ const LoginScreen = ({ navigation }) => {
             style={styles.imageStyle}
           />
           <TextInput
-            onChangeText={(email) => setEmail(email)}
+            autoCapitalize="none"
+            onChangeText={(email) => {
+              setEmail(email);
+            }}
             placeholder={'Enter email'}
             placeholderTextColor={'rebeccapurple'}
             style={{ flex: 1 }}
@@ -62,10 +96,11 @@ const LoginScreen = ({ navigation }) => {
             style={styles.imageStyle}
           />
           <TextInput
+            autoCapitalize="none"
             onChangeText={(password) => setPassword(password)}
             placeholder={'Password'}
             placeholderTextColor={'rebeccapurple'}
-            secureTextEntry={isSecureText}
+            secureTextEntry={!isSecureText}
             style={{ flex: 1 }}
             underlineColorAndroid="transparent"
             value={password}
@@ -74,19 +109,23 @@ const LoginScreen = ({ navigation }) => {
             <Image source={passwordImageSource} style={styles.imageStyle} />
           </Pressable>
         </View>
-        <View style={styles.sectionStyle}>
+        <View style={[styles.sectionStyle, { marginTop: 100, width: '40%' }]}>
           <TouchableOpacity>
             <Entypo.Button
               color={'rebeccapurple'}
               name="login"
-              onPress={() => navigation.navigate('Bottom Navigation Bar')}
+              onPress={() => {
+                loginUser(email, password);
+                navigation.navigate('Bottom Navigation Bar');
+              }}
               style={styles.icon}
             >
-              Login
+              Submit
             </Entypo.Button>
           </TouchableOpacity>
         </View>
-        <View style={styles.sectionStyle}>
+
+        <View style={[styles.sectionStyle, { width: '40%' }]}>
           <TouchableOpacity>
             <FontAwesome5.Button
               color={'rebeccapurple'}
@@ -98,8 +137,7 @@ const LoginScreen = ({ navigation }) => {
             </FontAwesome5.Button>
           </TouchableOpacity>
         </View>
-        <Text style={{ color: 'pink' }}>Need to signup?</Text>
-        <View style={styles.sectionStyle}>
+        <View style={[styles.sectionStyle, { marginTop: 100, width: '40%' }]}>
           <TouchableOpacity>
             <Ionicons.Button
               color={'rebeccapurple'}
@@ -107,7 +145,7 @@ const LoginScreen = ({ navigation }) => {
               onPress={() => navigation.navigate('Registration Screen')}
               style={styles.icon}
             >
-              Register
+              Register Here
             </Ionicons.Button>
           </TouchableOpacity>
         </View>
@@ -125,6 +163,7 @@ const styles = StyleSheet.create({
   },
   icon: {
     backgroundColor: 'pink',
+    width: '100%',
   },
   imageStyle: {
     alignItems: 'center',

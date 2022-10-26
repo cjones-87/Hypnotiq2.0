@@ -40,7 +40,12 @@ const GenderRadioButton = () => {
             <RadioButtonLabel
               index={index}
               labelHorizontal={true}
-              onPress={(selectedOption) => setSelectedOption(selectedOption)}
+              onPress={() => {
+                [
+                  (selectedOption) => setSelectedOption(selectedOption),
+                  { selectedOption },
+                ];
+              }}
               labelStyle={
                 selectedOption === obj.value
                   ? { fontWeight: 'bold', fontSize: 14, color: 'rebeccapurple' }
