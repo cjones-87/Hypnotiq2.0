@@ -15,6 +15,8 @@ import {
   View,
 } from 'react-native';
 
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+
 const backgroundImage = require('../../assets/favicon.png');
 
 const HomeScreen = ({ navigation }) => {
@@ -37,6 +39,17 @@ const HomeScreen = ({ navigation }) => {
 
   const handleSignOut = () => firebase.auth().signOut();
 
+  const changePassword = () => {
+    firebase
+      .auth()
+      .sendPasswordResetEmail(firebase.auth().currentUser.email)
+      .then(() => {
+        alert('Password reset email sent');
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
+  };
   // const handleSignOut = () => {
   //   signOut(firebase.auth())
   //     .then(() => {
@@ -63,6 +76,18 @@ const HomeScreen = ({ navigation }) => {
           <View>
             <TouchableOpacity style={styles.button}>
               <Text style={styles.text}>Howdy, {name.username}</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.sectionStyle}>
+            <TouchableOpacity>
+              <MaterialCommunityIcons.Button
+                color={'rebeccapurple'}
+                name="lock-question"
+                style={styles.icon}
+                onPress={() => changePassword()}
+              >
+                New Password
+              </MaterialCommunityIcons.Button>
             </TouchableOpacity>
           </View>
           <View>
