@@ -25,7 +25,6 @@ import Entypo from '@expo/vector-icons/Entypo';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 const RegistrationScreen = ({ navigation }) => {
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [email, setEmail] = useState('');
   const [confirmEmail, setConfirmEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -38,26 +37,30 @@ const RegistrationScreen = ({ navigation }) => {
         .auth()
         .createUserWithEmailAndPassword(email, password)
         .then(() => {
-          // firebase.auth().currentUser.updateProfile({ displayName: username });
           firebase
             .auth()
-            .currentUser.sendEmailVerification({
-              handleCodeInApp: true,
-              url: 'https://hypnotiq-2-0.firebaseapp.com',
-            })
-            .then(() => {
-              alert('Verification email sent');
-            })
+            .currentUser.updateProfile({ displayName: username })
             .then(() => {
               firebase
-                .firestore()
-                .collection('users')
-                .doc(firebase.auth().currentUser.uid)
-                .set({ email, password, username });
-            })
-            .then(() => navigation.navigate('Bottom Navigation Bar'))
-            .catch((error) => {
-              alert(error.message);
+                .auth()
+                .currentUser.sendEmailVerification({
+                  handleCodeInApp: true,
+                  url: 'https://hypnotiq-2-0.firebaseapp.com',
+                })
+                .then(() => {
+                  alert('Verification email sent');
+                })
+                .then(() => {
+                  firebase
+                    .firestore()
+                    .collection('users')
+                    .doc(firebase.auth().currentUser.uid)
+                    .set({ email, password, displayName: username });
+                })
+                .then(() => navigation.navigate('Bottom Navigation Bar'))
+                .catch((error) => {
+                  alert(error.message);
+                });
             });
         })
         .catch((error) => {
@@ -88,38 +91,6 @@ const RegistrationScreen = ({ navigation }) => {
     : {
         uri: 'https://img.icons8.com/external-flatart-icons-outline-flatarticons/2x/external-eye-devices-flatart-icons-outline-flatarticons.png',
       };
-  // let user;
-  // const handleSignUp = (event) => {
-  //   createUserWithEmailAndPassword(auth, email, password)
-  //     .then((userCredentials) => {
-  //       user = userCredentials.user;
-  //       setIsLoggedIn(!isLoggedIn);
-  //       console.log('Registered with:', user.email);
-  //       signup();
-  //       navigation.navigate('Bottom Navigation Bar');
-  //     })
-  //     .catch((error) => alert(error.message));
-  // };
-
-  // const signup = () => {
-  //   setDoc(doc(db, 'users', 'Premium'), {
-  //     email,
-  //     password,
-  //     username,
-  //   })
-  //     .then(() => console.log('data submitted'))
-  //     .catch((error) => console.error(error));
-  // };
-
-  // useEffect(() => {
-  //   const unsubscribe = auth.onAuthStateChanged((user) => {
-  //     if (user) {
-  //       navigation.replace('Bottom Navigation Bar');
-  //     }
-  //   });
-
-  //   return unsubscribe;
-  // }, []);
   return (
     <SafeAreaView style={styles.safeAreaView}>
       <View style={styles.container}>
@@ -134,6 +105,7 @@ const RegistrationScreen = ({ navigation }) => {
           />
           <TextInput
             autoCapitalize="none"
+            autoComplete="email"
             onChangeText={(email) => setEmail(email)}
             placeholder={'Enter account email'}
             placeholderTextColor={'rebeccapurple'}
@@ -150,6 +122,8 @@ const RegistrationScreen = ({ navigation }) => {
             style={styles.imageStyle}
           />
           <TextInput
+            autoCapitalize="none"
+            autoComplete="email"
             onChangeText={(confirmEmail) => setConfirmEmail(confirmEmail)}
             placeholder={'Confirm account email'}
             placeholderTextColor={'rebeccapurple'}
@@ -167,6 +141,7 @@ const RegistrationScreen = ({ navigation }) => {
           />
           <TextInput
             autoCapitalize="none"
+            autoComplete="password"
             onChangeText={(password) => setPassword(password)}
             placeholder={'Create password'}
             placeholderTextColor={'rebeccapurple'}
@@ -187,6 +162,8 @@ const RegistrationScreen = ({ navigation }) => {
             style={styles.imageStyle}
           />
           <TextInput
+            autoCapitalize="none"
+            autoComplete="password"
             onChangeText={(confirmPassword) =>
               setConfirmPassword(confirmPassword)
             }
@@ -234,12 +211,10 @@ const RegistrationScreen = ({ navigation }) => {
               onPress={() => registerUser(email, password, username)}
               style={styles.icon}
             >
-              Submit
+              Complete
             </Ionicons.Button>
           </TouchableOpacity>
         </View>
-        {/* {} */}
-        {/* {} */}
 
         <View style={[styles.sectionStyle, { marginTop: 100, width: '40%' }]}>
           <TouchableOpacity>

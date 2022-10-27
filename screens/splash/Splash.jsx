@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { firebase } from '../../firebase';
 import { Dimensions, StatusBar, StyleSheet, Text, View } from 'react-native';
 import { Video } from 'expo-av';
 import * as SplashScreen from 'expo-splash-screen';
@@ -58,7 +59,11 @@ export default function Splash({ navigation }) {
 
         <Text
           style={styles.text}
-          onPress={() => navigation.navigate('Login Screen')}
+          onPress={
+            !firebase.auth().currentUser
+              ? () => navigation.navigate('Login Screen')
+              : () => navigation.navigate('Bottom Navigation Bar')
+          }
         >
           <BlinkingText
             style={styles.text}
