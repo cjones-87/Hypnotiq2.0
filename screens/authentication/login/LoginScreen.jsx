@@ -30,26 +30,6 @@ const LoginScreen = ({ navigation }) => {
       alert(error.message);
     }
   };
-  // useEffect(() => {
-  //   const unsubscribe = auth.onAuthStateChanged((user) => {
-  //     if (user) {
-  //       navigation.replace('Bottom Navigation Bar');
-  //     }
-  //   });
-
-  //   return unsubscribe;
-  // }, []);
-
-  // const handleLogin = () => {
-  //   signInWithEmailAndPassword(auth, email, password)
-  //     .then((userCredentials) => {
-  //       const user = userCredentials.user;
-  //       setIsSignedIn((current) => (current = !current));
-  //       console.log('auth', auth);
-  //       console.log('user', user);
-  //     })
-  //     .catch((error) => alert(error.message, error.code));
-  // };
 
   const [isSecureText, setIsSecureText] = useState(true);
   const toggleIsSecureText = () => {
@@ -78,8 +58,9 @@ const LoginScreen = ({ navigation }) => {
           />
           <TextInput
             autoCapitalize="none"
+            autoComplete="email"
             onChangeText={(email) => {
-              setEmail(email);
+              setEmail(email.trim());
             }}
             placeholder={'Enter email'}
             placeholderTextColor={'rebeccapurple'}
@@ -97,7 +78,8 @@ const LoginScreen = ({ navigation }) => {
           />
           <TextInput
             autoCapitalize="none"
-            onChangeText={(password) => setPassword(password)}
+            autoComplete="password"
+            onChangeText={(password) => setPassword(password.trim())}
             placeholder={'Password'}
             placeholderTextColor={'rebeccapurple'}
             secureTextEntry={!isSecureText}
@@ -116,7 +98,6 @@ const LoginScreen = ({ navigation }) => {
               name="login"
               onPress={() => {
                 loginUser(email, password);
-                navigation.navigate('Bottom Navigation Bar');
               }}
               style={styles.icon}
             >

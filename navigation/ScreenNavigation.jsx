@@ -12,12 +12,13 @@ import { firebase } from '../firebase';
 
 const Stack = createNativeStackNavigator();
 
-const ScreenNavigation = () => {
+const Routes = () => {
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState();
 
   const onAuthStateChanged = (user) => {
     setUser(user);
+    console.log(user);
     if (initializing) {
       setInitializing(false);
     }
@@ -51,25 +52,25 @@ const ScreenNavigation = () => {
   }
   return (
     <Stack.Navigator
-      // initialRouteName="Splash Screen"
+      initialRouteName="Splash Screen"
       screenOptions={{ headerTitleAlign: 'center', headerShown: false }}
     >
-      {/* <Stack.Screen name="Splash Screen" component={Splash} /> */}
+      <Stack.Screen name="Splash Screen" component={Splash} />
       <Stack.Screen
         name="Bottom Navigation Bar"
         component={BottomNavigationBar}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
-    // </NavigationContainer>
   );
 };
 
-// export default ScreenNavigation;
-export default () => {
+const ScreenNavigation = () => {
   return (
     <NavigationContainer>
-      <ScreenNavigation />
+      <Routes />
     </NavigationContainer>
   );
 };
+
+export default ScreenNavigation;
