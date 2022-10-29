@@ -1,4 +1,6 @@
 import React from 'react';
+
+import { AntDesign } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import {
@@ -40,15 +42,41 @@ const convertTime = (minutes) => {
   }
 };
 
-const AudioMenuItem = ({ title, duration, onAudioPress, onOptionPress }) => {
+const renderPlayPauseIcon = (isPlaying) => {
+  return isPlaying ? (
+    <AntDesign name="pausecircle" size={24} color={color.ACTIVE_FONT} />
+  ) : (
+    <AntDesign name="play" size={24} color={color.FONT_LIGHT} />
+  );
+};
+
+const AudioMenuItem = ({
+  activeListItem,
+  duration,
+  isPlaying,
+  onAudioPress,
+  onOptionPress,
+  title,
+}) => {
   return (
     <>
       <View style={styles.container}>
         <TouchableOpacity onPress={onAudioPress}>
           <View style={styles.leftContainer}>
-            <View style={styles.thumbnail}>
+            <View
+              style={[
+                styles.thumbnail,
+                {
+                  backgroundColor: activeListItem
+                    ? color.ACTIVE_BG
+                    : color.FONT_LIGHT,
+                },
+              ]}
+            >
               <Text style={styles.thumbnailText}>
-                {getThumbnailText(title)}
+                {activeListItem
+                  ? renderPlayPauseIcon(isPlaying)
+                  : getThumbnailText(title)}
               </Text>
             </View>
             <View style={styles.titleContainer}>

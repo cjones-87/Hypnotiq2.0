@@ -51,17 +51,21 @@ export default class AudioMenu extends React.Component {
   );
 
   handleAudioPress = async (audio) => {
-    const { currentAudio, soundObject, playbackObj, updateState } =
+    const { audioFiles, currentAudio, playbackObj, soundObject, updateState } =
       this.context;
 
     console.log('sound object =====>', soundObject);
+
     // when playing audio for the first time
     if (soundObject === null) {
       const playbackObj = new Audio.Sound();
       const status = await play(playbackObj, audio.uri);
+      const index = audioFiles.indexOf(audio);
 
       return updateState(this.context, {
         currentAudio: audio,
+        currentAudioIndex: index,
+        isPlaying: true,
         playbackObj,
         soundObject: status,
       });
@@ -76,6 +80,7 @@ export default class AudioMenu extends React.Component {
       const status = await pause(playbackObj);
 
       return updateState(this.context, {
+        isPlaying: false,
         soundObject: status,
       });
     }
@@ -88,24 +93,33 @@ export default class AudioMenu extends React.Component {
     ) {
       const status = await resume(playbackObj);
 
-      return updateState(this.context, { soundObject: status });
+      return updateState(this.context, {
+        isPlaying: true,
+        soundObject: status,
+      });
     }
 
     // when wanting to select another audio
     if (soundObject.isLoaded && currentAudio.id !== audio.id) {
       const status = await playNext(playbackObj, audio.uri);
+      const index = audioFiles.indexOf(audio);
 
       return updateState(this.context, {
         currentAudio: audio,
+        currentAudioIndex: index,
+        isPlaying: true,
         soundObject: status,
       });
     }
   };
 
-  rowRenderer = (type, item) => {
+  rowRenderer = (type, item, index, extendedState) => {
+    console.log('extendedState', extendedState);
     return (
       <AudioMenuItem
+        activeListItem={this.context.currentAudioIndex === index}
         duration={item.duration}
+        isPlaying={extendedState.isPlaying}
         onAudioPress={() => this.handleAudioPress(item)}
         onOptionPress={() => {
           this.currentItem = item;
@@ -119,11 +133,12 @@ export default class AudioMenu extends React.Component {
   render() {
     return (
       <AudioContext.Consumer>
-        {({ dataProvider }) => {
+        {({ dataProvider, isPlaying }) => {
           return (
             <SafeAreaView style={styles.safeAreaView}>
               <RecyclerListView
                 dataProvider={dataProvider}
+                extendedState={{ isPlaying }}
                 layoutProvider={this.layoutProvider}
                 rowRenderer={this.rowRenderer}
               />

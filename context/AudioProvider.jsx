@@ -21,7 +21,9 @@ export default class AudioProvider extends React.Component {
     this.state = {
       audioFiles: [],
       currentAudio: {},
+      currentAudioIndex: null,
       dataProvider: new DataProvider((rule1, rule2) => rule1 !== rule2),
+      isPlaying: false,
       permissionError: false,
       playbackObj: null,
       soundObject: null,
@@ -99,7 +101,9 @@ export default class AudioProvider extends React.Component {
     const {
       audioFiles,
       currentAudio,
+      currentAudioIndex,
       dataProvider,
+      isPlaying,
       permissionError,
       playbackObj,
       soundObject,
@@ -120,7 +124,9 @@ export default class AudioProvider extends React.Component {
         value={{
           audioFiles,
           currentAudio,
+          currentAudioIndex,
           dataProvider,
+          isPlaying,
           playbackObj,
           soundObject,
           updateState: this.updateState,
