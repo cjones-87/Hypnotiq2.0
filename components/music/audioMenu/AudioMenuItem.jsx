@@ -1,7 +1,13 @@
 import React from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-import { Dimensions, StyleSheet, Text, View } from 'react-native';
+import {
+  Dimensions,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
 import color from '../../../misc/color';
 
@@ -34,21 +40,25 @@ const convertTime = (minutes) => {
   }
 };
 
-const AudioMenuItem = ({ title, duration, onOptionPress }) => {
+const AudioMenuItem = ({ title, duration, onAudioPress, onOptionPress }) => {
   return (
     <>
       <View style={styles.container}>
-        <View style={styles.leftContainer}>
-          <View style={styles.thumbnail}>
-            <Text style={styles.thumbnailText}>{getThumbnailText(title)}</Text>
+        <TouchableOpacity onPress={onAudioPress}>
+          <View style={styles.leftContainer}>
+            <View style={styles.thumbnail}>
+              <Text style={styles.thumbnailText}>
+                {getThumbnailText(title)}
+              </Text>
+            </View>
+            <View style={styles.titleContainer}>
+              <Text numberOfLines={1} style={styles.title}>
+                {title}
+              </Text>
+              <Text style={styles.timeText}>{convertTime(duration)}</Text>
+            </View>
           </View>
-          <View style={styles.titleContainer}>
-            <Text numberOfLines={1} style={styles.title}>
-              {title}
-            </Text>
-            <Text style={styles.timeText}>{convertTime(duration)}</Text>
-          </View>
-        </View>
+        </TouchableOpacity>
         <View style={styles.rightContainer}>
           <MaterialCommunityIcons
             name="dots-vertical"

@@ -18,6 +18,8 @@ import AudioMenuItem from '../../../components/music/audioMenu/AudioMenuItem';
 
 import OptionModal from '../../../components/music/audioMenu/OptionModal';
 
+import { Audio } from 'expo-av';
+
 export default class AudioMenu extends React.Component {
   static contextType = AudioContext;
 
@@ -25,7 +27,10 @@ export default class AudioMenu extends React.Component {
     super(props);
 
     this.state = {
+      currentAudio: {},
       optionModalVisible: false,
+      playbackObj: null,
+      soundObject: null,
     };
 
     this.currentItem = {};
@@ -46,10 +51,47 @@ export default class AudioMenu extends React.Component {
     }
   );
 
+  handleAudioPress = async (audio) => {
+    // when playing audio for the first time
+    if (this.state.soundObject === null) {
+      const playbackObj = new Audio.Sound();
+      const status = await playbackObj.loadAsync(
+        { uri: audio.uri },
+        { shouldPlay: true }
+      );
+
+      return this.setState({
+        ...this.state,
+        currentAudio: audio,
+        playbackObj,
+        soundObject: status,
+      });
+    }
+
+    // when wanting to pause audio
+    if (this.state.soundObject.isLoaded && this.state.soundObject.isPlaying) {
+      const status = await this.state.playbackObj.setStatusAsync({
+        shouldPlay: false,
+      });
+      return this.setState({ ...this.state, soundObject: status });
+    }
+
+    // when wanting to resume same audio
+    if (
+      this.state.soundObject.isLoaded &&
+      !this.state.soundObject.isPlaying &&
+      this.state.currentAudio.id === audio.id
+    ) {
+      const status = await this.state.playbackObj.playAsync();
+      return this.setState({ ...this.state, soundObject: status });
+    }
+  };
+
   rowRenderer = (type, item) => {
     return (
       <AudioMenuItem
         duration={item.duration}
+        onAudioPress={() => this.handleAudioPress(item)}
         onOptionPress={() => {
           this.currentItem = item;
           this.setState({ ...this.state, optionModalVisible: true });
