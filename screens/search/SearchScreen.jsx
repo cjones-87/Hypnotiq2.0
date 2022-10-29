@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     resizeMode: 'cover',
   },
+  container: { alignItems: 'center', flex: 1, justifyContent: 'center' },
   safeAreaView: {
     flex: 1,
     paddingTop: StatusBar.currentHeight / 10000,

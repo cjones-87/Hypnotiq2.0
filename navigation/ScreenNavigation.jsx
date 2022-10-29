@@ -10,6 +10,8 @@ import BottomNavigationBar from './BottomNavigationBar.jsx';
 
 import { firebase } from '../firebase';
 
+import AudioProvider from '../context/AudioProvider.jsx';
+
 const Stack = createNativeStackNavigator();
 
 const Routes = () => {
@@ -67,9 +69,11 @@ const Routes = () => {
 
 const ScreenNavigation = () => {
   return (
-    <NavigationContainer>
-      <Routes />
-    </NavigationContainer>
+    <AudioProvider>
+      <NavigationContainer>
+        <Routes />
+      </NavigationContainer>
+    </AudioProvider>
   );
 };
 

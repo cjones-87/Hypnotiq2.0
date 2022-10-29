@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
-// import { auth } from '../../firebase';
-// import { signOut } from 'firebase/auth';
 import { firebase } from '../../firebase';
+import MusicPlayer from '../../screens/music/musicPlayer/MusicPlayer';
 
 import {
   Button,
@@ -50,23 +49,6 @@ const HomeScreen = ({ navigation }) => {
         alert(error.message);
       });
   };
-  // const handleSignOut = () => {
-  //   signOut(firebase.auth())
-  //     .then(() => {
-  //       navigation.navigate('Login Screen');
-  //     })
-  //     .catch((error) => alert(error.message));
-  // };
-
-  // useEffect(() => {
-  //   const unsubscribe = auth.onAuthStateChanged((user) => {
-  //     if (!user) {
-  //       navigation.replace('Login Screen');
-  //     }
-  //   });
-
-  //   return unsubscribe;
-  // }, []);
 
   return (
     <>
@@ -75,7 +57,7 @@ const HomeScreen = ({ navigation }) => {
           <StatusBar backgroundColor={'rebeccapurple'} hidden={false} />
           <View>
             <TouchableOpacity style={styles.button}>
-              <Text style={styles.text}>Howdy, {name.username}</Text>
+              <Text style={styles.text}>Howdy, {name.displayName}</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.sectionStyle}>
@@ -101,6 +83,8 @@ const HomeScreen = ({ navigation }) => {
               </Button>
             </TouchableOpacity>
           </View>
+
+          <MusicPlayer />
         </SafeAreaView>
       </ImageBackground>
     </>
