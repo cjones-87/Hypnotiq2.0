@@ -20,6 +20,8 @@ import OptionModal from '../../../components/music/audioMenu/OptionModal';
 
 import { Audio } from 'expo-av';
 
+import { pause, play, playNext, resume } from '../../../misc/audioController';
+
 export default class AudioMenu extends React.Component {
   static contextType = AudioContext;
 
@@ -27,10 +29,7 @@ export default class AudioMenu extends React.Component {
     super(props);
 
     this.state = {
-      currentAudio: {},
       optionModalVisible: false,
-      playbackObj: null,
-      soundObject: null,
     };
 
     this.currentItem = {};
@@ -52,16 +51,16 @@ export default class AudioMenu extends React.Component {
   );
 
   handleAudioPress = async (audio) => {
-    // when playing audio for the first time
-    if (this.state.soundObject === null) {
-      const playbackObj = new Audio.Sound();
-      const status = await playbackObj.loadAsync(
-        { uri: audio.uri },
-        { shouldPlay: true }
-      );
+    const { currentAudio, soundObject, playbackObj, updateState } =
+      this.context;
 
-      return this.setState({
-        ...this.state,
+    console.log('sound object =====>', soundObject);
+    // when playing audio for the first time
+    if (soundObject === null) {
+      const playbackObj = new Audio.Sound();
+      const status = await play(playbackObj, audio.uri);
+
+      return updateState(this.context, {
         currentAudio: audio,
         playbackObj,
         soundObject: status,
@@ -69,21 +68,37 @@ export default class AudioMenu extends React.Component {
     }
 
     // when wanting to pause audio
-    if (this.state.soundObject.isLoaded && this.state.soundObject.isPlaying) {
-      const status = await this.state.playbackObj.setStatusAsync({
-        shouldPlay: false,
+    if (
+      soundObject.isLoaded &&
+      soundObject.isPlaying &&
+      currentAudio.id === audio.id
+    ) {
+      const status = await pause(playbackObj);
+
+      return updateState(this.context, {
+        soundObject: status,
       });
-      return this.setState({ ...this.state, soundObject: status });
     }
 
     // when wanting to resume same audio
     if (
-      this.state.soundObject.isLoaded &&
-      !this.state.soundObject.isPlaying &&
-      this.state.currentAudio.id === audio.id
+      soundObject.isLoaded &&
+      !soundObject.isPlaying &&
+      currentAudio.id === audio.id
     ) {
-      const status = await this.state.playbackObj.playAsync();
-      return this.setState({ ...this.state, soundObject: status });
+      const status = await resume(playbackObj);
+
+      return updateState(this.context, { soundObject: status });
+    }
+
+    // when wanting to select another audio
+    if (soundObject.isLoaded && currentAudio.id !== audio.id) {
+      const status = await playNext(playbackObj, audio.uri);
+
+      return updateState(this.context, {
+        currentAudio: audio,
+        soundObject: status,
+      });
     }
   };
 
