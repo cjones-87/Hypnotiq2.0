@@ -20,8 +20,11 @@ export default class AudioProvider extends React.Component {
     super(props);
     this.state = {
       audioFiles: [],
-      permissionError: false,
+      currentAudio: {},
       dataProvider: new DataProvider((rule1, rule2) => rule1 !== rule2),
+      permissionError: false,
+      playbackObj: null,
+      soundObject: null,
     };
   }
 
@@ -33,13 +36,6 @@ export default class AudioProvider extends React.Component {
   };
 
   getPermission = async () => {
-    // const permission = {
-    //   accessPrivileges: 'none',
-    //   canAskAgain: true,
-    //   expires: 'never',
-    //   granted: false,
-    //   status: 'undetermined',
-    // };
     const permission = await MediaLibrary.getPermissionsAsync();
     if (permission.granted) {
       // we want all audio files
@@ -95,8 +91,19 @@ export default class AudioProvider extends React.Component {
     this.getPermission();
   }
 
+  updateState = (previousState, newState = {}) => {
+    this.setState({ ...previousState, ...newState });
+  };
+
   render() {
-    const { audioFiles, dataProvider, permissionError } = this.state;
+    const {
+      audioFiles,
+      currentAudio,
+      dataProvider,
+      permissionError,
+      playbackObj,
+      soundObject,
+    } = this.state;
     if (permissionError)
       return (
         <SafeAreaView style={styles.safeAreaView}>
@@ -109,17 +116,18 @@ export default class AudioProvider extends React.Component {
       );
 
     return (
-      <AudioContext.Provider value={{ audioFiles, dataProvider }}>
+      <AudioContext.Provider
+        value={{
+          audioFiles,
+          currentAudio,
+          dataProvider,
+          playbackObj,
+          soundObject,
+          updateState: this.updateState,
+        }}
+      >
         {this.props.children}
       </AudioContext.Provider>
-      //   <SafeAreaView style={styles.safeAreaView}>
-      //     <StatusBar backgroundColor={'rebeccapurple'} hidden={false} />
-      //     <View style={styles.container}>
-      //       <TouchableOpacity style={styles.button}>
-      //         <Text style={styles.text}>Audio Menu</Text>
-      //       </TouchableOpacity>
-      //     </View>
-      //   </SafeAreaView>
     );
   }
 }
