@@ -33,6 +33,7 @@ export default class AudioMenu extends React.Component {
     };
 
     this.currentItem = {};
+    this.onPlaybackStatusUpdate = this.onPlaybackStatusUpdate.bind(this);
   }
 
   layoutProvider = new LayoutProvider(
@@ -50,25 +51,39 @@ export default class AudioMenu extends React.Component {
     }
   );
 
+  onPlaybackStatusUpdate = (playbackStatus) => {
+    console.log('this is play back status before update', playbackStatus);
+    if (playbackStatus.isLoaded && playbackStatus.isPlaying) {
+      console.log(
+        'this is also playback Status but in the if block',
+        playbackStatus
+      );
+      return this.context.updateState(this.context, {
+        playbackDuration: playbackStatus.durationMillis,
+        playbackPostion: playbackStatus.positionMillis,
+      });
+    }
+  };
+
   handleAudioPress = async (audio) => {
     const { audioFiles, currentAudio, playbackObj, soundObject, updateState } =
       this.context;
-
-    console.log('sound object =====>', soundObject);
-
+    console.log('playbackOBJ', playbackObj);
     // when playing audio for the first time
     if (soundObject === null) {
       const playbackObj = new Audio.Sound();
       const status = await play(playbackObj, audio.uri);
       const index = audioFiles.indexOf(audio);
+      console.log('playbackObj was null', playbackObj);
 
-      return updateState(this.context, {
+      updateState(this.context, {
         currentAudio: audio,
         currentAudioIndex: index,
         isPlaying: true,
         playbackObj,
         soundObject: status,
       });
+      playbackObj.onPlaybackStatusUpdate(this.onPlaybackStatusUpdate);
     }
 
     // when wanting to pause audio
@@ -114,7 +129,6 @@ export default class AudioMenu extends React.Component {
   };
 
   rowRenderer = (type, item, index, extendedState) => {
-    console.log('extendedState', extendedState);
     return (
       <AudioMenuItem
         activeListItem={this.context.currentAudioIndex === index}

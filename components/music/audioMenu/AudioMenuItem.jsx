@@ -18,16 +18,12 @@ const getThumbnailText = (filename) => filename[0];
 const convertTime = (minutes) => {
   if (minutes) {
     const hours = minutes / 60;
-    // console.log('this is hours =====>', hours);
     const minute = hours.toString().split('.')[0];
-    console.log('this is minutes =====>', minutes);
 
     // const percent = parseInt(hours.toString().split('.')[1].slice(0, 2));
     const percent = Number(hours.toString().split('.')[1].slice(0, 2));
-    console.log('this is percent =====>', percent);
 
     const sec = Math.ceil((60 * percent) / 100);
-    console.log('this is sec =====>', sec);
 
     if (Number(minute) < 10 && sec < 10) {
       return `${parseInt(minute, 10)}:0${sec}`;

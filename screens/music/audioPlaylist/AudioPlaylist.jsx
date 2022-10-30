@@ -8,8 +8,6 @@ import {
   View,
 } from 'react-native';
 
-import AudioMenuItem from '../../../components/music/audioMenu/AudioMenuItem';
-
 const AudioPlaylist = () => {
   return (
     <SafeAreaView style={styles.safeAreaView}>
@@ -17,7 +15,6 @@ const AudioPlaylist = () => {
       <View style={styles.container}>
         <TouchableOpacity style={styles.button}>
           <Text style={styles.text}>Audio Playlist</Text>
-          <AudioMenuItem />
         </TouchableOpacity>
       </View>
     </SafeAreaView>
