@@ -33,7 +33,6 @@ export default class AudioMenu extends React.Component {
     };
 
     this.currentItem = {};
-    this.onPlaybackStatusUpdate = this.onPlaybackStatusUpdate.bind(this);
   }
 
   layoutProvider = new LayoutProvider(
@@ -51,16 +50,16 @@ export default class AudioMenu extends React.Component {
     }
   );
 
-  onPlaybackStatusUpdate = (playbackStatus) => {
+  onPlaybackStatusUpdate = (playbackStatus, soundObject) => {
     console.log('this is play back status before update', playbackStatus);
     if (playbackStatus.isLoaded && playbackStatus.isPlaying) {
       console.log(
         'this is also playback Status but in the if block',
         playbackStatus
       );
-      return this.context.updateState(this.context, {
-        playbackDuration: playbackStatus.durationMillis,
-        playbackPostion: playbackStatus.positionMillis,
+      this.context.updateState(this.context, {
+        playbackDuration: soundObject.durationMillis,
+        playbackPostion: soundObject.positionMillis,
       });
     }
   };
@@ -68,13 +67,16 @@ export default class AudioMenu extends React.Component {
   handleAudioPress = async (audio) => {
     const { audioFiles, currentAudio, playbackObj, soundObject, updateState } =
       this.context;
+    console.log('duration', currentAudio.duration);
+    console.log('soundObject', soundObject);
     console.log('playbackOBJ', playbackObj);
+
     // when playing audio for the first time
     if (soundObject === null) {
       const playbackObj = new Audio.Sound();
       const status = await play(playbackObj, audio.uri);
       const index = audioFiles.indexOf(audio);
-      console.log('playbackObj was null', playbackObj);
+      // console.log('playbackObj was null', playbackObj);
 
       updateState(this.context, {
         currentAudio: audio,
@@ -83,7 +85,9 @@ export default class AudioMenu extends React.Component {
         playbackObj,
         soundObject: status,
       });
-      playbackObj.onPlaybackStatusUpdate(this.onPlaybackStatusUpdate);
+      playbackObj.setOnPlaybackStatusUpdate(
+        this.onPlaybackStatusUpdate(this.onPlaybackStatusUpdate)
+      );
     }
 
     // when wanting to pause audio
