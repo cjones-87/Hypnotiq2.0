@@ -20,7 +20,6 @@ const Routes = () => {
 
   const onAuthStateChanged = (user) => {
     setUser(user);
-    console.log(user);
     if (initializing) {
       setInitializing(false);
     }

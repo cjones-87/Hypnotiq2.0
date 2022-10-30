@@ -1,4 +1,6 @@
 import React from 'react';
+
+import { AntDesign } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import {
@@ -16,16 +18,12 @@ const getThumbnailText = (filename) => filename[0];
 const convertTime = (minutes) => {
   if (minutes) {
     const hours = minutes / 60;
-    // console.log('this is hours =====>', hours);
     const minute = hours.toString().split('.')[0];
-    console.log('this is minutes =====>', minutes);
 
     // const percent = parseInt(hours.toString().split('.')[1].slice(0, 2));
     const percent = Number(hours.toString().split('.')[1].slice(0, 2));
-    console.log('this is percent =====>', percent);
 
     const sec = Math.ceil((60 * percent) / 100);
-    console.log('this is sec =====>', sec);
 
     if (Number(minute) < 10 && sec < 10) {
       return `${parseInt(minute, 10)}:0${sec}`;
@@ -40,15 +38,41 @@ const convertTime = (minutes) => {
   }
 };
 
-const AudioMenuItem = ({ title, duration, onAudioPress, onOptionPress }) => {
+const renderPlayPauseIcon = (isPlaying) => {
+  return isPlaying ? (
+    <AntDesign name="pausecircle" size={24} color={color.ACTIVE_FONT} />
+  ) : (
+    <AntDesign name="play" size={24} color={color.FONT_LIGHT} />
+  );
+};
+
+const AudioMenuItem = ({
+  activeListItem,
+  duration,
+  isPlaying,
+  onAudioPress,
+  onOptionPress,
+  title,
+}) => {
   return (
     <>
       <View style={styles.container}>
         <TouchableOpacity onPress={onAudioPress}>
           <View style={styles.leftContainer}>
-            <View style={styles.thumbnail}>
+            <View
+              style={[
+                styles.thumbnail,
+                {
+                  backgroundColor: activeListItem
+                    ? color.ACTIVE_BG
+                    : color.FONT_LIGHT,
+                },
+              ]}
+            >
               <Text style={styles.thumbnailText}>
-                {getThumbnailText(title)}
+                {activeListItem
+                  ? renderPlayPauseIcon(isPlaying)
+                  : getThumbnailText(title)}
               </Text>
             </View>
             <View style={styles.titleContainer}>

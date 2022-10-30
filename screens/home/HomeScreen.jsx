@@ -33,7 +33,8 @@ const HomeScreen = ({ navigation }) => {
         } else {
           console.log('User does not exist');
         }
-      });
+      })
+      .catch((error) => console.log(error.message));
   }, []);
 
   const handleSignOut = () => firebase.auth().signOut();

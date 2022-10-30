@@ -21,11 +21,16 @@ export default class AudioProvider extends React.Component {
     this.state = {
       audioFiles: [],
       currentAudio: {},
+      currentAudioIndex: null,
       dataProvider: new DataProvider((rule1, rule2) => rule1 !== rule2),
+      isPlaying: false,
       permissionError: false,
       playbackObj: null,
       soundObject: null,
+      playbackDuration: null,
+      playbackPosition: null,
     };
+    this.totalAudioCount = 0;
   }
 
   permissionAlert = () => {
@@ -76,6 +81,8 @@ export default class AudioProvider extends React.Component {
       first: media.totalCount,
     });
 
+    this.totalAudioCount = media.totalCount;
+
     this.setState({
       ...this.state,
       audioFiles: [...audioFiles, ...media.assets],
@@ -84,7 +91,6 @@ export default class AudioProvider extends React.Component {
         ...media.assets,
       ]),
     });
-    console.log('media', media);
   };
 
   componentDidMount() {
@@ -99,9 +105,13 @@ export default class AudioProvider extends React.Component {
     const {
       audioFiles,
       currentAudio,
+      currentAudioIndex,
       dataProvider,
+      isPlaying,
       permissionError,
+      playbackDuration,
       playbackObj,
+      playbackPosition,
       soundObject,
     } = this.state;
     if (permissionError)
@@ -120,9 +130,14 @@ export default class AudioProvider extends React.Component {
         value={{
           audioFiles,
           currentAudio,
+          currentAudioIndex,
           dataProvider,
+          isPlaying,
+          playbackDuration,
           playbackObj,
+          playbackPosition,
           soundObject,
+          totalAudioCount: this.totalAudioCount,
           updateState: this.updateState,
         }}
       >
