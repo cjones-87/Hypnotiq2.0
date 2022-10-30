@@ -69,7 +69,6 @@ export default class AudioProvider extends React.Component {
         this.setState({ ...this.state, permissionError: true });
       }
     }
-    console.log('permission', permission);
   };
 
   getAudioFiles = async () => {
@@ -114,6 +113,7 @@ export default class AudioProvider extends React.Component {
       playbackPosition,
       soundObject,
     } = this.state;
+    console.log('soundObject in render', soundObject);
     if (permissionError)
       return (
         <SafeAreaView style={styles.safeAreaView}>

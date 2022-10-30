@@ -28,18 +28,23 @@ const AudioPlayer = () => {
 
   const { currentAudio, playbackDuration, playbackPosition, totalAudioCount } =
     context;
+  //playbackDuration and playbackPosition displaying as null
 
   const calculateSeekBar = () => {
-    console.log('playback duration in calculate seek bar', playbackDuration);
+    console.log(
+      'playback position in calculate seek bar',
+      context.playbackPosition
+    );
     if (playbackPosition !== null && playbackDuration !== null) {
       console.log('is this working in calculate seek bar');
-      return 5;
-      // return playbackPosition / playbackDuration
+      // return 5;
+      return playbackPosition / playbackDuration;
     }
 
     // if (currentAudio.lastPosition) {
     //   return currentAudio.lastPosition / (currentAudio.duration * 1000);
     // }
+    // return playbackPosition / playbackDuration;
 
     return 0;
   };
@@ -69,7 +74,7 @@ const AudioPlayer = () => {
           minimumTrackTintColor={color.FONT_MEDIUM}
           maximumTrackTintColor={color.ACTIVE_BG}
           // value={0.5}
-          // value={calculateSeekBar()}
+          value={calculateSeekBar()}
         />
         <View style={styles.audioControllers}>
           <TouchableOpacity onPress={() => console.log('playing previous')}>
