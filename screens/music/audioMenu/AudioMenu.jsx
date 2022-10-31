@@ -63,6 +63,20 @@ export default class AudioMenu extends React.Component {
     if (playbackStatus.didJustFinish) {
       const nextAudioIndex = this.context.currentAudioIndex + 1;
 
+      //we're either on the last song or there is no next audio
+      if (nextAudioIndex >= this.context.totalAudioCount) {
+        this.context.playbackObj.unloadAsync();
+
+        return this.context.updateState(this.context, {
+          currentAudio: this.context.audioFiles[0],
+          currentAudioIndex: [0],
+          isPlaying: false,
+          playbackDuration: null,
+          playbackPosition: null,
+          soundObject: null,
+        });
+      }
+      // else we want to skip to the next song
       const audio = this.context.audioFiles[nextAudioIndex];
 
       const status = await playNext(this.context.playbackObj, audio.uri);
