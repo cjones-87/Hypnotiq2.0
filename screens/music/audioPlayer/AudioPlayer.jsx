@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { createContext, useContext } from 'react';
 import {
   Dimensions,
   SafeAreaView,
@@ -24,27 +24,24 @@ import { AudioContext } from '../../../context/AudioProvider';
 const { width } = Dimensions.get('window');
 
 const AudioPlayer = () => {
+  // const context = createContext(AudioContext);
   const context = useContext(AudioContext);
 
   const { currentAudio, playbackDuration, playbackPosition, totalAudioCount } =
     context;
+  // useContext(context);
   //playbackDuration and playbackPosition displaying as null
 
   const calculateSeekBar = () => {
-    console.log(
-      'playback position in calculate seek bar',
-      context.playbackPosition
-    );
+    console.log('playback position in calculate seek bar', playbackPosition);
     if (playbackPosition !== null && playbackDuration !== null) {
       console.log('is this working in calculate seek bar');
-      // return 5;
       return playbackPosition / playbackDuration;
     }
 
     // if (currentAudio.lastPosition) {
     //   return currentAudio.lastPosition / (currentAudio.duration * 1000);
     // }
-    // return playbackPosition / playbackDuration;
 
     return 0;
   };
