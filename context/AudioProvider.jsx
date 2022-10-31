@@ -13,6 +13,8 @@ import * as MediaLibrary from 'expo-media-library';
 
 import { DataProvider } from 'recyclerlistview';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 export const AudioContext = createContext();
 
 export default class AudioProvider extends React.Component {
@@ -38,6 +40,23 @@ export default class AudioProvider extends React.Component {
       { onPress: () => this.getPermission(), text: 'I am ready' },
       { onPress: () => this.permissionAlert(), text: 'Cancel' },
     ]);
+  };
+
+  loadPreviousAudio = async () => {
+    let previousAudio = await AsyncStorage.getItem('previousAudio');
+    let currentAudio;
+    let currentAudioIndex;
+
+    if (previousAudio === null) {
+      currentAudio = this.state.audioFiles[0];
+      currentAudioIndex = 0;
+    } else {
+      previousAudio = JSON.parse(previousAudio);
+      currentAudio = previousAudio.audio;
+      currentAudioIndex = previousAudio.index;
+    }
+
+    this.setState({ ...this.state, currentAudio, currentAudioIndex });
   };
 
   getPermission = async () => {
@@ -133,6 +152,7 @@ export default class AudioProvider extends React.Component {
           currentAudioIndex,
           dataProvider,
           isPlaying,
+          loadPreviousAudio: this.loadPreviousAudio,
           playbackDuration,
           playbackObj,
           playbackPosition,

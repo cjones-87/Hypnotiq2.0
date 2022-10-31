@@ -1,4 +1,4 @@
-import React, { createContext, useContext } from 'react';
+import React, { createContext, useContext, useEffect } from 'react';
 import {
   Dimensions,
   SafeAreaView,
@@ -43,6 +43,12 @@ const AudioPlayer = () => {
 
     return 0;
   };
+
+  useEffect(() => {
+    context.loadPreviousAudio();
+  }, []);
+
+  if (!context.currentAudio) return null;
 
   return (
     // <Screen style={styles.container}>
