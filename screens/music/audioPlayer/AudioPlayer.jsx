@@ -21,7 +21,9 @@ import AudioPlayerButton from '../../../components/music/audioButtons/AudioPlaye
 
 import { AudioContext } from '../../../context/AudioProvider';
 
-import { pause, play, resume } from '../../../misc/audioController';
+import { pause, play, playNext, resume } from '../../../misc/audioController';
+
+import { storeAudioForNextOpening } from '../../../misc/helper';
 
 const { width } = Dimensions.get('window');
 
@@ -82,6 +84,91 @@ const AudioPlayer = () => {
     }
   };
 
+  const handleNext = async () => {
+    const { isLoaded } = await context.playbackObj.getStatusAsync();
+    const isLastAudio =
+      context.currentAudioIndex + 1 === context.totalAudioCount;
+
+    let audio = context.audioFiles[context.currentAudioIndex + 1];
+    let index;
+    let status;
+
+    if (!isLoaded && !isLastAudio) {
+      index = context.currentAudioIndex + 1;
+      status = await play(context.playbackObj, audio.uri);
+    }
+
+    if (isLoaded && !isLastAudio) {
+      index = context.currentAudioIndex + 1;
+      audio = context.audioFiles[index];
+
+      status = await playNext(context.playbackObj, audio.uri);
+    }
+
+    if (isLastAudio) {
+      index = 0;
+      audio = context.audioFiles[index];
+
+      if (isLoaded) {
+        status = await playNext(context.playbackObj, audio.uri);
+      } else {
+        status = await play(context.playbackObj, audio.uri);
+      }
+    }
+
+    context.updateState(context, {
+      currentAudio: audio,
+      currentAudioIndex: index,
+      isPlaying: true,
+      playbackObj: context.playbackObj,
+      soundObject: status,
+    });
+
+    storeAudioForNextOpening(audio, index);
+  };
+
+  const handlePrevious = async () => {
+    const { isLoaded } = await context.playbackObj.getStatusAsync();
+    const isFirstAudio = context.currentAudioIndex <= 0;
+
+    let audio = context.audioFiles[context.currentAudioIndex - 1];
+    let index;
+    let status;
+
+    if (!isLoaded && !isFirstAudio) {
+      index = context.currentAudioIndex - 1;
+      status = await play(context.playbackObj, audio.uri);
+    }
+
+    if (isLoaded && !isFirstAudio) {
+      index = context.currentAudioIndex - 1;
+      audio = context.audioFiles[index];
+
+      status = await playNext(context.playbackObj, audio.uri);
+    }
+
+    if (isFirstAudio) {
+      index = context.totalAudioCount - 1;
+      audio = context.audioFiles[index];
+
+      if (isLoaded) {
+        status = await playNext(context.playbackObj, audio.uri);
+      } else {
+        status = await play(context.playbackObj, audio.uri);
+      }
+    }
+
+    context.updateState(context, {
+      currentAudio: audio,
+      currentAudioIndex: index,
+      isPlaying: true,
+      playbackObj: context.playbackObj,
+      soundObject: status,
+    });
+
+    storeAudioForNextOpening(audio, index);
+  };
+
   if (!context.currentAudio) return null;
 
   return (
@@ -111,7 +198,7 @@ const AudioPlayer = () => {
           value={calculateSeekBar()}
         />
         <View style={styles.audioControllers}>
-          <TouchableOpacity onPress={() => console.log('playing previous')}>
+          <TouchableOpacity onPress={handlePrevious}>
             <AudioPlayerButton iconType="PREV" />
           </TouchableOpacity>
           <TouchableOpacity onPress={handlePlayPause}>
@@ -120,7 +207,7 @@ const AudioPlayer = () => {
               style={{ marginHorizontal: 25 }}
             />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => console.log('playing next')}>
+          <TouchableOpacity onPress={handleNext}>
             <AudioPlayerButton iconType="NEXT" />
           </TouchableOpacity>
         </View>

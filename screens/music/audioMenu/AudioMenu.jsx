@@ -114,6 +114,7 @@ export default class AudioMenu extends React.Component {
       });
 
       playbackObj.setOnPlaybackStatusUpdate(this.onPlaybackStatusUpdate);
+
       return storeAudioForNextOpening(audio, index);
     }
 
