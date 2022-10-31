@@ -33,9 +33,7 @@ const AudioPlayer = () => {
   //playbackDuration and playbackPosition displaying as null
 
   const calculateSeekBar = () => {
-    console.log('playback position in calculate seek bar', playbackPosition);
     if (playbackPosition !== null && playbackDuration !== null) {
-      console.log('is this working in calculate seek bar');
       return playbackPosition / playbackDuration;
     }
 
@@ -70,7 +68,6 @@ const AudioPlayer = () => {
           maximumValue={1}
           minimumTrackTintColor={color.FONT_MEDIUM}
           maximumTrackTintColor={color.ACTIVE_BG}
-          // value={0.5}
           value={calculateSeekBar()}
         />
         <View style={styles.audioControllers}>

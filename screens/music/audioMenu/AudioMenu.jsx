@@ -53,15 +53,7 @@ export default class AudioMenu extends React.Component {
   );
 
   onPlaybackStatusUpdate = async (playbackStatus) => {
-    console.log(
-      'this is play back status before onplaybackstatusupdate',
-      playbackStatus
-    );
     if (playbackStatus.isLoaded && playbackStatus.isPlaying) {
-      console.log(
-        'this is also playback Status but in the if block',
-        playbackStatus
-      );
       this.context.updateState(this.context, {
         playbackDuration: playbackStatus.durationMillis,
         playbackPosition: playbackStatus.positionMillis,
@@ -87,9 +79,6 @@ export default class AudioMenu extends React.Component {
   handleAudioPress = async (audio) => {
     const { audioFiles, currentAudio, playbackObj, soundObject, updateState } =
       this.context;
-    // console.log('duration', currentAudio.duration);
-    // console.log('soundObject', soundObject);
-    // console.log('playbackOBJ', playbackObj);
 
     // when playing audio for the first time
     if (soundObject === null) {
