@@ -113,7 +113,7 @@ export default class AudioProvider extends React.Component {
       playbackPosition,
       soundObject,
     } = this.state;
-    console.log('soundObject in render', soundObject);
+
     if (permissionError)
       return (
         <SafeAreaView style={styles.safeAreaView}>

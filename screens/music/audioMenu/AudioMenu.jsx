@@ -22,6 +22,8 @@ import { Audio } from 'expo-av';
 
 import { pause, play, playNext, resume } from '../../../misc/audioController';
 
+// import Screen from '../../../components/music/Screen';
+
 export default class AudioMenu extends React.Component {
   static contextType = AudioContext;
 
@@ -50,16 +52,34 @@ export default class AudioMenu extends React.Component {
     }
   );
 
-  onPlaybackStatusUpdate = (playbackStatus, soundObject) => {
-    console.log('this is play back status before update', playbackStatus);
+  onPlaybackStatusUpdate = async (playbackStatus) => {
+    console.log(
+      'this is play back status before onplaybackstatusupdate',
+      playbackStatus
+    );
     if (playbackStatus.isLoaded && playbackStatus.isPlaying) {
       console.log(
         'this is also playback Status but in the if block',
         playbackStatus
       );
       this.context.updateState(this.context, {
-        playbackDuration: soundObject.durationMillis,
-        playbackPostion: soundObject.positionMillis,
+        playbackDuration: playbackStatus.durationMillis,
+        playbackPosition: playbackStatus.positionMillis,
+      });
+    }
+
+    if (playbackStatus.didJustFinish) {
+      const nextAudioIndex = this.context.currentAudioIndex + 1;
+
+      const audio = this.context.audioFiles[nextAudioIndex];
+
+      const status = await playNext(this.context.playbackObj, audio.uri);
+
+      this.context.updateState(this.context, {
+        currentAudio: audio,
+        currentAudioIndex: nextAudioIndex,
+        isPlaying: true,
+        soundObject: status,
       });
     }
   };
@@ -67,16 +87,15 @@ export default class AudioMenu extends React.Component {
   handleAudioPress = async (audio) => {
     const { audioFiles, currentAudio, playbackObj, soundObject, updateState } =
       this.context;
-    console.log('duration', currentAudio.duration);
-    console.log('soundObject', soundObject);
-    console.log('playbackOBJ', playbackObj);
+    // console.log('duration', currentAudio.duration);
+    // console.log('soundObject', soundObject);
+    // console.log('playbackOBJ', playbackObj);
 
     // when playing audio for the first time
     if (soundObject === null) {
       const playbackObj = new Audio.Sound();
       const status = await play(playbackObj, audio.uri);
       const index = audioFiles.indexOf(audio);
-      // console.log('playbackObj was null', playbackObj);
 
       updateState(this.context, {
         currentAudio: audio,
@@ -85,9 +104,8 @@ export default class AudioMenu extends React.Component {
         playbackObj,
         soundObject: status,
       });
-      playbackObj.setOnPlaybackStatusUpdate(
-        this.onPlaybackStatusUpdate(this.onPlaybackStatusUpdate)
-      );
+
+      return playbackObj.setOnPlaybackStatusUpdate(this.onPlaybackStatusUpdate);
     }
 
     // when wanting to pause audio
@@ -153,6 +171,7 @@ export default class AudioMenu extends React.Component {
       <AudioContext.Consumer>
         {({ dataProvider, isPlaying }) => {
           return (
+            // <Screen>
             <SafeAreaView style={styles.safeAreaView}>
               <RecyclerListView
                 dataProvider={dataProvider}
@@ -171,6 +190,7 @@ export default class AudioMenu extends React.Component {
                 visible={this.state.optionModalVisible}
               />
             </SafeAreaView>
+            // </Screen>
           );
         }}
       </AudioContext.Consumer>
