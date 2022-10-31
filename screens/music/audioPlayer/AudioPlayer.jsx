@@ -21,6 +21,8 @@ import AudioPlayerButton from '../../../components/music/audioButtons/AudioPlaye
 
 import { AudioContext } from '../../../context/AudioProvider';
 
+import { pause, play, resume } from '../../../misc/audioController';
+
 const { width } = Dimensions.get('window');
 
 const AudioPlayer = () => {
@@ -47,6 +49,38 @@ const AudioPlayer = () => {
   useEffect(() => {
     context.loadPreviousAudio();
   }, []);
+
+  const handlePlayPause = async () => {
+    // play
+    if (context.soundObject === null) {
+      const audio = context.currentAudio;
+
+      const status = await play(context.playbackObj, audio.uri);
+
+      return context.updateState(context, {
+        isPlaying: false,
+        soundObject: status,
+      });
+    }
+
+    //pause
+    if (context.soundObject && context.soundObject.isPlaying) {
+      const status = await pause(context.playbackObj);
+      return context.updateState(context, {
+        isPlaying: true,
+        soundObject: status,
+      });
+    }
+
+    //resume
+    if (context.soundObject && !context.soundObject.isPlaying) {
+      const status = await resume(context.playbackObj);
+      return context.updateState(context, {
+        isPlaying: true,
+        soundObject: status,
+      });
+    }
+  };
 
   if (!context.currentAudio) return null;
 
@@ -80,7 +114,7 @@ const AudioPlayer = () => {
           <TouchableOpacity onPress={() => console.log('playing previous')}>
             <AudioPlayerButton iconType="PREV" />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => console.log('playing')}>
+          <TouchableOpacity onPress={handlePlayPause}>
             <AudioPlayerButton
               iconType={context.isPlaying ? 'PLAY' : 'PAUSE'}
               style={{ marginHorizontal: 25 }}
