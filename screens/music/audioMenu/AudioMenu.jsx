@@ -22,6 +22,8 @@ import { Audio } from 'expo-av';
 
 import { pause, play, playNext, resume } from '../../../misc/audioController';
 
+import { storeAudioForNextOpening } from '../../../misc/helper';
+
 // import Screen from '../../../components/music/Screen';
 
 export default class AudioMenu extends React.Component {
@@ -67,14 +69,16 @@ export default class AudioMenu extends React.Component {
       if (nextAudioIndex >= this.context.totalAudioCount) {
         this.context.playbackObj.unloadAsync();
 
-        return this.context.updateState(this.context, {
+        this.context.updateState(this.context, {
           currentAudio: this.context.audioFiles[0],
-          currentAudioIndex: [0],
+          currentAudioIndex: 0,
           isPlaying: false,
           playbackDuration: null,
           playbackPosition: null,
           soundObject: null,
         });
+
+        return await storeAudioForNextOpening(this.context.audioFiles[0], 0);
       }
       // else we want to skip to the next song
       const audio = this.context.audioFiles[nextAudioIndex];
@@ -87,6 +91,7 @@ export default class AudioMenu extends React.Component {
         isPlaying: true,
         soundObject: status,
       });
+      await storeAudioForNextOpening(audio, nextAudioIndex);
     }
   };
 
@@ -108,7 +113,8 @@ export default class AudioMenu extends React.Component {
         soundObject: status,
       });
 
-      return playbackObj.setOnPlaybackStatusUpdate(this.onPlaybackStatusUpdate);
+      playbackObj.setOnPlaybackStatusUpdate(this.onPlaybackStatusUpdate);
+      return storeAudioForNextOpening(audio, index);
     }
 
     // when wanting to pause audio
@@ -144,14 +150,19 @@ export default class AudioMenu extends React.Component {
       const status = await playNext(playbackObj, audio.uri);
       const index = audioFiles.indexOf(audio);
 
-      return updateState(this.context, {
+      updateState(this.context, {
         currentAudio: audio,
         currentAudioIndex: index,
         isPlaying: true,
         soundObject: status,
       });
+      return storeAudioForNextOpening(audio, index);
     }
   };
+
+  componentDidMount() {
+    this.context.loadPreviousAudio();
+  }
 
   rowRenderer = (type, item, index, extendedState) => {
     return (
@@ -173,6 +184,8 @@ export default class AudioMenu extends React.Component {
     return (
       <AudioContext.Consumer>
         {({ dataProvider, isPlaying }) => {
+          if (!dataProvider._data.length) return null;
+
           return (
             // <Screen>
             <SafeAreaView style={styles.safeAreaView}>
