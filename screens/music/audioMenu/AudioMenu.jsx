@@ -200,7 +200,9 @@ export default class AudioMenu extends React.Component {
               />
               <OptionModal
                 currentItem={this.currentItem}
-                onAddToPlaylist={() => console.log('adding to the playlist')}
+                onAddToPlaylist={() => {
+                  this.props.navigation.navigate('Library');
+                }}
                 onClose={() =>
                   this.setState({ ...this.state, optionModalVisible: false })
                 }
