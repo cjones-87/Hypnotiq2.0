@@ -59,6 +59,10 @@ const AudioPlayer = () => {
 
       const status = await play(context.playbackObj, audio.uri);
 
+      context.playbackObj.setOnPlaybackStatusUpdate(
+        context.onPlaybackStatusUpdate
+      );
+
       return context.updateState(context, {
         isPlaying: false,
         soundObject: status,
@@ -120,7 +124,9 @@ const AudioPlayer = () => {
       currentAudio: audio,
       currentAudioIndex: index,
       isPlaying: true,
+      playbackDuration: null,
       playbackObj: context.playbackObj,
+      playbackPosition: null,
       soundObject: status,
     });
 
@@ -162,7 +168,9 @@ const AudioPlayer = () => {
       currentAudio: audio,
       currentAudioIndex: index,
       isPlaying: true,
+      playbackDuration: null,
       playbackObj: context.playbackObj,
+      playbackPosition: null,
       soundObject: status,
     });
 

@@ -54,46 +54,46 @@ export default class AudioMenu extends React.Component {
     }
   );
 
-  onPlaybackStatusUpdate = async (playbackStatus) => {
-    if (playbackStatus.isLoaded && playbackStatus.isPlaying) {
-      this.context.updateState(this.context, {
-        playbackDuration: playbackStatus.durationMillis,
-        playbackPosition: playbackStatus.positionMillis,
-      });
-    }
+  // onPlaybackStatusUpdate = async (playbackStatus) => {
+  //   if (playbackStatus.isLoaded && playbackStatus.isPlaying) {
+  //     this.context.updateState(this.context, {
+  //       playbackDuration: playbackStatus.durationMillis,
+  //       playbackPosition: playbackStatus.positionMillis,
+  //     });
+  //   }
 
-    if (playbackStatus.didJustFinish) {
-      const nextAudioIndex = this.context.currentAudioIndex + 1;
+  //   if (playbackStatus.didJustFinish) {
+  //     const nextAudioIndex = this.context.currentAudioIndex + 1;
 
-      //we're either on the last song or there is no next audio
-      if (nextAudioIndex >= this.context.totalAudioCount) {
-        this.context.playbackObj.unloadAsync();
+  //     //we're either on the last song or there is no next audio
+  //     if (nextAudioIndex >= this.context.totalAudioCount) {
+  //       this.context.playbackObj.unloadAsync();
 
-        this.context.updateState(this.context, {
-          currentAudio: this.context.audioFiles[0],
-          currentAudioIndex: 0,
-          isPlaying: false,
-          playbackDuration: null,
-          playbackPosition: null,
-          soundObject: null,
-        });
+  //       this.context.updateState(this.context, {
+  //         currentAudio: this.context.audioFiles[0],
+  //         currentAudioIndex: 0,
+  //         isPlaying: false,
+  //         playbackDuration: null,
+  //         playbackPosition: null,
+  //         soundObject: null,
+  //       });
 
-        return await storeAudioForNextOpening(this.context.audioFiles[0], 0);
-      }
-      // else we want to skip to the next song
-      const audio = this.context.audioFiles[nextAudioIndex];
+  //       return await storeAudioForNextOpening(this.context.audioFiles[0], 0);
+  //     }
+  //     // else we want to skip to the next song
+  //     const audio = this.context.audioFiles[nextAudioIndex];
 
-      const status = await playNext(this.context.playbackObj, audio.uri);
+  //     const status = await playNext(this.context.playbackObj, audio.uri);
 
-      this.context.updateState(this.context, {
-        currentAudio: audio,
-        currentAudioIndex: nextAudioIndex,
-        isPlaying: true,
-        soundObject: status,
-      });
-      await storeAudioForNextOpening(audio, nextAudioIndex);
-    }
-  };
+  //     this.context.updateState(this.context, {
+  //       currentAudio: audio,
+  //       currentAudioIndex: nextAudioIndex,
+  //       isPlaying: true,
+  //       soundObject: status,
+  //     });
+  //     await storeAudioForNextOpening(audio, nextAudioIndex);
+  //   }
+  // };
 
   handleAudioPress = async (audio) => {
     const { audioFiles, currentAudio, playbackObj, soundObject, updateState } =
@@ -113,7 +113,9 @@ export default class AudioMenu extends React.Component {
         soundObject: status,
       });
 
-      playbackObj.setOnPlaybackStatusUpdate(this.onPlaybackStatusUpdate);
+      playbackObj.setOnPlaybackStatusUpdate(
+        this.context.onPlaybackStatusUpdate
+      );
 
       return storeAudioForNextOpening(audio, index);
     }
@@ -198,7 +200,9 @@ export default class AudioMenu extends React.Component {
               />
               <OptionModal
                 currentItem={this.currentItem}
-                onAddToPlaylist={() => console.log('adding to the playlist')}
+                onAddToPlaylist={() => {
+                  this.props.navigation.navigate('Library');
+                }}
                 onClose={() =>
                   this.setState({ ...this.state, optionModalVisible: false })
                 }

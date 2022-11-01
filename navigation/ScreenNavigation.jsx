@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { NavigationContainer } from '@react-navigation/native';
+import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Splash from '../screens/splash/Splash.jsx';
 import LoginScreen from '../screens/authentication/login/LoginScreen.jsx';
@@ -12,7 +12,17 @@ import { firebase } from '../firebase';
 
 import AudioProvider from '../context/AudioProvider.jsx';
 
+import color from '../misc/color.js';
+
 const Stack = createNativeStackNavigator();
+
+const MyTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: color.APP_BG,
+  },
+};
 
 const Routes = () => {
   const [initializing, setInitializing] = useState(true);
@@ -69,7 +79,7 @@ const Routes = () => {
 const ScreenNavigation = () => {
   return (
     <AudioProvider>
-      <NavigationContainer>
+      <NavigationContainer theme={MyTheme}>
         <Routes />
       </NavigationContainer>
     </AudioProvider>

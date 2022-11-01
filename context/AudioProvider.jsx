@@ -17,6 +17,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { Audio } from 'expo-av';
 
+import { playNext } from '../misc/audioController';
+
 export const AudioContext = createContext();
 
 export default class AudioProvider extends React.Component {
@@ -113,6 +115,47 @@ export default class AudioProvider extends React.Component {
     });
   };
 
+  onPlaybackStatusUpdate = async (playbackStatus) => {
+    if (playbackStatus.isLoaded && playbackStatus.isPlaying) {
+      this.updateState(this, {
+        playbackDuration: playbackStatus.durationMillis,
+        playbackPosition: playbackStatus.positionMillis,
+      });
+    }
+
+    if (playbackStatus.didJustFinish) {
+      const nextAudioIndex = this.state.currentAudioIndex + 1;
+
+      //we're either on the last song or there is no next audio
+      if (nextAudioIndex >= this.totalAudioCount) {
+        this.state.playbackObj.unloadAsync();
+
+        this.updateState(this, {
+          currentAudio: this.state.audioFiles[0],
+          currentAudioIndex: 0,
+          isPlaying: false,
+          playbackDuration: null,
+          playbackPosition: null,
+          soundObject: null,
+        });
+
+        return await storeAudioForNextOpening(this.state.audioFiles[0], 0);
+      }
+      // else we want to skip to the next song
+      const audio = this.state.audioFiles[nextAudioIndex];
+
+      const status = await playNext(this.state.playbackObj, audio.uri);
+
+      this.updateState(this, {
+        currentAudio: audio,
+        currentAudioIndex: nextAudioIndex,
+        isPlaying: true,
+        soundObject: status,
+      });
+      await storeAudioForNextOpening(audio, nextAudioIndex);
+    }
+  };
+
   componentDidMount() {
     this.getPermission();
 
@@ -159,6 +202,7 @@ export default class AudioProvider extends React.Component {
           dataProvider,
           isPlaying,
           loadPreviousAudio: this.loadPreviousAudio,
+          onPlaybackStatusUpdate: this.onPlaybackStatusUpdate,
           playbackDuration,
           playbackObj,
           playbackPosition,
