@@ -25,12 +25,14 @@ export default class AudioProvider extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      addToPlaylist: null,
       audioFiles: [],
       currentAudio: {},
       currentAudioIndex: null,
       dataProvider: new DataProvider((rule1, rule2) => rule1 !== rule2),
       isPlaying: false,
       permissionError: false,
+      playlist: [],
       playbackObj: null,
       soundObject: null,
       playbackDuration: null,
@@ -170,6 +172,7 @@ export default class AudioProvider extends React.Component {
 
   render() {
     const {
+      addToPlaylist,
       audioFiles,
       currentAudio,
       currentAudioIndex,
@@ -177,6 +180,7 @@ export default class AudioProvider extends React.Component {
       isPlaying,
       permissionError,
       playbackDuration,
+      playlist,
       playbackObj,
       playbackPosition,
       soundObject,
@@ -196,6 +200,7 @@ export default class AudioProvider extends React.Component {
     return (
       <AudioContext.Provider
         value={{
+          addToPlaylist,
           audioFiles,
           currentAudio,
           currentAudioIndex,
@@ -204,6 +209,7 @@ export default class AudioProvider extends React.Component {
           loadPreviousAudio: this.loadPreviousAudio,
           onPlaybackStatusUpdate: this.onPlaybackStatusUpdate,
           playbackDuration,
+          playlist,
           playbackObj,
           playbackPosition,
           soundObject,

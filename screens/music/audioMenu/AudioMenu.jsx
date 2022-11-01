@@ -201,6 +201,9 @@ export default class AudioMenu extends React.Component {
               <OptionModal
                 currentItem={this.currentItem}
                 onAddToPlaylist={() => {
+                  this.context.updateState(this.context, {
+                    addToPlaylist: this.currentItem,
+                  });
                   this.props.navigation.navigate('Library');
                 }}
                 onClose={() =>
