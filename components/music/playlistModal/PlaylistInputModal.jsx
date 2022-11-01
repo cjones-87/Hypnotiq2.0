@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import {
   Dimensions,
@@ -7,6 +7,7 @@ import {
   Modal,
   Text,
   TextInput,
+  TouchableOpacity,
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
@@ -16,16 +17,38 @@ import { AntDesign } from '@expo/vector-icons';
 import color from '../../../misc/color';
 
 const PlaylistInputModal = ({ onClose, onSubmit, visible }) => {
+  const [playlistName, setPlaylistName] = useState('');
+
+  const handleOnSubmit = () => {
+    if (!playlistName.trim()) {
+      onClose();
+    } else {
+      onSubmit(playlistName);
+      setPlaylistName('');
+      onClose();
+    }
+  };
+
   return (
-    <Modal animationType="fade" transparent visible={visible}>
+    <Modal
+      animationType="fade"
+      removeClippedSubviews={false}
+      transparent
+      visible={visible}
+    >
       <View style={styles.modalContainer}>
         <View style={styles.inputContainer}>
           <Text style={{ color: color.ACTIVE_BG }}>Create New Playlist</Text>
-          <TextInput style={styles.input} />
+          <TextInput
+            onChangeText={(text) => setPlaylistName(text)}
+            style={styles.input}
+            value={playlistName}
+          />
+
           <AntDesign
             color={color.ACTIVE_FONT}
-            name="checkcircle"
-            onPress={onSubmit}
+            name="checkcircleo"
+            onPress={handleOnSubmit}
             size={24}
             style={styles.submitIcon}
           />
@@ -59,7 +82,7 @@ const styles = StyleSheet.create({
   },
   modalBG: {
     backgroundColor: color.MODAL_BG,
-    zIndex: 99,
+    zIndex: -1,
   },
   modalContainer: {
     alignItems: 'center',
