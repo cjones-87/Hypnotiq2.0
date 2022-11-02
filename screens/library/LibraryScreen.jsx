@@ -15,15 +15,17 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import PlaylistInputModal from '../../components/music/playlistModal/PlaylistInputModal';
+import PlaylistDetail from '../../components/music/playlistDetail/PlaylistDetail';
 
 import color from '../../misc/color';
 
 import { AudioContext } from '../../context/AudioProvider';
 
-const backgroundImage = require('../../assets/favicon.png');
+let selectedPlaylist = {};
 
 const LibraryScreen = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
+  const [showPlaylist, setShowPlaylist] = useState(false);
 
   const context = useContext(AudioContext);
 
@@ -136,7 +138,8 @@ const LibraryScreen = ({ navigation }) => {
     }
 
     // if there is no audio selected then we want to open the list
-    console.log('opening list');
+    selectedPlaylist = playlist;
+    setShowPlaylist(true);
   };
 
   return (
@@ -158,6 +161,7 @@ const LibraryScreen = ({ navigation }) => {
               </TouchableOpacity>
             ))
           : null}
+
         <TouchableOpacity
           onPress={() => setModalVisible(true)}
           style={{ marginTop: 15 }}
@@ -169,6 +173,12 @@ const LibraryScreen = ({ navigation }) => {
           visible={modalVisible}
           onClose={() => setModalVisible(false)}
           onSubmit={createPlaylist}
+        />
+
+        <PlaylistDetail
+          onClose={() => setShowPlaylist(false)}
+          playlist={selectedPlaylist}
+          visible={showPlaylist}
         />
       </ScrollView>
     </SafeAreaView>
