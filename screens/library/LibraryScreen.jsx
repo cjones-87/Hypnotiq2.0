@@ -86,6 +86,59 @@ const LibraryScreen = ({ navigation }) => {
     }
   }, []);
 
+  const handleBannerPress = async (playlist) => {
+    // update playlist if there is any selected audio
+
+    if (addToPlaylist) {
+      const result = await AsyncStorage.getItem('playlist');
+
+      let oldList = [];
+      let updatedList = [];
+      let sameAudio = false;
+
+      if (result !== null) {
+        oldList = JSON.parse(result);
+
+        updatedList = oldList.filter((list) => {
+          if (list.id === playlist.id) {
+            // we want to check if that same audio is already inside our list or not
+
+            for (let audio of list.audios) {
+              if (audio.id === addToPlaylist.id) {
+                //alert with a message
+                sameAudio = true;
+                return;
+              }
+            }
+
+            // else update the playlist
+            list.audios = [...list.audios, addToPlaylist];
+          }
+
+          return list;
+        });
+      }
+
+      if (sameAudio) {
+        Alert.alert(
+          'Found same audio',
+          `$${addToPlaylist.filename} is already inside the list.`
+        );
+
+        sameAudio = false;
+
+        return updateState(context, { addToPlaylist: null });
+      }
+
+      updateState(context, { addToPlaylist: null, playlist: [...updatedList] });
+
+      return AsyncStorage.setItem('playlist', JSON.stringify([...updatedList]));
+    }
+
+    // if there is no audio selected then we want to open the list
+    console.log('opening list');
+  };
+
   return (
     <SafeAreaView>
       <ScrollView contentContainerStyle={styles.container}>
@@ -93,6 +146,7 @@ const LibraryScreen = ({ navigation }) => {
           ? playlist.map((item) => (
               <TouchableOpacity
                 key={item.id.toString()}
+                onPress={() => handleBannerPress(item)}
                 style={styles.playlistBanner}
               >
                 <Text>{item.title}</Text>
