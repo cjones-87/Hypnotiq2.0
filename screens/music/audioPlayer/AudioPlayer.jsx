@@ -21,16 +21,9 @@ import AudioPlayerButton from '../../../components/music/audioButtons/AudioPlaye
 
 import { AudioContext } from '../../../context/AudioProvider';
 
-import {
-  changeAudio,
-  pause,
-  play,
-  playNext,
-  resume,
-  selectAudio,
-} from '../../../misc/audioController';
+import { changeAudio, selectAudio } from '../../../misc/audioController';
 
-import { storeAudioForNextOpening } from '../../../misc/helper';
+import { convertTime, storeAudioForNextOpening } from '../../../misc/helper';
 
 const { width } = Dimensions.get('window');
 
@@ -68,6 +61,10 @@ const AudioPlayer = () => {
     await changeAudio(context, 'previous');
   };
 
+  const renderCurrentTime = () => {
+    return convertTime(context.playbackPosition / 1000);
+  };
+
   if (!context.currentAudio) return null;
 
   return (
@@ -87,6 +84,12 @@ const AudioPlayer = () => {
         <Text numberOfLines={1} style={styles.audioTitle}>
           {context.currentAudio.filename}
         </Text>
+
+        <View style={styles.playbackPosition}>
+          <Text>{convertTime(context.playbackPosition / 1000)}</Text>
+
+          <Text>{convertTime(context.currentAudio.duration)}</Text>
+        </View>
 
         <Slider
           style={{ width: width, height: 40 }}
@@ -143,6 +146,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
     justifyContent: 'center',
+  },
+  playbackPosition: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 15,
   },
 });
 
