@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import {
   Dimensions,
   SafeAreaView,
@@ -21,13 +21,21 @@ import AudioPlayerButton from '../../../components/music/audioButtons/AudioPlaye
 
 import { AudioContext } from '../../../context/AudioProvider';
 
-import { changeAudio, selectAudio } from '../../../misc/audioController';
+import {
+  changeAudio,
+  moveAudio,
+  pause,
+  resume,
+  selectAudio,
+} from '../../../misc/audioController';
 
 import { convertTime, storeAudioForNextOpening } from '../../../misc/helper';
 
 const { width } = Dimensions.get('window');
 
 const AudioPlayer = () => {
+  const [currentPosition, setCurrentPosition] = useState(0);
+
   const context = useContext(AudioContext);
 
   const { currentAudio, playbackDuration, playbackPosition, totalAudioCount } =
@@ -86,7 +94,7 @@ const AudioPlayer = () => {
         </Text>
 
         <View style={styles.playbackPosition}>
-          <Text>{convertTime(context.playbackPosition / 1000)}</Text>
+          <Text>{currentPosition ? currentPosition : renderCurrentTime()}</Text>
 
           <Text>{convertTime(context.currentAudio.duration)}</Text>
         </View>
@@ -97,6 +105,22 @@ const AudioPlayer = () => {
           maximumValue={1}
           minimumTrackTintColor={color.FONT_MEDIUM}
           maximumTrackTintColor={color.ACTIVE_BG}
+          onSlidingComplete={async (value) => await moveAudio(context, value)}
+          onSlidingStart={async () => {
+            //if you pause with nothing to pause will throw an error
+            if (!context.isPlaying) return;
+
+            try {
+              await pause(context.playbackObj);
+            } catch (error) {
+              console.log('error inside onslidingstart callback', error);
+            }
+          }}
+          onValueChange={(value) => {
+            setCurrentPosition(
+              convertTime(value * context.currentAudio.duration)
+            );
+          }}
           value={calculateSeekBar()}
         />
         <View style={styles.audioControllers}>

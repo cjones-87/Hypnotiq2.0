@@ -90,6 +90,7 @@ export const selectAudio = async (audio, context) => {
 
       return updateState(context, {
         isPlaying: false,
+        playbackPosition: status.positionMillis,
         soundObject: status,
       });
     }
@@ -216,5 +217,26 @@ export const changeAudio = async (context, select) => {
       'error inside change audio method in audio controller',
       error.message
     );
+  }
+};
+
+export const moveAudio = async (context, value) => {
+  const { isPlaying, playbackObj, soundObject, updateState } = context;
+
+  if (soundObject === null || !isPlaying) return;
+
+  try {
+    const status = await playbackObj.setPositionAsync(
+      Math.floor(soundObject.durationMillis * value)
+    );
+
+    updateState(context, {
+      playbackPosition: status.positionMillis,
+      soundObject: status,
+    });
+
+    await resume(playbackObj);
+  } catch (error) {
+    console.log('error inside onslidingcomplete callback', error);
   }
 };
