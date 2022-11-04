@@ -19,6 +19,8 @@ import { Audio } from 'expo-av';
 
 import { playNext } from '../misc/audioController';
 
+import { storeAudioForNextOpening } from '../misc/helper';
+
 export const AudioContext = createContext();
 
 export default class AudioProvider extends React.Component {
