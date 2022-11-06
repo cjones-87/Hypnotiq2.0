@@ -139,7 +139,10 @@ const LibraryScreen = ({ navigation }) => {
 
     // if there is no audio selected then we want to open the list
     selectedPlaylist = playlist;
-    setShowPlaylist(true);
+
+    // setShowPlaylist(true);
+
+    navigation.navigate('Playlist Detail', playlist);
   };
 
   return (
