@@ -78,9 +78,21 @@ const AudioPlayer = () => {
   return (
     // <Screen style={styles.container}>
     <SafeAreaView style={styles.container}>
-      <Text style={styles.audioCount}>{`${
-        context.currentAudioIndex + 1
-      } / ${totalAudioCount}`}</Text>
+      <View style={styles.audioCountContainer}>
+        <View style={{ flexDirection: 'row' }}>
+          {context.isPlaylistRunning && (
+            <>
+              <Text style={{ fontWeight: 'bold' }}>From Playlist: </Text>
+              <Text>{context.activePlaylist.title}</Text>
+            </>
+          )}
+        </View>
+
+        <Text style={styles.audioCount}>{`${
+          context.currentAudioIndex + 1
+        } / ${totalAudioCount}`}</Text>
+      </View>
+
       <View style={styles.midBannerContainer}>
         <Ionicons
           name="musical-notes"
@@ -105,7 +117,11 @@ const AudioPlayer = () => {
           maximumValue={1}
           minimumTrackTintColor={color.FONT_MEDIUM}
           maximumTrackTintColor={color.ACTIVE_BG}
-          onSlidingComplete={async (value) => await moveAudio(context, value)}
+          onSlidingComplete={async (value) => {
+            await moveAudio(context, value);
+
+            setCurrentPosition(0);
+          }}
           onSlidingStart={async () => {
             //if you pause with nothing to pause will throw an error
             if (!context.isPlaying) return;
@@ -155,10 +171,13 @@ const styles = StyleSheet.create({
     backgroundColor: 'red',
     color: color.FONT_LIGHT,
     fontSize: 14,
-    padding: 15,
     textAlign: 'right',
   },
-  audioPlayerContainer: {},
+  audioCountContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 15,
+  },
   audioTitle: { color: color.FONT, fontSize: 16, padding: 15 },
   container: {
     backgroundColor: color.APP_BG,

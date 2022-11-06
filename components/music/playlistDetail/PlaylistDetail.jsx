@@ -12,8 +12,13 @@ import {
 import AudioMenuItem from '../audioMenu/AudioMenuItem';
 
 import color from '../../../misc/color';
+import { selectAudio } from '../../../misc/audioController';
 
 const PlaylistDetail = ({ onClose, playlist, visible }) => {
+  const playAudio = (audio) => {
+    selectAudio(audio);
+  };
+
   return (
     <Modal
       animationType="slide"
@@ -29,7 +34,11 @@ const PlaylistDetail = ({ onClose, playlist, visible }) => {
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
             <View style={{ marginBottom: 10 }}>
-              <AudioMenuItem duration={item.duration} title={item.filename} />
+              <AudioMenuItem
+                duration={item.duration}
+                onAudioPress={() => playAudio(item)}
+                title={item.filename}
+              />
             </View>
           )}
         />

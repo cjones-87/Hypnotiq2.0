@@ -27,12 +27,14 @@ export default class AudioProvider extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      activePlaylist: [],
       addToPlaylist: null,
       audioFiles: [],
       currentAudio: {},
       currentAudioIndex: null,
       dataProvider: new DataProvider((rule1, rule2) => rule1 !== rule2),
       isPlaying: false,
+      isPlaylistRunning: false,
       permissionError: false,
       playlist: [],
       playbackObj: null,
@@ -128,9 +130,35 @@ export default class AudioProvider extends React.Component {
     }
 
     if (playbackStatus.didJustFinish) {
+      if (this.state.isPlaylistRunning) {
+        let audio;
+        const indexOnPlaylist = this.state.activePlaylist.audios.findIndex(
+          ({ id }) => id === this.state.currentAudio.id
+        );
+        const nextIndex = indexOnPlaylist + 1;
+
+        audio = this.state.activePlaylist.audios[nextIndex];
+
+        // if no audio, song is the last one
+        if (!audio) audio = this.state.activePlaylist.audios[0];
+
+        const indexOnAllList = this.state.audioFiles.findIndex(
+          ({ id }) => id === audio.id
+        );
+
+        const status = await playNext(this.state.playbackObj, audio.uri);
+
+        return this.updateState(this, {
+          currentAudio: audio,
+          currentAudioIndex: indexOnAllList,
+          isPlaying: true,
+          soundObject: status,
+        });
+      }
+
       const nextAudioIndex = this.state.currentAudioIndex + 1;
 
-      //we're either on the last song or there is no next audio
+      // we're either on the last song or there is no next audio
       if (nextAudioIndex >= this.totalAudioCount) {
         this.state.playbackObj.unloadAsync();
 
@@ -174,12 +202,14 @@ export default class AudioProvider extends React.Component {
 
   render() {
     const {
+      activePlaylist,
       addToPlaylist,
       audioFiles,
       currentAudio,
       currentAudioIndex,
       dataProvider,
       isPlaying,
+      isPlaylistRunning,
       permissionError,
       playbackDuration,
       playlist,
@@ -202,12 +232,14 @@ export default class AudioProvider extends React.Component {
     return (
       <AudioContext.Provider
         value={{
+          activePlaylist,
           addToPlaylist,
           audioFiles,
           currentAudio,
           currentAudioIndex,
           dataProvider,
           isPlaying,
+          isPlaylistRunning,
           loadPreviousAudio: this.loadPreviousAudio,
           onPlaybackStatusUpdate: this.onPlaybackStatusUpdate,
           playbackDuration,
