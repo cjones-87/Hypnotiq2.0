@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from 'react-native';
 
@@ -93,6 +94,48 @@ const PlaylistDetail = (props) => {
     closeModal();
   };
 
+  const removePlaylist = async () => {
+    let activePlaylist = context.activePlaylist;
+    let isPlaying = context.isPlaying;
+    let isPlaylistRunning = context.isPlaylistRunning;
+    let playbackPosition = context.playbackPosition;
+    let soundObject = context.soundObject;
+
+    if (context.isPlaylistRunning && activePlaylist.id === playlist.id) {
+      //stop audio
+      await context.playbackObj.stopAsync();
+      await context.playbackObj.unloadAsync();
+
+      activePlaylist = [];
+      isPlaying = false;
+      isPlaylistRunning = false;
+      playbackPosition = 0;
+      soundObject = null;
+    }
+
+    const result = await AsyncStorage.getItem('playlist');
+
+    if (result !== null) {
+      const oldPlaylists = JSON.parse(result);
+      const updatedPlaylists = oldPlaylists.filter(
+        (item) => item.id !== playlist.id
+      );
+
+      AsyncStorage.setItem('playlist', JSON.stringify(updatedPlaylists));
+
+      context.updateState(context, {
+        activePlaylist,
+        isPlaying,
+        isPlaylistRunning,
+        playlist: updatedPlaylists,
+        playbackPosition,
+        soundObject,
+      });
+    }
+
+    props.navigation.goBack();
+  };
+
   return (
     // <Modal
     //   animationType="slide"
@@ -102,7 +145,19 @@ const PlaylistDetail = (props) => {
     // >
     <>
       <View style={styles.container}>
-        <Text style={styles.title}>{playlist.title}</Text>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            paddingHorizontal: 15,
+            width: '100%',
+          }}
+        >
+          <Text style={styles.title}>{playlist.title}</Text>
+          <TouchableOpacity onPress={removePlaylist}>
+            <Text style={[styles.title, { color: 'red' }]}>Remove</Text>
+          </TouchableOpacity>
+        </View>
         {audios.length ? (
           <FlatList
             contentContainerStyle={styles.listContainer}
@@ -151,7 +206,7 @@ const PlaylistDetail = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    alignSelf: 'center',
+    alignItems: 'center',
   },
   listContainer: {
     padding: 20,
