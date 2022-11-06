@@ -18,6 +18,7 @@ const OptionModal = ({
   onClose,
   onLike,
   onPlayPress,
+  options,
 }) => {
   const { filename } = currentItem;
 
@@ -33,7 +34,14 @@ const OptionModal = ({
             {filename}
           </Text>
           <View style={styles.optionContainer}>
-            <TouchableOpacity onPress={onPlayPress}>
+            {options.map((option) => {
+              return (
+                <TouchableOpacity key={option.title} onPress={option.onPress}>
+                  <Text style={styles.option}>{option.title}</Text>
+                </TouchableOpacity>
+              );
+            })}
+            {/* <TouchableOpacity onPress={onPlayPress}>
               <Text style={styles.option}>Play</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={onLike}>
@@ -41,7 +49,7 @@ const OptionModal = ({
             </TouchableOpacity>
             <TouchableOpacity onPress={onAddToPlaylist}>
               <Text style={styles.option}>Add to Playlist</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             {/* <Text style={styles.}>Add to Queue</Text>
             <Text style={styles.}>Go to Artist</Text>s
             <Text style={styles.}>Share</Text>
