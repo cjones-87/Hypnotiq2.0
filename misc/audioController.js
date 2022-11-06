@@ -135,14 +135,57 @@ export const selectAudio = async (audio, context, playlistInfo = {}) => {
   }
 };
 
+const selectAudioFromPlaylist = async (context, select) => {
+  const { activePlaylist, audioFiles, currentAudio, playbackObj, updateState } =
+    context;
+
+  let audio;
+  let defaultIndex;
+  let nextIndex;
+
+  const indexOnPlaylist = activePlaylist.audios.findIndex(
+    ({ id }) => id === currentAudio.id
+  );
+
+  if (select === 'next') {
+    defaultIndex = 0;
+    nextIndex = indexOnPlaylist + 1;
+  }
+
+  if (select === 'previous') {
+    defaultIndex = activePlaylist.audios.length - 1;
+    nextIndex = indexOnPlaylist - 1;
+  }
+
+  audio = activePlaylist.audios[nextIndex];
+
+  // if no audio, song is the last one
+  if (!audio) audio = activePlaylist.audios[defaultIndex];
+
+  const indexOnAllList = audioFiles.findIndex(({ id }) => id === audio.id);
+
+  const status = await playNext(playbackObj, audio.uri);
+
+  return updateState(context, {
+    currentAudio: audio,
+    currentAudioIndex: indexOnAllList,
+    isPlaying: true,
+    soundObject: status,
+  });
+};
+
 export const changeAudio = async (context, select) => {
   const {
     audioFiles,
     currentAudioIndex,
+    isPlaylistRunning,
+    onPlaybackStatusUpdate,
     playbackObj,
     totalAudioCount,
     updateState,
   } = context;
+
+  if (isPlaylistRunning) return selectAudioFromPlaylist(context, select);
 
   try {
     const { isLoaded } = await playbackObj.getStatusAsync();
@@ -161,6 +204,7 @@ export const changeAudio = async (context, select) => {
       if (!isLoaded && !isLastAudio) {
         index = currentAudioIndex + 1;
         status = await play(playbackObj, audio.uri);
+        playbackObj.setOnPlaybackStatusUpdate(onPlaybackStatusUpdate);
       }
 
       if (isLoaded && !isLastAudio) {
@@ -189,6 +233,7 @@ export const changeAudio = async (context, select) => {
       if (!isLoaded && !isFirstAudio) {
         index = currentAudioIndex - 1;
         status = await play(playbackObj, audio.uri);
+        playbackObj.setOnPlaybackStatusUpdate(onPlaybackStatusUpdate);
       }
 
       if (isLoaded && !isFirstAudio) {
