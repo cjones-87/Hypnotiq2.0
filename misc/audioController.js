@@ -1,14 +1,23 @@
 import { storeAudioForNextOpening } from './helper';
 
 // play audio
-export const play = async (playbackObj, uri) => {
+export const play = async (playbackObj, uri, lastPosition) => {
   try {
-    const status = await playbackObj.loadAsync(
+    if (!lastPosition) {
+      const status = await playbackObj.loadAsync(
+        { uri },
+        { shouldPlay: true, progressUpdateIntervalMillis: 1000 }
+      );
+
+      return status;
+    }
+
+    await playbackObj.loadAsync(
       { uri },
-      { shouldPlay: true, progressUpdateIntervalMillis: 1000 }
+      { progressUpdateIntervalMillis: 1000 }
     );
 
-    return status;
+    return await playbackObj.playFromPositionAsync(lastPosition);
   } catch (error) {
     console.log('error in play helper method', error.message);
   }
@@ -65,7 +74,7 @@ export const selectAudio = async (audio, context, playlistInfo = {}) => {
   try {
     // when playing audio for the first time
     if (soundObject === null) {
-      const status = await play(playbackObj, audio.uri);
+      const status = await play(playbackObj, audio.uri, audio.lastPosition);
 
       const index = audioFiles.findIndex(({ id }) => id === audio.id);
 

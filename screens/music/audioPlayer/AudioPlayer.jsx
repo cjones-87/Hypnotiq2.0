@@ -46,9 +46,9 @@ const AudioPlayer = () => {
       return playbackPosition / playbackDuration;
     }
 
-    // if (currentAudio.lastPosition) {
-    //   return currentAudio.lastPosition / (currentAudio.duration * 1000);
-    // }
+    if (currentAudio.lastPosition) {
+      return currentAudio.lastPosition / (currentAudio.duration * 1000);
+    }
 
     return 0;
   };
@@ -70,6 +70,10 @@ const AudioPlayer = () => {
   };
 
   const renderCurrentTime = () => {
+    if (!context.soundObject && currentAudio.lastPosition) {
+      return convertTime(currentAudio.lastPosition / 1000);
+    }
+
     return convertTime(context.playbackPosition / 1000);
   };
 
