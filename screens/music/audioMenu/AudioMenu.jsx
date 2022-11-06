@@ -84,6 +84,13 @@ export default class AudioMenu extends React.Component {
     );
   };
 
+  navigateToPlaylist = () => {
+    this.context.updateState(this.context, {
+      addToPlaylist: this.currentItem,
+    });
+    this.props.navigation.navigate('Library Screen');
+  };
+
   render() {
     return (
       <AudioContext.Consumer>
@@ -101,17 +108,23 @@ export default class AudioMenu extends React.Component {
               />
               <OptionModal
                 currentItem={this.currentItem}
-                onAddToPlaylist={() => {
-                  this.context.updateState(this.context, {
-                    addToPlaylist: this.currentItem,
-                  });
-                  this.props.navigation.navigate('Library');
-                }}
+                // onAddToPlaylist={() => {
+                //   this.context.updateState(this.context, {
+                //     addToPlaylist: this.currentItem,
+                //   });
+                //   this.props.navigation.navigate('Library');
+                // }}
                 onClose={() =>
                   this.setState({ ...this.state, optionModalVisible: false })
                 }
                 onLike={() => console.log('added to liked')}
-                onPlayPress={() => console.log('playing audio')}
+                // onPlayPress={() => console.log('playing audio')}
+                options={[
+                  {
+                    onPress: this.navigateToPlaylist,
+                    title: 'Add to playlist',
+                  },
+                ]}
                 visible={this.state.optionModalVisible}
               />
             </SafeAreaView>
