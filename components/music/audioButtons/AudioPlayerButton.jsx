@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AntDesign, Ionicons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import color from '../../../misc/color';
 
 const AudioPlayerButton = (props) => {
@@ -16,14 +16,6 @@ const AudioPlayerButton = (props) => {
         return 'md-play-forward-circle';
       case 'PREV':
         return 'ios-play-back-circle';
-      //   case 'PLAY':
-      //     return 'pausecircle';
-      //   case 'PAUSE':
-      //     return 'play';
-      //   case 'NEXT':
-      //     return 'forward';
-      //   case 'PREV':
-      //     return 'banckward';
     }
   };
 
@@ -34,16 +26,7 @@ const AudioPlayerButton = (props) => {
       name={getIconName(iconType)}
       onPress={onPress}
       size={size}
-      //   {...otherProps}
-      //   style={{ marginHorizontal: 15 }}
     />
-    // <AntDesign
-    //   color={iconColor}
-    //   name={getIconName(iconType)}
-    //   onPress={onPress}
-    //   size={size}
-    //   {...otherProps}
-    // />
   );
 };
 

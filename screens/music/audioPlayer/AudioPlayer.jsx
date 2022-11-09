@@ -81,42 +81,105 @@ const AudioPlayer = () => {
 
   return (
     // <Screen style={styles.container}>
-    <SafeAreaView style={styles.container}>
-      <View style={styles.audioCountContainer}>
+    <SafeAreaView
+      style={[
+        styles.container,
+        { backgroundColor: context.isPlaying ? 'black' : color.ACTIVE_BG },
+      ]}
+    >
+      <View
+        style={[
+          styles.audioCountContainer,
+          {
+            color: context.isPlaying ? color.ACTIVE_BG : 'pink',
+          },
+        ]}
+      >
         <View style={{ flexDirection: 'row' }}>
           {context.isPlaylistRunning && (
             <>
-              <Text style={{ fontWeight: 'bold' }}>From Playlist: </Text>
-              <Text>{context.activePlaylist.title}</Text>
+              <Text
+                style={{
+                  color: context.isPlaying ? color.ACTIVE_BG : 'pink',
+                  fontWeight: 'bold',
+                }}
+              >
+                From Playlist:
+              </Text>
+              <Text
+                style={{
+                  color: context.isPlaying ? color.ACTIVE_BG : 'pink',
+                }}
+              >
+                {context.activePlaylist.title}
+              </Text>
             </>
           )}
         </View>
 
-        <Text style={styles.audioCount}>{`${
-          context.currentAudioIndex + 1
-        } / ${totalAudioCount}`}</Text>
+        <Text
+          style={[
+            styles.audioCount,
+            { color: context.isPlaying ? color.ACTIVE_BG : 'pink' },
+          ]}
+        >{`${context.currentAudioIndex + 1} / ${totalAudioCount}`}</Text>
       </View>
 
-      <View style={styles.midBannerContainer}>
+      <View
+        style={[
+          styles.midBannerContainer,
+          ,
+          { color: context.isPlaying ? color.ACTIVE_BG : 'pink' },
+        ]}
+      >
         <Ionicons
           name="musical-notes"
           size={225}
-          color={context.isPlaying ? color.ACTIVE_BG : color.FONT_MEDIUM}
+          color={context.isPlaying ? color.ACTIVE_BG : 'pink'}
         />
       </View>
+
       <View style={styles.audioPlayerContainer}>
-        <Text numberOfLines={1} style={styles.audioTitle}>
+        <Text
+          numberOfLines={1}
+          style={[
+            styles.audioTitle,
+            { color: context.isPlaying ? color.ACTIVE_BG : 'pink' },
+          ]}
+        >
           {context.currentAudio.filename}
         </Text>
 
-        <View style={styles.playbackPosition}>
-          <Text>{currentPosition ? currentPosition : renderCurrentTime()}</Text>
+        <View
+          style={[
+            styles.playbackPosition,
+            ,
+            { color: context.isPlaying ? color.ACTIVE_BG : 'pink' },
+          ]}
+        >
+          <Text
+            style={{
+              color: context.isPlaying ? color.ACTIVE_BG : 'pink',
+            }}
+          >
+            {currentPosition ? currentPosition : renderCurrentTime()}
+          </Text>
 
-          <Text>{convertTime(context.currentAudio.duration)}</Text>
+          <Text
+            style={{
+              color: context.isPlaying ? color.ACTIVE_BG : 'pink',
+            }}
+          >
+            {convertTime(context.currentAudio.duration)}
+          </Text>
         </View>
 
         <Slider
-          style={{ width: width, height: 40 }}
+          style={{
+            color: context.isPlaying ? color.ACTIVE_BG : 'pink',
+            width: width,
+            height: 40,
+          }}
           minimumValue={0}
           maximumValue={1}
           minimumTrackTintColor={color.FONT_MEDIUM}
@@ -145,16 +208,29 @@ const AudioPlayer = () => {
         />
         <View style={styles.audioControllers}>
           <TouchableOpacity onPress={handlePrevious}>
-            <AudioPlayerButton iconType="PREV" />
+            <AudioPlayerButton
+              iconType="PREV"
+              style={{
+                color: context.isPlaying ? color.ACTIVE_BG : color.FONT_MEDIUM,
+              }}
+            />
           </TouchableOpacity>
           <TouchableOpacity onPress={handlePlayPause}>
             <AudioPlayerButton
               iconType={context.isPlaying ? 'PLAY' : 'PAUSE'}
-              style={{ marginHorizontal: 25 }}
+              style={{
+                color: context.isPlaying ? color.ACTIVE_BG : color.FONT_MEDIUM,
+                marginHorizontal: 25,
+              }}
             />
           </TouchableOpacity>
           <TouchableOpacity onPress={handleNext}>
-            <AudioPlayerButton iconType="NEXT" />
+            <AudioPlayerButton
+              iconType="NEXT"
+              style={{
+                color: context.isPlaying ? color.ACTIVE_BG : color.FONT_MEDIUM,
+              }}
+            />
           </TouchableOpacity>
         </View>
       </View>
@@ -172,7 +248,6 @@ const styles = StyleSheet.create({
     width,
   },
   audioCount: {
-    backgroundColor: 'red',
     color: color.FONT_LIGHT,
     fontSize: 14,
     textAlign: 'right',
@@ -182,12 +257,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 15,
   },
-  audioTitle: { color: color.FONT, fontSize: 16, padding: 15 },
+  audioTitle: {
+    color: color.FONT,
+    fontSize: 16,
+    padding: 15,
+  },
   container: {
-    backgroundColor: color.APP_BG,
     flex: 1,
     paddingTop: StatusBar.currentHeight,
-    // paddingTop: StatusBar.currentHeight / 10000,
   },
   midBannerContainer: {
     alignItems: 'center',

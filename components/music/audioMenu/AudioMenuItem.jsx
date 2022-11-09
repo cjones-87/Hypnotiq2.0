@@ -13,7 +13,11 @@ import {
 
 import color from '../../../misc/color';
 
-const getThumbnailText = (filename) => filename[0];
+const getThumbnailText = (filename, isPlaying) => (
+  <Text style={{ color: isPlaying ? 'pink' : color.ACTIVE_BG }}>
+    {filename[0]}
+  </Text>
+);
 
 const convertTime = (minutes) => {
   if (minutes) {
@@ -40,9 +44,17 @@ const convertTime = (minutes) => {
 
 const renderPlayPauseIcon = (isPlaying) => {
   return isPlaying ? (
-    <AntDesign name="pausecircle" size={24} color={color.ACTIVE_FONT} />
+    <AntDesign
+      name="pausecircle"
+      size={24}
+      color={isPlaying ? 'pink' : color.FONT_MEDIUM}
+    />
   ) : (
-    <AntDesign name="play" size={24} color={color.FONT_LIGHT} />
+    <AntDesign
+      name="play"
+      size={24}
+      color={isPlaying ? color.FONT_MEDIUM : 'black'}
+    />
   );
 };
 
@@ -56,30 +68,60 @@ const AudioMenuItem = ({
 }) => {
   return (
     <>
-      <View style={styles.container}>
+      <View
+        style={[
+          styles.container,
+          {
+            backgroundColor: activeListItem ? 'black' : color.ACTIVE_BG,
+            borderRadius: 25,
+          },
+        ]}
+      >
         <TouchableOpacity onPress={onAudioPress}>
           <View style={styles.leftContainer}>
             <View
               style={[
                 styles.thumbnail,
                 {
-                  backgroundColor: activeListItem
-                    ? color.ACTIVE_BG
-                    : color.FONT_LIGHT,
+                  backgroundColor: activeListItem ? color.ACTIVE_BG : 'pink',
                 },
               ]}
             >
-              <Text style={styles.thumbnailText}>
+              <Text
+                style={[
+                  styles.thumbnailText,
+                  { color: isPlaying ? color.ACTIVE_BG : 'pink' },
+                ]}
+              >
                 {activeListItem
                   ? renderPlayPauseIcon(isPlaying)
                   : getThumbnailText(title)}
               </Text>
             </View>
             <View style={styles.titleContainer}>
-              <Text numberOfLines={1} style={styles.title}>
+              <Text
+                numberOfLines={1}
+                style={[
+                  styles.title,
+                  {
+                    color:
+                      isPlaying && activeListItem ? color.ACTIVE_BG : 'pink',
+                  },
+                ]}
+              >
                 {title}
               </Text>
-              <Text style={styles.timeText}>{convertTime(duration)}</Text>
+              <Text
+                style={[
+                  styles.timeText,
+                  {
+                    color:
+                      isPlaying && activeListItem ? color.ACTIVE_BG : 'pink',
+                  },
+                ]}
+              >
+                {convertTime(duration)}
+              </Text>
             </View>
           </View>
         </TouchableOpacity>
@@ -135,8 +177,8 @@ const styles = StyleSheet.create({
     height: 50,
     justifyContent: 'center',
   },
-  thumbnailText: { color: color.FONT, fontSize: 22, fontWeight: 'bold' },
-  title: { color: color.FONT, fontSize: 16 },
+  thumbnailText: { fontSize: 22, fontWeight: 'bold' },
+  title: { fontSize: 16 },
   titleContainer: {
     paddingLeft: 10,
     width: width - 180,

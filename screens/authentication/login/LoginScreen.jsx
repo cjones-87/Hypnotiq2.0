@@ -18,6 +18,8 @@ import Entypo from '@expo/vector-icons/Entypo';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
+import color from '../../../misc/color';
+
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -47,7 +49,7 @@ const LoginScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.safeAreaView}>
       <View style={styles.container}>
-        <StatusBar backgroundColor={'rebeccapurple'} hidden={false} />
+        <StatusBar backgroundColor={color.ACTIVE_BG} hidden={false} />
         <Text style={styles.text}>Login</Text>
         <View style={styles.sectionStyle}>
           <Image
@@ -63,7 +65,7 @@ const LoginScreen = ({ navigation }) => {
               setEmail(email.trim());
             }}
             placeholder={'Enter email'}
-            placeholderTextColor={'rebeccapurple'}
+            placeholderTextColor={color.ACTIVE_BG}
             style={{ flex: 1 }}
             underlineColorAndroid="transparent"
             value={email}
@@ -81,7 +83,7 @@ const LoginScreen = ({ navigation }) => {
             autoComplete="password"
             onChangeText={(password) => setPassword(password.trim())}
             placeholder={'Password'}
-            placeholderTextColor={'rebeccapurple'}
+            placeholderTextColor={color.ACTIVE_BG}
             secureTextEntry={!isSecureText}
             style={{ flex: 1 }}
             underlineColorAndroid="transparent"
@@ -94,7 +96,7 @@ const LoginScreen = ({ navigation }) => {
         <View style={[styles.sectionStyle, { marginTop: 100, width: '40%' }]}>
           <TouchableOpacity>
             <Entypo.Button
-              color={'rebeccapurple'}
+              color={color.ACTIVE_BG}
               name="login"
               onPress={() => {
                 loginUser(email, password);
@@ -109,7 +111,7 @@ const LoginScreen = ({ navigation }) => {
         <View style={[styles.sectionStyle, { width: '40%' }]}>
           <TouchableOpacity>
             <FontAwesome5.Button
-              color={'rebeccapurple'}
+              color={color.ACTIVE_BG}
               name="question-circle"
               onPress={() => navigation.navigate('Forgot Password Screen')}
               style={styles.icon}
@@ -121,7 +123,7 @@ const LoginScreen = ({ navigation }) => {
         <View style={[styles.sectionStyle, { marginTop: 100, width: '40%' }]}>
           <TouchableOpacity>
             <Ionicons.Button
-              color={'rebeccapurple'}
+              color={color.ACTIVE_BG}
               name="create"
               onPress={() => navigation.navigate('Registration Screen')}
               style={styles.icon}
@@ -152,7 +154,7 @@ const styles = StyleSheet.create({
     margin: 5,
     padding: 10,
     resizeMode: 'stretch',
-    tintColor: 'rebeccapurple',
+    tintColor: color.ACTIVE_BG,
     width: 25,
   },
   safeAreaView: {
@@ -162,7 +164,7 @@ const styles = StyleSheet.create({
   sectionStyle: {
     alignItems: 'center',
     backgroundColor: 'pink',
-    borderColor: 'rebeccapurple',
+    borderColor: color.ACTIVE_BG,
     borderRadius: 5,
     borderWidth: 0.5,
     flexDirection: 'row',
@@ -171,7 +173,7 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   text: {
-    color: 'rebeccapurple',
+    color: color.ACTIVE_BG,
     fontSize: 42,
     margin: 10,
   },

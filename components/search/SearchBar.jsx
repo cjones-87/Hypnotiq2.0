@@ -7,7 +7,10 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
+
+import color from '../../misc/color';
 
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -25,7 +28,7 @@ const SearchBar = () => {
             value={searchTerm}
             onChangeText={(searchTerm) => setSearchTerm(searchTerm)}
             placeholder={'Search by artist, song, or album'}
-            placeholderTextColor={'rebeccapurple'}
+            placeholderTextColor={color.ACTIVE_BG}
             style={styles.input}
           />
         </TouchableOpacity>
@@ -46,7 +49,7 @@ const styles = StyleSheet.create({
   icon: {
     alignItems: 'center',
     backgroundColor: 'pink',
-    color: 'rebeccapurple',
+    color: color.ACTIVE_BG,
     height: 44,
     justifyContent: 'center',
     padding: 10,
@@ -55,7 +58,7 @@ const styles = StyleSheet.create({
   input: {
     alignItems: 'center',
     backgroundColor: 'pink',
-    color: 'rebeccapurple',
+    color: color.ACTIVE_BG,
     height: 44,
     justifyContent: 'center',
     textAlignVertical: 'center',

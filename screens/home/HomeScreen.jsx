@@ -16,6 +16,8 @@ import {
 
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
+import color from '../../misc/color';
+
 const backgroundImage = require('../../assets/favicon.png');
 
 const HomeScreen = ({ navigation }) => {
@@ -55,7 +57,7 @@ const HomeScreen = ({ navigation }) => {
     <>
       <ImageBackground source={backgroundImage} style={styles.backgroundImage}>
         <SafeAreaView style={styles.safeAreaView}>
-          <StatusBar backgroundColor={'rebeccapurple'} hidden={false} />
+          <StatusBar backgroundColor={color.ACTIVE_BG} hidden={false} />
           <View>
             <TouchableOpacity style={styles.button}>
               <Text style={styles.text}>Howdy, {name.displayName}</Text>
@@ -64,7 +66,7 @@ const HomeScreen = ({ navigation }) => {
           <View style={styles.sectionStyle}>
             <TouchableOpacity>
               <MaterialCommunityIcons.Button
-                color={'rebeccapurple'}
+                color={color.ACTIVE_BG}
                 name="lock-question"
                 style={styles.icon}
                 onPress={() => changePassword()}
@@ -108,7 +110,7 @@ const styles = StyleSheet.create({
     paddingTop: StatusBar.currentHeight / 10000,
   },
   text: {
-    color: 'rebeccapurple',
+    color: color.ACTIVE_BG,
     fontSize: 32,
     textAlign: 'center',
   },

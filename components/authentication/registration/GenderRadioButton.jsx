@@ -26,7 +26,7 @@ const GenderRadioButton = () => {
             <RadioButtonInput
               borderWidth={selectedOption === obj.value ? 9 : 1}
               buttonInnerColor={
-                selectedOption === obj.value ? 'rebeccapurple' : 'transparent'
+                selectedOption === obj.value ? color.ACTIVE_BG : 'transparent'
               }
               buttonOuterColor={'black'}
               buttonOuterSize={14}
@@ -48,8 +48,12 @@ const GenderRadioButton = () => {
               }}
               labelStyle={
                 selectedOption === obj.value
-                  ? { fontWeight: 'bold', fontSize: 14, color: 'rebeccapurple' }
-                  : { fontSize: 12, color: 'rebeccapurple' }
+                  ? {
+                      fontWeight: 'bold',
+                      fontSize: 14,
+                      color: color.ACTIVE_BG,
+                    }
+                  : { fontSize: 12, color: color.ACTIVE_BG }
               }
               obj={obj}
             />
