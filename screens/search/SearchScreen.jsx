@@ -8,13 +8,16 @@ import {
 } from 'react-native';
 import SearchBar from '../../components/search/SearchBar';
 import Browse from '../../components/search/Browse';
+
+import color from '../../misc/color';
+
 const backgroundImage = require('../../assets/favicon.png');
 
 const SearchScreen = () => (
   <>
     <ImageBackground source={backgroundImage} style={styles.backgroundImage}>
       <SafeAreaView style={styles.safeAreaView}>
-        <StatusBar backgroundColor={'rebeccapurple'} hidden={false} />
+        <StatusBar backgroundColor={color.ACTIVE_BG} hidden={false} />
         <View>
           <SearchBar />
           <Browse />

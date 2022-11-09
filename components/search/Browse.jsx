@@ -11,6 +11,8 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import imageArray from '../../utils/browseFunctions/ImageArray';
 import renderCategoryList from '../../utils/browseFunctions/RenderCategoryList';
 
+import color from '../../misc/color';
+
 const Browse = () => {
   return (
     <SafeAreaView>
@@ -39,7 +41,7 @@ const styles = StyleSheet.create({
   },
   title: {
     alignItems: 'center',
-    backgroundColor: 'rebeccapurple',
+    backgroundColor: color.ACTIVE_BG,
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',

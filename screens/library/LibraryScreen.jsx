@@ -15,7 +15,8 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import PlaylistInputModal from '../../components/music/playlistModal/PlaylistInputModal';
-import PlaylistDetail from '../../components/music/playlistDetail/PlaylistDetail';
+// import PlaylistDetail from '../../components/playlistDetail/PlaylistDetail';
+import PlaylistDetail from './PlaylistDetail';
 
 import color from '../../misc/color';
 
@@ -90,7 +91,6 @@ const LibraryScreen = ({ navigation }) => {
 
   const handleBannerPress = async (playlist) => {
     // update playlist if there is any selected audio
-
     if (addToPlaylist) {
       const result = await AsyncStorage.getItem('playlist');
 
@@ -146,45 +146,45 @@ const LibraryScreen = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView>
-      <ScrollView contentContainerStyle={styles.container}>
-        {playlist.length
-          ? playlist.map((item) => (
-              <TouchableOpacity
-                key={item.id.toString()}
-                onPress={() => handleBannerPress(item)}
-                style={styles.playlistBanner}
-              >
-                <Text>{item.title}</Text>
-                <Text style={styles.audioCount}>
-                  {item.audios.length > 1
-                    ? `${item.audios.length} Songs`
-                    : `${item.audios.length} Song`}
-                </Text>
-              </TouchableOpacity>
-            ))
-          : null}
+    // <SafeAreaView>
+    <ScrollView contentContainerStyle={styles.container}>
+      {playlist.length
+        ? playlist.map((item) => (
+            <TouchableOpacity
+              key={item.id.toString()}
+              onPress={() => handleBannerPress(item)}
+              style={styles.playlistBanner}
+            >
+              <Text>{item.title}</Text>
+              <Text style={styles.audioCount}>
+                {item.audios.length > 1
+                  ? `${item.audios.length} Songs`
+                  : `${item.audios.length} Song`}
+              </Text>
+            </TouchableOpacity>
+          ))
+        : null}
 
-        <TouchableOpacity
-          onPress={() => setModalVisible(true)}
-          style={{ marginTop: 15 }}
-        >
-          <Text style={styles.playlistButton}>+ Add New Playlist</Text>
-        </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => setModalVisible(true)}
+        style={{ marginTop: 15 }}
+      >
+        <Text style={styles.playlistButton}>+ Add New Playlist</Text>
+      </TouchableOpacity>
 
-        <PlaylistInputModal
-          visible={modalVisible}
-          onClose={() => setModalVisible(false)}
-          onSubmit={createPlaylist}
-        />
+      <PlaylistInputModal
+        visible={modalVisible}
+        onClose={() => setModalVisible(false)}
+        onSubmit={createPlaylist}
+      />
 
-        <PlaylistDetail
-          onClose={() => setShowPlaylist(false)}
-          playlist={selectedPlaylist}
-          visible={showPlaylist}
-        />
-      </ScrollView>
-    </SafeAreaView>
+      {/* <PlaylistDetail
+        onClose={() => setShowPlaylist(false)}
+        playlist={selectedPlaylist}
+        visible={showPlaylist}
+      /> */}
+    </ScrollView>
+    // </SafeAreaView>
   );
 };
 

@@ -9,6 +9,8 @@ import Entypo from '@expo/vector-icons/Entypo';
 import BlinkingText from '../../utils/textAnimations/BlinkingText';
 import Hypnotiq from '../../assets/Hypnotiq.mp4';
 
+import color from '../../misc/color';
+
 /* Keeps the splash screen visible while resources are fetched*/
 SplashScreen.preventAutoHideAsync();
 
@@ -55,7 +57,7 @@ export default function Splash({ navigation }) {
   return (
     <View style={styles.safeAreaView} onLayout={onLayoutRootView}>
       <View style={styles.container}>
-        <StatusBar backgroundColor={'rebeccapurple'} hidden={false} />
+        <StatusBar backgroundColor={color.ACTIVE_BG} hidden={false} />
 
         <Text
           style={styles.text}

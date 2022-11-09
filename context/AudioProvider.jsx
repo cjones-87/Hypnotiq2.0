@@ -20,6 +20,7 @@ import { Audio } from 'expo-av';
 import { playNext } from '../misc/audioController';
 
 import { storeAudioForNextOpening } from '../misc/helper';
+import color from '../misc/color';
 
 export const AudioContext = createContext();
 
@@ -286,7 +287,7 @@ const styles = StyleSheet.create({
     paddingTop: StatusBar.currentHeight / 10000,
   },
   text: {
-    color: 'rebeccapurple',
+    color: color.ACTIVE_BG,
     fontSize: 32,
     textAlign: 'center',
   },

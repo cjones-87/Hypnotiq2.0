@@ -16,6 +16,8 @@ import {
 import Ionicons from '@expo/vector-icons/Ionicons';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
+import color from '../../../misc/color';
+
 const ForgotPasswordScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
 
@@ -33,7 +35,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.safeAreaView}>
       <View style={styles.container}>
-        <StatusBar backgroundColor={'rebeccapurple'} hidden={false} />
+        <StatusBar backgroundColor={color.ACTIVE_BG} hidden={false} />
         <Text style={styles.text}>Forgot Password</Text>
         <View style={styles.sectionStyle}>
           <Image
@@ -45,7 +47,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
           <TextInput
             onChangeText={(email) => setEmail(email)}
             placeholder={'Enter account email'}
-            placeholderTextColor={'rebeccapurple'}
+            placeholderTextColor={color.ACTIVE_BG}
             style={{ flex: 1 }}
             underlineColorAndroid="transparent"
             value={email}
@@ -54,7 +56,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
         <View style={styles.sectionStyle}>
           <TouchableOpacity>
             <MaterialCommunityIcons.Button
-              color={'rebeccapurple'}
+              color={color.ACTIVE_BG}
               name="lock-question"
               style={styles.icon}
               onPress={() => {
@@ -69,7 +71,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
         <View style={styles.sectionStyle}>
           <TouchableOpacity>
             <Ionicons.Button
-              color={'rebeccapurple'}
+              color={color.ACTIVE_BG}
               name="create"
               onPress={() => navigation.navigate('Registration Screen')}
               style={styles.icon}
@@ -99,7 +101,7 @@ const styles = StyleSheet.create({
     margin: 5,
     padding: 10,
     resizeMode: 'stretch',
-    tintColor: 'rebeccapurple',
+    tintColor: color.ACTIVE_BG,
     width: 25,
   },
   safeAreaView: {
@@ -109,7 +111,7 @@ const styles = StyleSheet.create({
   sectionStyle: {
     alignItems: 'center',
     backgroundColor: 'pink',
-    borderColor: 'rebeccapurple',
+    borderColor: color.ACTIVE_BG,
     borderRadius: 5,
     borderWidth: 0.5,
     flexDirection: 'row',
@@ -118,7 +120,7 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   text: {
-    color: 'rebeccapurple',
+    color: color.ACTIVE_BG,
     fontSize: 42,
     margin: 10,
   },

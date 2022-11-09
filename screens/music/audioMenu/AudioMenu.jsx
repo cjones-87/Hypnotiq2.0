@@ -29,6 +29,7 @@ import {
 } from '../../../misc/audioController';
 
 import { storeAudioForNextOpening } from '../../../misc/helper';
+import color from '../../../misc/color';
 
 // import Screen from '../../../components/music/Screen';
 
@@ -88,7 +89,7 @@ export default class AudioMenu extends React.Component {
     this.context.updateState(this.context, {
       addToPlaylist: this.currentItem,
     });
-    this.props.navigation.navigate('Library Screen');
+    this.props.navigation.navigate('Playlist');
   };
 
   render() {
@@ -105,6 +106,11 @@ export default class AudioMenu extends React.Component {
                 extendedState={{ isPlaying }}
                 layoutProvider={this.layoutProvider}
                 rowRenderer={this.rowRenderer}
+                style={{
+                  color: this.context.isPlaying
+                    ? color.ACTIVE_BG
+                    : color.FONT_MEDIUM,
+                }}
               />
               <OptionModal
                 currentItem={this.currentItem}
@@ -125,6 +131,11 @@ export default class AudioMenu extends React.Component {
                     title: 'Add to playlist',
                   },
                 ]}
+                style={{
+                  color: this.context.isPlaying
+                    ? color.ACTIVE_BG
+                    : color.FONT_MEDIUM,
+                }}
                 visible={this.state.optionModalVisible}
               />
             </SafeAreaView>
@@ -155,7 +166,7 @@ const styles = StyleSheet.create({
     paddingTop: StatusBar.currentHeight / 10000,
   },
   text: {
-    color: 'rebeccapurple',
+    color: color.ACTIVE_BG,
     fontSize: 32,
     textAlign: 'center',
   },

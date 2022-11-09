@@ -61,12 +61,12 @@ const BottomNavigationBar = () => {
         component={HomeScreen}
         options={{
           tabBarIcon: () => (
-            <FontAwesome5 name="home" color="rebeccapurple" size={25} />
+            <FontAwesome5 name="home" color={color.ACTIVE_BG} size={25} />
           ),
           tabBarActiveBackgroundColor: 'black',
           tabBarActiveTintColor: 'pink',
           tabBarInactiveBackgroundColor: 'pink',
-          tabBarInactiveTintColor: 'rebeccapurple',
+          tabBarInactiveTintColor: color.ACTIVE_BG,
         }}
       />
       <Tab.Screen
@@ -74,12 +74,12 @@ const BottomNavigationBar = () => {
         component={SearchScreen}
         options={{
           tabBarIcon: () => (
-            <FontAwesome5 name="search" color="rebeccapurple" size={25} />
+            <FontAwesome5 name="search" color={color.ACTIVE_BG} size={25} />
           ),
           tabBarActiveBackgroundColor: 'black',
           tabBarActiveTintColor: 'pink',
           tabBarInactiveBackgroundColor: 'pink',
-          tabBarInactiveTintColor: 'rebeccapurple',
+          tabBarInactiveTintColor: color.ACTIVE_BG,
         }}
       />
       {/* <Tab.Screen
@@ -89,14 +89,14 @@ const BottomNavigationBar = () => {
           tabBarIcon: () => (
             <MaterialIcons
               name="library-music"
-              color="rebeccapurple"
+              color={color.ACTIVE_BG}
               size={25}
             />
           ),
           tabBarActiveBackgroundColor: 'black',
           tabBarActiveTintColor: 'pink',
           tabBarInactiveBackgroundColor: 'pink',
-          tabBarInactiveTintColor: 'rebeccapurple',
+          tabBarInactiveTintColor: color.ACTIVE_BG,
         }}
       /> */}
       <Tab.Screen
@@ -106,14 +106,14 @@ const BottomNavigationBar = () => {
           tabBarIcon: () => (
             <MaterialIcons
               name="library-music"
-              color="rebeccapurple"
+              color={color.ACTIVE_BG}
               size={25}
             />
           ),
           tabBarActiveBackgroundColor: 'black',
           tabBarActiveTintColor: 'pink',
           tabBarInactiveBackgroundColor: 'pink',
-          tabBarInactiveTintColor: 'rebeccapurple',
+          tabBarInactiveTintColor: color.ACTIVE_BG,
         }}
       />
       <Tab.Screen
@@ -121,12 +121,12 @@ const BottomNavigationBar = () => {
         component={AudioPlayer}
         options={{
           tabBarIcon: () => (
-            <MaterialIcons name="headset" color="rebeccapurple" size={25} />
+            <MaterialIcons name="headset" color={color.ACTIVE_BG} size={25} />
           ),
           tabBarActiveBackgroundColor: 'black',
           tabBarActiveTintColor: 'pink',
           tabBarInactiveBackgroundColor: 'pink',
-          tabBarInactiveTintColor: 'rebeccapurple',
+          tabBarInactiveTintColor: color.ACTIVE_BG,
         }}
       />
       <Tab.Screen
@@ -134,12 +134,12 @@ const BottomNavigationBar = () => {
         component={AudioMenu}
         options={{
           tabBarIcon: () => (
-            <Entypo name="folder-music" color="rebeccapurple" size={25} />
+            <Entypo name="folder-music" color={color.ACTIVE_BG} size={25} />
           ),
           tabBarActiveBackgroundColor: 'black',
           tabBarActiveTintColor: 'pink',
           tabBarInactiveBackgroundColor: 'pink',
-          tabBarInactiveTintColor: 'rebeccapurple',
+          tabBarInactiveTintColor: color.ACTIVE_BG,
         }}
       />
     </Tab.Navigator>

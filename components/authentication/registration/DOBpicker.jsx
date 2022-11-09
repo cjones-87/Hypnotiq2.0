@@ -5,6 +5,9 @@ import { StyleSheet, View } from 'react-native';
 import { Days, Months, Years } from '../registrationData/DayMonthYearData';
 
 import DropDownPicker from 'react-native-dropdown-picker';
+
+import color from '../../../misc/color';
+
 DropDownPicker.setListMode('SCROLLVIEW');
 const DOBpicker = () => {
   const [dayOpen, setDayOpen] = useState(false);
@@ -47,7 +50,7 @@ const DOBpicker = () => {
           open={monthOpen}
           searchable
           searchPlaceholder={'month'}
-          searchPlaceholderTextColor={'rebeccapurple'}
+          searchPlaceholderTextColor={color.ACTIVE_BG}
           setItems={setMonth}
           setOpen={setMonthOpen}
           setValue={setMonthValue}
@@ -71,7 +74,7 @@ const DOBpicker = () => {
           open={dayOpen}
           searchable
           searchPlaceholder={'day'}
-          searchPlaceholderTextColor={'rebeccapurple'}
+          searchPlaceholderTextColor={color.ACTIVE_BG}
           setItems={setDay}
           setOpen={setDayOpen}
           setValue={setDayValue}
@@ -94,7 +97,7 @@ const DOBpicker = () => {
           open={yearOpen}
           searchable
           searchPlaceholder={'year'}
-          searchPlaceholderTextColor={'rebeccapurple'}
+          searchPlaceholderTextColor={color.ACTIVE_BG}
           setItems={setYear}
           setOpen={setYearOpen}
           setValue={setYearValue}
