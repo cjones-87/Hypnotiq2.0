@@ -22,6 +22,12 @@
   <a href="https://docs.expo.dev/" target="_blank" rel="noreferrer"> 
     <img src="https://i.imgur.com/rK7kcqv.png" alt="react native expo" width="40" height="40"/> 
   </a> 
+  <a href="https://firebase.google.com/docs" target="_blank" rel="noreferrer"> 
+    <img src="https://img.icons8.com/color/2x/firebase.png" alt="firebase" width="40" height="40"/> 
+  </a> 
+  <a href="https://firebase.google.com/docs/firestore" target="_blank" rel="noreferrer"> 
+    <img src="https://img.icons8.com/color/2x/cloud-firestore.png" alt="firestore" width="40" height="40"/> 
+  </a> 
 <!-- 
    <a href="https://www.netlify.com/" target="_blank" rel="noreferrer"> 
     <img src="https://img.icons8.com/external-tal-revivo-filled-tal-revivo/344/external-netlify-a-cloud-computing-company-that-offers-hosting-and-serverless-backend-services-for-static-websites-logo-filled-tal-revivo.png" alt="netlify" width="30" height="25"/> 
