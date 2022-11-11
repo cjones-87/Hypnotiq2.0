@@ -129,7 +129,7 @@ const AudioMenuItem = ({
           <MaterialCommunityIcons
             name="dots-vertical"
             size={20}
-            color={color.FONT_MEDIUM}
+            color={isPlaying && activeListItem ? color.ACTIVE_BG : 'pink'}
             onPress={onOptionPress}
             style={{ padding: 10 }}
           />
