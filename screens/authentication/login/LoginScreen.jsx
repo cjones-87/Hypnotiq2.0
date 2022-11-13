@@ -4,6 +4,8 @@ import { firebase } from '../../../firebase';
 
 import {
   Image,
+  KeyboardAvoidingView,
+  Platform,
   Pressable,
   SafeAreaView,
   StatusBar,
@@ -13,6 +15,8 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+
+import Checkbox from 'expo-checkbox';
 
 import Entypo from '@expo/vector-icons/Entypo';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
@@ -24,12 +28,37 @@ const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const [isChecked, setIsChecked] = useState(false);
+  const toggleIsChecked = () => {
+    setIsChecked((current) => (current = !current));
+  };
+
   const loginUser = async (email, password) => {
-    try {
-      await firebase.auth().signInWithEmailAndPassword(email, password);
-      navigation.replace('Bottom Navigation Bar');
-    } catch (error) {
-      alert(error.message);
+    if (isChecked) {
+      try {
+        await firebase
+          .auth()
+          .setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+          .then(() => {
+            firebase
+              .auth()
+              .signInWithEmailAndPassword(email, password)
+              .then((userCredential) => (currentUser = userCredential.user));
+          });
+
+        navigation.replace('Bottom Navigation Bar');
+      } catch (error) {}
+    } else {
+      try {
+        await firebase
+          .auth()
+          .signInWithEmailAndPassword(email, password)
+          .then((userCredential) => (currentUser = userCredential.user));
+
+        navigation.replace('Bottom Navigation Bar');
+      } catch (error) {
+        alert(error.message);
+      }
     }
   };
 
@@ -48,9 +77,13 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.safeAreaView}>
-      <View style={styles.container}>
-        <StatusBar backgroundColor={color.ACTIVE_BG} hidden={false} />
+      <StatusBar backgroundColor={color.ACTIVE_BG} hidden={false} />
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={[styles.container, { paddingTop: 200 }]}
+      >
         <Text style={styles.text}>Login</Text>
+
         <View style={styles.sectionStyle}>
           <Image
             source={{
@@ -93,6 +126,27 @@ const LoginScreen = ({ navigation }) => {
             <Image source={passwordImageSource} style={styles.imageStyle} />
           </Pressable>
         </View>
+
+        <View
+          style={{
+            alignItems: 'center',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+          }}
+        >
+          {isChecked ? (
+            <Text style={{ color: 'pink' }}>Password Will Be Saved</Text>
+          ) : (
+            <Text style={{ color: 'pink' }}>Save Password?</Text>
+          )}
+          <Checkbox
+            color={isChecked ? color.ACTIVE_BG : 'pink'}
+            onValueChange={toggleIsChecked}
+            style={styles.checkbox}
+            value={isChecked}
+          />
+        </View>
+
         <View style={[styles.sectionStyle, { marginTop: 100, width: '40%' }]}>
           <TouchableOpacity>
             <Entypo.Button
@@ -132,12 +186,13 @@ const LoginScreen = ({ navigation }) => {
             </Ionicons.Button>
           </TouchableOpacity>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  checkbox: { margin: 10 },
   container: {
     alignItems: 'center',
     flex: 1,
