@@ -248,7 +248,7 @@ const styles = StyleSheet.create({
     marginBottom: -15,
   },
   icon: {
-    backgroundColor: 'pink',
+    backgroundColor: color.FONT,
   },
   imageStyle: {
     alignItems: 'center',
@@ -265,7 +265,7 @@ const styles = StyleSheet.create({
   },
   sectionStyle: {
     alignItems: 'center',
-    backgroundColor: 'pink',
+    backgroundColor: color.FONT,
     borderColor: color.ACTIVE_BG,
     borderRadius: 5,
     borderWidth: 0.5,

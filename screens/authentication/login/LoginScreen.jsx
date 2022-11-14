@@ -117,7 +117,7 @@ const LoginScreen = ({ navigation }) => {
             onChangeText={(password) => setPassword(password.trim())}
             placeholder={'Password'}
             placeholderTextColor={color.ACTIVE_BG}
-            secureTextEntry={!isSecureText}
+            secureTextEntry={isSecureText}
             style={{ flex: 1 }}
             underlineColorAndroid="transparent"
             value={password}
@@ -135,12 +135,12 @@ const LoginScreen = ({ navigation }) => {
           }}
         >
           {isChecked ? (
-            <Text style={{ color: 'pink' }}>Password Will Be Saved</Text>
+            <Text style={{ color: color.FONT }}>Password Will Be Saved</Text>
           ) : (
-            <Text style={{ color: 'pink' }}>Save Password?</Text>
+            <Text style={{ color: color.FONT }}>Save Password?</Text>
           )}
           <Checkbox
-            color={isChecked ? color.ACTIVE_BG : 'pink'}
+            color={isChecked ? color.ACTIVE_BG : color.FONT}
             onValueChange={toggleIsChecked}
             style={styles.checkbox}
             value={isChecked}
@@ -200,7 +200,7 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   icon: {
-    backgroundColor: 'pink',
+    backgroundColor: color.FONT,
     width: '100%',
   },
   imageStyle: {
@@ -218,7 +218,7 @@ const styles = StyleSheet.create({
   },
   sectionStyle: {
     alignItems: 'center',
-    backgroundColor: 'pink',
+    backgroundColor: color.FONT,
     borderColor: color.ACTIVE_BG,
     borderRadius: 5,
     borderWidth: 0.5,

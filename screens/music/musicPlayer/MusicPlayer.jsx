@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Text, View, StyleSheet, Button } from 'react-native';
 import { Audio } from 'expo-av';
 
+import color from '../../../misc/color';
+
 const MusicPlayer = ({ navigation }) => {
   const [sound, setSound] = useState();
 
@@ -57,7 +59,7 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   icon: {
-    backgroundColor: 'pink',
+    backgroundColor: color.FONT,
     width: '100%',
   },
 });

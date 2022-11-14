@@ -67,7 +67,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
             </MaterialCommunityIcons.Button>
           </TouchableOpacity>
         </View>
-        <Text style={{ color: 'pink' }}>Need to signup?</Text>
+        <Text style={{ color: color.FONT }}>Need to signup?</Text>
         <View style={styles.sectionStyle}>
           <TouchableOpacity>
             <Ionicons.Button
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   icon: {
-    backgroundColor: 'pink',
+    backgroundColor: color.FONT,
   },
   imageStyle: {
     alignItems: 'center',
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
   },
   sectionStyle: {
     alignItems: 'center',
-    backgroundColor: 'pink',
+    backgroundColor: color.FONT,
     borderColor: color.ACTIVE_BG,
     borderRadius: 5,
     borderWidth: 0.5,

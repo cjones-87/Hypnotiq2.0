@@ -14,7 +14,7 @@ import {
 import color from '../../../misc/color';
 
 const getThumbnailText = (filename, isPlaying) => (
-  <Text style={{ color: isPlaying ? 'pink' : color.ACTIVE_BG }}>
+  <Text style={{ color: isPlaying ? color.FONT : color.ACTIVE_BG }}>
     {filename[0]}
   </Text>
 );
@@ -47,14 +47,10 @@ const renderPlayPauseIcon = (isPlaying) => {
     <AntDesign
       name="pausecircle"
       size={24}
-      color={isPlaying ? 'pink' : color.FONT_MEDIUM}
+      color={isPlaying ? color.FONT : color.FONT_MEDIUM}
     />
   ) : (
-    <AntDesign
-      name="play"
-      size={24}
-      color={isPlaying ? color.FONT_MEDIUM : 'black'}
-    />
+    <AntDesign name="play" size={24} color={color.FONT_MEDIUM} />
   );
 };
 
@@ -72,7 +68,9 @@ const AudioMenuItem = ({
         style={[
           styles.container,
           {
-            backgroundColor: activeListItem ? 'black' : color.ACTIVE_BG,
+            backgroundColor: activeListItem
+              ? color.FONT_MEDIUM
+              : color.ACTIVE_BG,
             borderRadius: 25,
           },
         ]}
@@ -83,14 +81,16 @@ const AudioMenuItem = ({
               style={[
                 styles.thumbnail,
                 {
-                  backgroundColor: activeListItem ? color.ACTIVE_BG : 'pink',
+                  backgroundColor: activeListItem
+                    ? color.ACTIVE_BG
+                    : color.FONT,
                 },
               ]}
             >
               <Text
                 style={[
                   styles.thumbnailText,
-                  { color: isPlaying ? color.ACTIVE_BG : 'pink' },
+                  { color: isPlaying ? color.ACTIVE_BG : color.FONT },
                 ]}
               >
                 {activeListItem
@@ -105,7 +105,9 @@ const AudioMenuItem = ({
                   styles.title,
                   {
                     color:
-                      isPlaying && activeListItem ? color.ACTIVE_BG : 'pink',
+                      isPlaying && activeListItem
+                        ? color.ACTIVE_BG
+                        : color.FONT,
                   },
                 ]}
               >
@@ -116,7 +118,9 @@ const AudioMenuItem = ({
                   styles.timeText,
                   {
                     color:
-                      isPlaying && activeListItem ? color.ACTIVE_BG : 'pink',
+                      isPlaying && activeListItem
+                        ? color.ACTIVE_BG
+                        : color.FONT,
                   },
                 ]}
               >
@@ -129,7 +133,7 @@ const AudioMenuItem = ({
           <MaterialCommunityIcons
             name="dots-vertical"
             size={20}
-            color={isPlaying && activeListItem ? color.ACTIVE_BG : 'pink'}
+            color={isPlaying && activeListItem ? color.ACTIVE_BG : color.FONT}
             onPress={onOptionPress}
             style={{ padding: 10 }}
           />

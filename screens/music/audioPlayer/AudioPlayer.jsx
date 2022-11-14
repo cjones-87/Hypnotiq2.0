@@ -91,7 +91,7 @@ const AudioPlayer = () => {
         style={[
           styles.audioCountContainer,
           {
-            color: context.isPlaying ? color.ACTIVE_BG : 'pink',
+            color: context.isPlaying ? color.ACTIVE_BG : color.FONT,
           },
         ]}
       >
@@ -100,7 +100,7 @@ const AudioPlayer = () => {
             <>
               <Text
                 style={{
-                  color: context.isPlaying ? color.ACTIVE_BG : 'pink',
+                  color: context.isPlaying ? color.ACTIVE_BG : color.FONT,
                   fontWeight: 'bold',
                 }}
               >
@@ -108,7 +108,7 @@ const AudioPlayer = () => {
               </Text>
               <Text
                 style={{
-                  color: context.isPlaying ? color.ACTIVE_BG : 'pink',
+                  color: context.isPlaying ? color.ACTIVE_BG : color.FONT,
                 }}
               >
                 {context.activePlaylist.title}
@@ -120,7 +120,7 @@ const AudioPlayer = () => {
         <Text
           style={[
             styles.audioCount,
-            { color: context.isPlaying ? color.ACTIVE_BG : 'pink' },
+            { color: context.isPlaying ? color.ACTIVE_BG : color.FONT },
           ]}
         >{`${context.currentAudioIndex + 1} / ${totalAudioCount}`}</Text>
       </View>
@@ -129,13 +129,13 @@ const AudioPlayer = () => {
         style={[
           styles.midBannerContainer,
           ,
-          { color: context.isPlaying ? color.ACTIVE_BG : 'pink' },
+          { color: context.isPlaying ? color.ACTIVE_BG : color.FONT },
         ]}
       >
         <Ionicons
           name="musical-notes"
           size={225}
-          color={context.isPlaying ? color.ACTIVE_BG : 'pink'}
+          color={context.isPlaying ? color.ACTIVE_BG : color.FONT}
         />
       </View>
 
@@ -144,7 +144,7 @@ const AudioPlayer = () => {
           numberOfLines={1}
           style={[
             styles.audioTitle,
-            { color: context.isPlaying ? color.ACTIVE_BG : 'pink' },
+            { color: context.isPlaying ? color.ACTIVE_BG : color.FONT },
           ]}
         >
           {context.currentAudio.filename}
@@ -154,12 +154,12 @@ const AudioPlayer = () => {
           style={[
             styles.playbackPosition,
             ,
-            { color: context.isPlaying ? color.ACTIVE_BG : 'pink' },
+            { color: context.isPlaying ? color.ACTIVE_BG : color.FONT },
           ]}
         >
           <Text
             style={{
-              color: context.isPlaying ? color.ACTIVE_BG : 'pink',
+              color: context.isPlaying ? color.ACTIVE_BG : color.FONT,
             }}
           >
             {currentPosition ? currentPosition : renderCurrentTime()}
@@ -167,7 +167,7 @@ const AudioPlayer = () => {
 
           <Text
             style={{
-              color: context.isPlaying ? color.ACTIVE_BG : 'pink',
+              color: context.isPlaying ? color.ACTIVE_BG : color.FONT,
             }}
           >
             {convertTime(context.currentAudio.duration)}
@@ -176,7 +176,7 @@ const AudioPlayer = () => {
 
         <Slider
           style={{
-            color: context.isPlaying ? color.ACTIVE_BG : 'pink',
+            color: context.isPlaying ? color.ACTIVE_BG : color.FONT,
             width: width,
             height: 40,
           }}
@@ -211,7 +211,7 @@ const AudioPlayer = () => {
             <AudioPlayerButton
               iconType="PREV"
               style={{
-                color: context.isPlaying ? color.ACTIVE_BG : color.FONT_MEDIUM,
+                color: context.isPlaying ? color.ACTIVE_BG : color.FONT,
               }}
             />
           </TouchableOpacity>
@@ -219,7 +219,7 @@ const AudioPlayer = () => {
             <AudioPlayerButton
               iconType={context.isPlaying ? 'PLAY' : 'PAUSE'}
               style={{
-                color: context.isPlaying ? color.ACTIVE_BG : color.FONT_MEDIUM,
+                color: context.isPlaying ? color.ACTIVE_BG : color.FONT,
                 marginHorizontal: 25,
               }}
             />
@@ -228,7 +228,7 @@ const AudioPlayer = () => {
             <AudioPlayerButton
               iconType="NEXT"
               style={{
-                color: context.isPlaying ? color.ACTIVE_BG : color.FONT_MEDIUM,
+                color: context.isPlaying ? color.ACTIVE_BG : color.FONT,
               }}
             />
           </TouchableOpacity>
