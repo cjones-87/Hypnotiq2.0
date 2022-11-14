@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
+import color from '../../misc/color';
+
 const renderCategoryList = ({ item }) => (
   <TouchableOpacity>
     <Text style={styles.text}>Category</Text>
@@ -19,14 +21,14 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width / 3,
     height: Dimensions.get('window').height / 6,
     borderWidth: 2,
-    borderColor: 'pink',
+    borderColor: color.FONT,
     borderRadius: 20,
     resizeMode: 'contain',
     margin: 19,
   },
   text: {
     alignItems: 'center',
-    color: 'pink',
+    color: color.FONT,
     justifyContent: 'center',
     textAlign: 'center',
     textShadowColor: 'red',

@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   },
   text: {
     alignItems: 'center',
-    color: 'pink',
+    color: color.FONT,
     fontSize: 24,
     justifyContent: 'center',
     padding: 10,

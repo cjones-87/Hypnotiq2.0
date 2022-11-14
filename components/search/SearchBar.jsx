@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   },
   icon: {
     alignItems: 'center',
-    backgroundColor: 'pink',
+    backgroundColor: color.FONT,
     color: color.ACTIVE_BG,
     height: 44,
     justifyContent: 'center',
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
   },
   input: {
     alignItems: 'center',
-    backgroundColor: 'pink',
+    backgroundColor: color.FONT,
     color: color.ACTIVE_BG,
     height: 44,
     justifyContent: 'center',

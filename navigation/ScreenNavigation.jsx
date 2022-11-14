@@ -64,8 +64,8 @@ const BottomNavigationBar = () => {
             <FontAwesome5 name="home" color={color.ACTIVE_BG} size={25} />
           ),
           tabBarActiveBackgroundColor: 'black',
-          tabBarActiveTintColor: 'pink',
-          tabBarInactiveBackgroundColor: 'pink',
+          tabBarActiveTintColor: color.FONT,
+          tabBarInactiveBackgroundColor: color.FONT,
           tabBarInactiveTintColor: color.ACTIVE_BG,
         }}
       />
@@ -77,8 +77,8 @@ const BottomNavigationBar = () => {
             <FontAwesome5 name="search" color={color.ACTIVE_BG} size={25} />
           ),
           tabBarActiveBackgroundColor: 'black',
-          tabBarActiveTintColor: 'pink',
-          tabBarInactiveBackgroundColor: 'pink',
+          tabBarActiveTintColor: color.FONT,
+          tabBarInactiveBackgroundColor: color.FONT,
           tabBarInactiveTintColor: color.ACTIVE_BG,
         }}
       />
@@ -94,8 +94,8 @@ const BottomNavigationBar = () => {
             />
           ),
           tabBarActiveBackgroundColor: 'black',
-          tabBarActiveTintColor: 'pink',
-          tabBarInactiveBackgroundColor: 'pink',
+          tabBarActiveTintColor: color.FONT,
+          tabBarInactiveBackgroundColor: color.FONT,
           tabBarInactiveTintColor: color.ACTIVE_BG,
         }}
       /> */}
@@ -111,8 +111,8 @@ const BottomNavigationBar = () => {
             />
           ),
           tabBarActiveBackgroundColor: 'black',
-          tabBarActiveTintColor: 'pink',
-          tabBarInactiveBackgroundColor: 'pink',
+          tabBarActiveTintColor: color.FONT,
+          tabBarInactiveBackgroundColor: color.FONT,
           tabBarInactiveTintColor: color.ACTIVE_BG,
         }}
       />
@@ -124,8 +124,8 @@ const BottomNavigationBar = () => {
             <MaterialIcons name="headset" color={color.ACTIVE_BG} size={25} />
           ),
           tabBarActiveBackgroundColor: 'black',
-          tabBarActiveTintColor: 'pink',
-          tabBarInactiveBackgroundColor: 'pink',
+          tabBarActiveTintColor: color.FONT,
+          tabBarInactiveBackgroundColor: color.FONT,
           tabBarInactiveTintColor: color.ACTIVE_BG,
         }}
       />
@@ -137,8 +137,8 @@ const BottomNavigationBar = () => {
             <Entypo name="folder-music" color={color.ACTIVE_BG} size={25} />
           ),
           tabBarActiveBackgroundColor: 'black',
-          tabBarActiveTintColor: 'pink',
-          tabBarInactiveBackgroundColor: 'pink',
+          tabBarActiveTintColor: color.FONT,
+          tabBarInactiveBackgroundColor: color.FONT,
           tabBarInactiveTintColor: color.ACTIVE_BG,
         }}
       />
@@ -201,6 +201,7 @@ const Routes = () => {
       </Stack.Navigator>
     );
   }
+
   return (
     <Stack.Navigator
       initialRouteName="Splash Screen"
