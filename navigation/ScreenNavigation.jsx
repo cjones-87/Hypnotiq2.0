@@ -166,7 +166,7 @@ const Routes = () => {
   };
 
   useEffect(() => {
-    const subscriber = firebase.auth().onAuthStateChanged(onAuthStateChanged);
+    const subscriber = firebase.auth()?.onAuthStateChanged(onAuthStateChanged);
     return subscriber;
   }, []);
 
@@ -196,6 +196,11 @@ const Routes = () => {
         <Stack.Screen
           component={RegistrationScreen}
           name="Registration Screen"
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          component={BottomNavigationBar}
+          name="Bottom Navigation Bar"
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
