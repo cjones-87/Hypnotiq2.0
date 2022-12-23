@@ -146,45 +146,45 @@ const LibraryScreen = ({ navigation }) => {
   };
 
   return (
-    // <SafeAreaView>
-    <ScrollView contentContainerStyle={styles.container}>
-      {playlist.length
-        ? playlist.map((item) => (
-            <TouchableOpacity
-              key={item.id.toString()}
-              onPress={() => handleBannerPress(item)}
-              style={styles.playlistBanner}
-            >
-              <Text>{item.title}</Text>
-              <Text style={styles.audioCount}>
-                {item.audios.length > 1
-                  ? `${item.audios.length} Songs`
-                  : `${item.audios.length} Song`}
-              </Text>
-            </TouchableOpacity>
-          ))
-        : null}
+    <SafeAreaView>
+      <ScrollView contentContainerStyle={styles.container}>
+        {playlist.length
+          ? playlist.map((item) => (
+              <TouchableOpacity
+                key={item.id.toString()}
+                onPress={() => handleBannerPress(item)}
+                style={styles.playlistBanner}
+              >
+                <Text>{item.title}</Text>
+                <Text style={styles.audioCount}>
+                  {item.audios.length > 1
+                    ? `${item.audios.length} Songs`
+                    : `${item.audios.length} Song`}
+                </Text>
+              </TouchableOpacity>
+            ))
+          : null}
 
-      <TouchableOpacity
-        onPress={() => setModalVisible(true)}
-        style={{ marginTop: 15 }}
-      >
-        <Text style={styles.playlistButton}>+ Add New Playlist</Text>
-      </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => setModalVisible(true)}
+          style={{ marginTop: 15 }}
+        >
+          <Text style={styles.playlistButton}>+ Add New Playlist</Text>
+        </TouchableOpacity>
 
-      <PlaylistInputModal
-        visible={modalVisible}
-        onClose={() => setModalVisible(false)}
-        onSubmit={createPlaylist}
-      />
+        <PlaylistInputModal
+          visible={modalVisible}
+          onClose={() => setModalVisible(false)}
+          onSubmit={createPlaylist}
+        />
 
-      {/* <PlaylistDetail
+        {/* <PlaylistDetail
         onClose={() => setShowPlaylist(false)}
         playlist={selectedPlaylist}
         visible={showPlaylist}
       /> */}
-    </ScrollView>
-    // </SafeAreaView>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
