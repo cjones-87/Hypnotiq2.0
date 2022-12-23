@@ -1,13 +1,20 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { firebase } from '../../firebase';
-import { Dimensions, StatusBar, StyleSheet, Text, View } from 'react-native';
+import {
+  Dimensions,
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import { Video } from 'expo-av';
 import * as SplashScreen from 'expo-splash-screen';
 import * as Font from 'expo-font';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import Entypo from '@expo/vector-icons/Entypo';
 import BlinkingText from '../../utils/textAnimations/BlinkingText';
-import Hypnotiq from '../../assets/Hypnotiq.mp4';
+import Hypnotiq from '../../assets/HypnotiqMusiq2.mp4';
 
 import color from '../../misc/color';
 
@@ -55,7 +62,7 @@ export default function Splash({ navigation }) {
   }
 
   return (
-    <View style={styles.safeAreaView} onLayout={onLayoutRootView}>
+    <SafeAreaView style={styles.safeAreaView} onLayout={onLayoutRootView}>
       <View style={styles.container}>
         <StatusBar backgroundColor={color.ACTIVE_BG} hidden={false} />
 
@@ -69,14 +76,13 @@ export default function Splash({ navigation }) {
         >
           <BlinkingText
             style={styles.text}
-            textData={`Hypnotiq 2.0`}
-            textData2={`Dream On!`}
+            textData={`Tap Here`}
+            textData2={`To Enter`}
           />
         </Text>
 
         <Video
           isLooping
-          isMuted
           ref={backgroundVideo}
           resizeMode="stretch"
           shouldPlay
@@ -84,7 +90,7 @@ export default function Splash({ navigation }) {
           style={styles.video}
         />
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
