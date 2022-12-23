@@ -83,11 +83,13 @@ export default function Splash({ navigation }) {
 
         <Video
           isLooping
+          isMuted={false}
           ref={backgroundVideo}
           resizeMode="stretch"
           shouldPlay
           source={Hypnotiq}
           style={styles.video}
+          volume={0.25}
         />
       </View>
     </SafeAreaView>
