@@ -5,6 +5,7 @@ import MusicPlayer from '../../screens/music/musicPlayer/MusicPlayer';
 
 import {
   Button,
+  Dimensions,
   ImageBackground,
   SafeAreaView,
   StatusBar,
@@ -18,7 +19,7 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 import color from '../../misc/color';
 
-const backgroundImage = require('../../assets/favicon.png');
+const backgroundImage = require('../../assets/HomePage.png');
 
 const HomeScreen = ({ navigation }) => {
   const [name, setName] = useState('');
@@ -58,11 +59,13 @@ const HomeScreen = ({ navigation }) => {
       <ImageBackground source={backgroundImage} style={styles.backgroundImage}>
         <SafeAreaView style={styles.safeAreaView}>
           <StatusBar backgroundColor={color.ACTIVE_BG} hidden={false} />
+
           <View>
             <TouchableOpacity style={styles.button}>
               <Text style={styles.text}>Howdy, {name.displayName}</Text>
             </TouchableOpacity>
           </View>
+
           <View style={styles.sectionStyle}>
             <TouchableOpacity>
               <MaterialCommunityIcons.Button
@@ -75,6 +78,7 @@ const HomeScreen = ({ navigation }) => {
               </MaterialCommunityIcons.Button>
             </TouchableOpacity>
           </View>
+
           <View>
             <TouchableOpacity style={styles.button}>
               <Button
@@ -87,22 +91,24 @@ const HomeScreen = ({ navigation }) => {
             </TouchableOpacity>
           </View>
 
-          <MusicPlayer />
+          {/* <MusicPlayer /> */}
         </SafeAreaView>
       </ImageBackground>
     </>
   );
 };
 
+const { width } = Dimensions.get('window');
+
 const styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
     justifyContent: 'center',
     resizeMode: 'cover',
+    width: width + width / 5,
   },
   button: {
     alignItems: 'center',
-    backgroundColor: 'orange',
     padding: 19,
   },
   safeAreaView: {
@@ -112,6 +118,7 @@ const styles = StyleSheet.create({
   text: {
     color: color.ACTIVE_BG,
     fontSize: 32,
+    justifyContent: 'center',
     textAlign: 'center',
   },
 });
