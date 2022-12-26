@@ -22,6 +22,8 @@ import color from '../../misc/color';
 
 import { AudioContext } from '../../context/AudioProvider';
 
+const backgroundImage = require('../../assets/Home.png');
+
 let selectedPlaylist = {};
 
 const LibraryScreen = ({ navigation }) => {
@@ -146,44 +148,54 @@ const LibraryScreen = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView>
-      <ScrollView contentContainerStyle={styles.container}>
-        {playlist.length
-          ? playlist.map((item) => (
-              <TouchableOpacity
-                key={item.id.toString()}
-                onPress={() => handleBannerPress(item)}
-                style={styles.playlistBanner}
-              >
-                <Text>{item.title}</Text>
-                <Text style={styles.audioCount}>
-                  {item.audios.length > 1
-                    ? `${item.audios.length} Songs`
-                    : `${item.audios.length} Song`}
-                </Text>
-              </TouchableOpacity>
-            ))
-          : null}
+    <SafeAreaView style={styles.safeAreaView}>
+      <ImageBackground source={backgroundImage} style={styles.backgroundImage}>
+        <ScrollView contentContainerStyle={styles.container}>
+          {playlist.length
+            ? playlist.map((item) => (
+                <TouchableOpacity
+                  key={item.id.toString()}
+                  onPress={() => handleBannerPress(item)}
+                  style={styles.playlistBanner}
+                >
+                  <Text
+                    style={{
+                      textShadowColor: color.ACTIVE_BG,
+                      textShadowOffset: { width: 0.5, height: 0.5 },
+                      textShadowRadius: 1,
+                    }}
+                  >
+                    {item.title}
+                  </Text>
+                  <Text style={styles.audioCount}>
+                    {item.audios.length > 1
+                      ? `${item.audios.length} Songs`
+                      : `${item.audios.length} Song`}
+                  </Text>
+                </TouchableOpacity>
+              ))
+            : null}
 
-        <TouchableOpacity
-          onPress={() => setModalVisible(true)}
-          style={{ marginTop: 15 }}
-        >
-          <Text style={styles.playlistButton}>+ Add New Playlist</Text>
-        </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => setModalVisible(true)}
+            style={{ marginTop: 15 }}
+          >
+            <Text style={[styles.playlistButton]}>+ Add New Playlist</Text>
+          </TouchableOpacity>
 
-        <PlaylistInputModal
-          visible={modalVisible}
-          onClose={() => setModalVisible(false)}
-          onSubmit={createPlaylist}
-        />
+          <PlaylistInputModal
+            visible={modalVisible}
+            onClose={() => setModalVisible(false)}
+            onSubmit={createPlaylist}
+          />
 
-        {/* <PlaylistDetail
+          {/* <PlaylistDetail
         onClose={() => setShowPlaylist(false)}
         playlist={selectedPlaylist}
         visible={showPlaylist}
       /> */}
-      </ScrollView>
+        </ScrollView>
+      </ImageBackground>
     </SafeAreaView>
   );
 };
@@ -191,8 +203,15 @@ const LibraryScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   audioCount: {
     fontSize: 14,
-    opacity: 0.5,
     marginTop: 3,
+    opacity: 0.5,
+    textShadowColor: color.ACTIVE_BG,
+    textShadowOffset: { width: 0.5, height: 0.5 },
+    textShadowRadius: 1,
+  },
+  backgroundImage: {
+    flex: 1,
+    resizeMode: 'cover',
   },
   container: {
     padding: 20,
@@ -204,11 +223,18 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   playlistButton: {
-    color: color.ACTIVE_BG,
+    color: color.FONT_MEDIUM,
     fontSize: 14,
     fontWeight: 'bold',
     letterSpacing: 1,
     padding: 5,
+    textShadowColor: color.ACTIVE_BG,
+    textShadowOffset: { width: 0.5, height: 0.5 },
+    textShadowRadius: 1,
+  },
+  safeAreaView: {
+    backgroundColor: color.FONT_LIGHT,
+    flex: 1,
   },
 });
 
