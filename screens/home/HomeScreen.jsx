@@ -19,7 +19,7 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 import color from '../../misc/color';
 
-const backgroundImage = require('../../assets/HomePage.png');
+const backgroundImage = require('../../assets/Home.png');
 
 const HomeScreen = ({ navigation }) => {
   const [name, setName] = useState('');
@@ -66,13 +66,25 @@ const HomeScreen = ({ navigation }) => {
             </TouchableOpacity>
           </View>
 
-          <View style={styles.sectionStyle}>
+          <View>
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.text}>Welcome to</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View>
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.text}>Hypnotiq Musiq 2.0</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={[styles.sectionStyle, { margin: 10 }]}>
             <TouchableOpacity>
               <MaterialCommunityIcons.Button
                 color={color.ACTIVE_BG}
                 name="lock-question"
-                style={styles.icon}
                 onPress={() => changePassword()}
+                style={styles.icon}
               >
                 New Password
               </MaterialCommunityIcons.Button>
@@ -81,13 +93,14 @@ const HomeScreen = ({ navigation }) => {
 
           <View>
             <TouchableOpacity style={styles.button}>
-              <Button
+              <MaterialCommunityIcons.Button
+                color={color.ACTIVE_BG}
                 onPress={handleSignOut}
-                style={styles.text}
-                title="logout"
+                name="logout"
+                style={styles.icon}
               >
                 Logout
-              </Button>
+              </MaterialCommunityIcons.Button>
             </TouchableOpacity>
           </View>
 
@@ -105,11 +118,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     resizeMode: 'cover',
-    width: width + width / 5,
+    width: width,
   },
   button: {
     alignItems: 'center',
-    padding: 19,
   },
   safeAreaView: {
     flex: 1,
