@@ -168,7 +168,7 @@ const LibraryScreen = ({ navigation }) => {
                     {item.title}
                   </Text>
                   <Text style={styles.audioCount}>
-                    {item.audios.length > 1
+                    {item.audios.length > 1 || !item.audios.length
                       ? `${item.audios.length} Songs`
                       : `${item.audios.length} Song`}
                   </Text>
@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
   audioCount: {
     fontSize: 14,
     marginTop: 3,
-    opacity: 0.5,
+    opacity: 0.87,
     textShadowColor: color.ACTIVE_BG,
     textShadowOffset: { width: 0.5, height: 0.5 },
     textShadowRadius: 1,
@@ -217,10 +217,12 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   playlistBanner: {
-    backgroundColor: 'rgba(204, 204, 204, 0.3)',
+    backgroundColor: 'rgba(204, 204, 204, 0.87)',
     borderRadius: 5,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     marginBottom: 15,
-    padding: 5,
+    padding: 10,
   },
   playlistButton: {
     color: color.FONT_MEDIUM,
