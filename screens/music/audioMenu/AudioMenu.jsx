@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   Dimensions,
+  ImageBackground,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -19,6 +20,8 @@ import AudioMenuItem from '../../../components/music/audioMenu/AudioMenuItem';
 import OptionModal from '../../../components/music/audioMenu/OptionModal';
 
 import { Audio } from 'expo-av';
+
+const backgroundImage = require('../../../assets/Home.png');
 
 import {
   pause,
@@ -100,45 +103,56 @@ export default class AudioMenu extends React.Component {
 
           return (
             // <Screen>
-            <SafeAreaView style={styles.safeAreaView}>
-              <RecyclerListView
-                dataProvider={dataProvider}
-                extendedState={{ isPlaying }}
-                layoutProvider={this.layoutProvider}
-                rowRenderer={this.rowRenderer}
-                style={{
-                  color: this.context.isPlaying
-                    ? color.ACTIVE_BG
-                    : color.FONT_MEDIUM,
-                }}
-              />
-              <OptionModal
-                currentItem={this.currentItem}
-                // onAddToPlaylist={() => {
-                //   this.context.updateState(this.context, {
-                //     addToPlaylist: this.currentItem,
-                //   });
-                //   this.props.navigation.navigate('Library');
-                // }}
-                onClose={() =>
-                  this.setState({ ...this.state, optionModalVisible: false })
-                }
-                onLike={() => console.log('added to liked')}
-                // onPlayPress={() => console.log('playing audio')}
-                options={[
-                  {
-                    onPress: this.navigateToPlaylist,
-                    title: 'Add to playlist',
-                  },
-                ]}
-                style={{
-                  color: this.context.isPlaying
-                    ? color.ACTIVE_BG
-                    : color.FONT_MEDIUM,
-                }}
-                visible={this.state.optionModalVisible}
-              />
-            </SafeAreaView>
+            <>
+              <SafeAreaView style={styles.safeAreaView}>
+                <ImageBackground
+                  source={backgroundImage}
+                  style={styles.backgroundImage}
+                >
+                  <RecyclerListView
+                    dataProvider={dataProvider}
+                    extendedState={{ isPlaying }}
+                    layoutProvider={this.layoutProvider}
+                    rowRenderer={this.rowRenderer}
+                    style={{
+                      color: this.context.isPlaying
+                        ? color.ACTIVE_BG
+                        : color.FONT_MEDIUM,
+                      opacity: 0.87,
+                    }}
+                  />
+                  <OptionModal
+                    currentItem={this.currentItem}
+                    // onAddToPlaylist={() => {
+                    //   this.context.updateState(this.context, {
+                    //     addToPlaylist: this.currentItem,
+                    //   });
+                    //   this.props.navigation.navigate('Library');
+                    // }}
+                    onClose={() =>
+                      this.setState({
+                        ...this.state,
+                        optionModalVisible: false,
+                      })
+                    }
+                    onLike={() => console.log('added to liked')}
+                    // onPlayPress={() => console.log('playing audio')}
+                    options={[
+                      {
+                        onPress: this.navigateToPlaylist,
+                        title: 'Add to playlist',
+                      },
+                    ]}
+                    style={{
+                      color: this.context.isPlaying
+                        ? color.ACTIVE_BG
+                        : color.FONT_MEDIUM,
+                    }}
+                    visible={this.state.optionModalVisible}
+                  />
+                </ImageBackground>
+              </SafeAreaView>
+            </>
             // </Screen>
           );
         }}
@@ -150,8 +164,7 @@ export default class AudioMenu extends React.Component {
 const styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
-    justifyContent: 'center',
-    resizeMode: 'cover',
+    resizeMode: 'stretch',
   },
   button: {
     alignItems: 'center',
@@ -162,8 +175,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   safeAreaView: {
+    backgroundColor: color.FONT_LIGHT,
     flex: 1,
-    paddingTop: StatusBar.currentHeight / 10000,
+    // paddingTop: StatusBar.currentHeight / 10000,
   },
   text: {
     color: color.ACTIVE_BG,
