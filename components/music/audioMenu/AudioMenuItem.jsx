@@ -69,9 +69,10 @@ const AudioMenuItem = ({
           styles.container,
           {
             backgroundColor: activeListItem
-              ? color.FONT_MEDIUM
+              ? color.FONT_LIGHT
               : color.ACTIVE_BG,
             borderRadius: 25,
+            opacity: 0.87,
           },
         ]}
       >

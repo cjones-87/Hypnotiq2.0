@@ -137,10 +137,13 @@ const styles = StyleSheet.create({
     paddingTop: StatusBar.currentHeight / 10000,
   },
   text: {
-    color: color.ACTIVE_BG,
+    color: color.FONT,
     fontSize: 32,
     justifyContent: 'center',
     textAlign: 'center',
+    textShadowColor: color.ACTIVE_BG,
+    textShadowOffset: { width: 0.5, height: 0.5 },
+    textShadowRadius: 1,
   },
 });
 
