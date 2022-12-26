@@ -125,7 +125,7 @@ const LibraryScreen = ({ navigation }) => {
 
       if (sameAudio) {
         Alert.alert(
-          'Found same audio',
+          'Found duplicate audio',
           `$${addToPlaylist.filename} is already inside the list.`
         );
 
@@ -149,6 +149,7 @@ const LibraryScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.safeAreaView}>
+      <StatusBar backgroundColor={color.ACTIVE_BG} hidden={false} />
       <ImageBackground source={backgroundImage} style={styles.backgroundImage}>
         <ScrollView contentContainerStyle={styles.container}>
           {playlist.length
@@ -211,7 +212,7 @@ const styles = StyleSheet.create({
   },
   backgroundImage: {
     flex: 1,
-    resizeMode: 'cover',
+    resizeMode: 'stretch',
   },
   container: {
     padding: 20,
