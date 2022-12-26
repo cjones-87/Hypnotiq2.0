@@ -78,30 +78,32 @@ const HomeScreen = ({ navigation }) => {
             </TouchableOpacity>
           </View>
 
-          <View style={[styles.sectionStyle, { margin: 10 }]}>
-            <TouchableOpacity>
-              <MaterialCommunityIcons.Button
-                color={color.ACTIVE_BG}
-                name="lock-question"
-                onPress={() => changePassword()}
-                style={styles.icon}
-              >
-                New Password
-              </MaterialCommunityIcons.Button>
-            </TouchableOpacity>
-          </View>
+          <View style={styles.flexRow}>
+            <View style={[styles.sectionStyle, { margin: 5 }]}>
+              <TouchableOpacity style={styles.button}>
+                <MaterialCommunityIcons.Button
+                  color={color.ACTIVE_BG}
+                  name="lock-question"
+                  onPress={() => changePassword()}
+                  style={styles.icon}
+                >
+                  New Password
+                </MaterialCommunityIcons.Button>
+              </TouchableOpacity>
+            </View>
 
-          <View>
-            <TouchableOpacity style={styles.button}>
-              <MaterialCommunityIcons.Button
-                color={color.ACTIVE_BG}
-                onPress={handleSignOut}
-                name="logout"
-                style={styles.icon}
-              >
-                Logout
-              </MaterialCommunityIcons.Button>
-            </TouchableOpacity>
+            <View style={[styles.sectionStyle, { margin: 5 }]}>
+              <TouchableOpacity style={styles.button}>
+                <MaterialCommunityIcons.Button
+                  color={color.ACTIVE_BG}
+                  onPress={handleSignOut}
+                  name="logout"
+                  style={styles.icon}
+                >
+                  Logout
+                </MaterialCommunityIcons.Button>
+              </TouchableOpacity>
+            </View>
           </View>
 
           {/* <MusicPlayer /> */}
@@ -123,6 +125,13 @@ const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
   },
+  flexRow: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    margin: 20,
+  },
+  icon: { justifyContent: 'center', width: 150 },
   safeAreaView: {
     flex: 1,
     paddingTop: StatusBar.currentHeight / 10000,
