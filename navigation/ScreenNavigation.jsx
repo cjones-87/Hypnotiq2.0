@@ -70,7 +70,7 @@ const BottomNavigationBar = () => {
         }}
       />
       <Tab.Screen
-        name="Search"
+        name="Browse"
         component={SearchScreen}
         options={{
           tabBarIcon: () => (
@@ -100,7 +100,21 @@ const BottomNavigationBar = () => {
         }}
       /> */}
       <Tab.Screen
-        name="Playlist"
+        name="Hypnotiq Player"
+        component={AudioPlayer}
+        options={{
+          tabBarIcon: () => (
+            <MaterialIcons name="headset" color={color.ACTIVE_BG} size={25} />
+          ),
+          tabBarActiveBackgroundColor: 'black',
+          tabBarActiveTintColor: color.FONT,
+          tabBarInactiveBackgroundColor: color.FONT,
+          tabBarInactiveTintColor: color.ACTIVE_BG,
+        }}
+      />
+
+      <Tab.Screen
+        name="Playlists"
         component={PlaylistScreen}
         options={{
           tabBarIcon: () => (
@@ -116,21 +130,9 @@ const BottomNavigationBar = () => {
           tabBarInactiveTintColor: color.ACTIVE_BG,
         }}
       />
+
       <Tab.Screen
-        name="AudioPlayer"
-        component={AudioPlayer}
-        options={{
-          tabBarIcon: () => (
-            <MaterialIcons name="headset" color={color.ACTIVE_BG} size={25} />
-          ),
-          tabBarActiveBackgroundColor: 'black',
-          tabBarActiveTintColor: color.FONT,
-          tabBarInactiveBackgroundColor: color.FONT,
-          tabBarInactiveTintColor: color.ACTIVE_BG,
-        }}
-      />
-      <Tab.Screen
-        name="AudioMenu"
+        name="Library"
         component={AudioMenu}
         options={{
           tabBarIcon: () => (
