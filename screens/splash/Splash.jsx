@@ -114,6 +114,9 @@ const styles = StyleSheet.create({
     marginTop: Dimensions.get('window').height / 2.6,
     position: 'absolute',
     textAlign: 'center',
+    textShadowColor: color.ACTIVE_BG,
+    textShadowOffset: { width: 0.5, height: 0.5 },
+    textShadowRadius: 1,
   },
   video: {
     flex: 1,
