@@ -11,7 +11,7 @@ import Browse from '../../components/search/Browse';
 
 import color from '../../misc/color';
 
-const backgroundImage = require('../../assets/favicon.png');
+const backgroundImage = require('../../assets/Home.png');
 
 const SearchScreen = () => (
   <>
