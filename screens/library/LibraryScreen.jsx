@@ -226,7 +226,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   playlistButton: {
-    color: color.FONT_MEDIUM,
+    color: color.FONT_LIGHT,
     fontSize: 14,
     fontWeight: 'bold',
     letterSpacing: 1,
