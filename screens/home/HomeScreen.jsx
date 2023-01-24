@@ -129,9 +129,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-evenly',
-    margin: 20,
+    margin: 10,
   },
-  icon: { justifyContent: 'center', width: 150 },
+  icon: {
+    justifyContent: 'center',
+    width: 150,
+  },
   safeAreaView: {
     flex: 1,
     paddingTop: StatusBar.currentHeight / 10000,
