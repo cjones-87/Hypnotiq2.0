@@ -8,9 +8,10 @@ import {
 } from 'react-native';
 
 import color from '../../misc/color';
+import listAllOnlineMusic from './listAllOnlineMusic';
 
 const renderCategoryList = ({ item }) => (
-  <TouchableOpacity>
+  <TouchableOpacity onPress={() => listAllOnlineMusic()}>
     <Text style={styles.text}>Category</Text>
     <Image source={item} style={styles.image} />
   </TouchableOpacity>
