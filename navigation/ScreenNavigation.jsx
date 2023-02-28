@@ -114,7 +114,7 @@ const BottomNavigationBar = () => {
       />
 
       <Tab.Screen
-        name="Playlists"
+        name="Playlist"
         component={PlaylistScreen}
         options={{
           tabBarIcon: () => (
