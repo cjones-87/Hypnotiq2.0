@@ -61,6 +61,27 @@ Introducing Hypnotiq 2.0, an innovative music player mobile application that emp
 
 - @babel/core (v7.12.9) for JavaScript transpilation and transformation in development
 
+## App Features
+
+- Local music playback
+- Stream audio from firebase
+- Audio playback managed by context API
+- Bottom tab navigation
+- Stack navigation
+- Display a splash screen
+- Editable playlists
+- Persistent playlists
+
+## Accessibility Features
+
+I strive to ensure highly accessible app experiences. The following accessibility options have been implemented:
+
+- Color contrast
+- Keyboard accessibility
+- Consistent/intuitive navigation
+- Proper form labels and input validation
+- Minimal blinking/flashing content
+
 <!-- Footer -->
 
 ![footer](https://capsule-render.vercel.app/api?type=waving&color=0:301D42,10:553373,20:7a49a5,30:6D4194,40:A17FC0,50:C9B6DB,60:A17FC0,70:6D4194,80:7a49a5,90:553373,100:301D42&height=100&reversal=true&section=footer)
